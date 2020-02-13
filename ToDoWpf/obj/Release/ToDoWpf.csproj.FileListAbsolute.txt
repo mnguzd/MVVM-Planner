@@ -1,0 +1,14 @@
+C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\bin\Release\ToDoWpf.exe.config
+C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\bin\Release\ToDoWpf.exe
+C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\bin\Release\ToDoWpf.pdb
+C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\MainWindow.g.cs
+C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\App.g.cs
+C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\ToDoWpf_MarkupCompile.cache
+C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\ToDoWpf_MarkupCompile.lref
+C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\MainWindow.baml
+C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\ToDoWpf.g.resources
+C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\ToDoWpf.Properties.Resources.resources
+C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\ToDoWpf.csproj.GenerateResource.cache
+C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\ToDoWpf.exe
+C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\ToDoWpf.pdb
+C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\ToDoWpf.csprojAssemblyReference.cache
