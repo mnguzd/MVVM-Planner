@@ -11,4 +11,3 @@ C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\ToDoWpf.Properties
 C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\ToDoWpf.csproj.GenerateResource.cache
 C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\ToDoWpf.exe
 C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\ToDoWpf.pdb
-C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\ToDoWpf.csprojAssemblyReference.cache

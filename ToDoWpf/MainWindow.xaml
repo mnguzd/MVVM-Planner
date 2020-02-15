@@ -5,15 +5,82 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoWpf"
         mc:Ignorable="d"
-        Title="To Do List" Height="500" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Background="#FFF2F2F2">
+        Title="To Do List" Height="500" Width="400" WindowStartupLocation="CenterScreen" 
+        ResizeMode="CanResizeWithGrip" AllowsTransparency="True" WindowStyle="None" 
+        MinHeight="300" MinWidth="300" MaxHeight="600" MaxWidth="500" Loaded="Window_Loaded">
     <Grid x:Name="MainGrid">
         <Grid.Background>
-            <SolidColorBrush Color="#FFD4D2D2"/>
+            <SolidColorBrush Color="#403F4C"/>
         </Grid.Background>
-        <Image x:Name="TopBar" Height="35" VerticalAlignment="Top" Margin="0,0,0,465" Source="TopBar.png" HorizontalAlignment="Center" MouseLeftButtonDown="TopBar_LeftButton_Down"/>
-        <Image x:Name="ExitBar" HorizontalAlignment="Left" Height="16" Margin="370,10,10,0" VerticalAlignment="Top" Width="16" Source="Exit.png"/>
-        <Image HorizontalAlignment="Left" Height="3" Margin="335,17,0,0" VerticalAlignment="Top" Width="16" Source="Line.png"/>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Name="TopBar" MouseLeftButtonDown="TopBar_LeftButton_Down">
+            <Grid.Background>
+                <SolidColorBrush Color="#ECECEC"/>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="16"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="16"></ColumnDefinition>
+                <ColumnDefinition Width="19"></ColumnDefinition>
+                <ColumnDefinition Width="16"></ColumnDefinition>
+                <ColumnDefinition Width="13"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Line x:Name="Line" StrokeEndLineCap="Round" StrokeStartLineCap="Round" 
+                  Grid.Row="1" Grid.Column="1" X1="0" Y1="8" X2="16" Y2="8" 
+                  Stroke="#403F4C" StrokeThickness="2.8">
+            </Line>
+            <Grid x:Name="ExitBar" MouseLeftButtonDown="ExitBar_MouseLeftButtonDown" 
+                  MouseEnter="ExitBar_MouseEnter" MouseLeave="ExitBar_MouseLeave" Grid.Row="1" Grid.Column="3" ToolTip="Exit" Background="#ECECEC" >
+                <Line x:Name="ExitLine1" StrokeStartLineCap="Square" 
+                  StrokeEndLineCap="Square"
+                  X1="0" Y1="0" X2="16" Y2="16" 
+                  Stroke="#403F4C" StrokeThickness="2.8">
+            </Line>
+                <Line x:Name="ExitLine2" StrokeStartLineCap="Square" 
+                  StrokeEndLineCap="Square" 
+                  X1="16" Y1="0" X2="0" Y2="16" 
+                  Stroke="#403F4C" StrokeThickness="2.8">
+                </Line>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="0" MouseLeftButtonDown="TopBar_LeftButton_Down">
+            <TextBlock FontSize="18" Foreground="#403F4C" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" >
+                To Do List
+            </TextBlock>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Margin="10 10 10 40">
+                <Grid Grid.Row="0">
+                    <DataGrid x:Name="listBox" Background="#ECECEC" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="100" Header="Date" Binding="{Binding Path= date}"></DataGridTextColumn>
+                            <DataGridTextColumn Width="200" Header="Task" Binding="{Binding Path= ToDo}" ></DataGridTextColumn>
+                            <DataGridCheckBoxColumn Header="Done" Binding="{Binding Path= Done}"></DataGridCheckBoxColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Line x:Name="AddLine1" StrokeStartLineCap="Square" StrokeEndLineCap="Square"
+                  X1="8" Y1="0" X2="8" Y2="16" 
+                  Stroke="Green" StrokeThickness="2.8" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 7">
+                    </Line>
+                    <Line x:Name="AddLine2" StrokeStartLineCap="Square" StrokeEndLineCap="Square" 
+                  X1="0" Y1="0" X2="16" Y2="0" 
+                  Stroke="Green" StrokeThickness="2.8" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="8 0 0 15">
+                    </Line>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
-    
 </Window>
