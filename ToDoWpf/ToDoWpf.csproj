@@ -95,14 +95,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="TopBar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Exit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Line.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

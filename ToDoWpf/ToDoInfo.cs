@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ToDoWpf
 {
-    class ToDoInfo
+    class Doings
     {
-        public string date = DateTime.Now.ToString();
+        public string date { get; set; } = DateTime.Now.ToShortTimeString();
         public string ToDo { get; set; }
         public bool Done { get; set; }
     }

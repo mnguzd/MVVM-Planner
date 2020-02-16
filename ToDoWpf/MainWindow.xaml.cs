@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ToDoWpf;
 
 namespace ToDoWpf
 {
@@ -21,39 +20,30 @@ namespace ToDoWpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<ToDoInfo> ToDoList = new List<ToDoInfo>();
+        List<Doings> ToDoList = new List<Doings>();
         public MainWindow()
         {
             InitializeComponent();
-           
         }
-
         private void TopBar_LeftButton_Down(object sender, MouseButtonEventArgs e)
         {
-            this.DragMove();
+            DragMove();
         }
 
         private void ExitBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Application.Current.Shutdown();
         }
-
-        private void ExitBar_MouseEnter(object sender, MouseEventArgs e)
-        {
-            Cursor = Cursors.Hand;
-        }
-
-        private void ExitBar_MouseLeave(object sender, MouseEventArgs e)
-        {
-            Cursor = Cursors.Arrow;
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ToDoList.Add(new ToDoInfo { ToDo = "TaskNumber1", Done = true });
-            ToDoList.Add(new ToDoInfo { ToDo = "TaskNumber2", Done = false });
-            ToDoList.Add(new ToDoInfo { ToDo = "TaskNumber3", Done = true });
-            listBox.ItemsSource = ToDoList;
+            ToDoList.Add(new Doings { ToDo = "TaskNumber1", Done = true});
+            ToDoList.Add(new Doings { ToDo = "TaskNumber2", Done = false });
+            ToDoList.Add(new Doings { ToDo = "TaskNumber3", Done = true });
+            lBox.ItemsSource = ToDoList;
+        }
+        private void MinimizeBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            SystemCommands.MinimizeWindow(this);
         }
     }
 }
