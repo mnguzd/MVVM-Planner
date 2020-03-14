@@ -36,7 +36,7 @@ namespace ToDoWpf
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ToDoList.Add(new Doings { ToDo = "TaskNumber1", Done = true});
+            ToDoList.Add(new Doings { ToDo = "TaskNumber1TaskNumber1TaskNumber1TaskNumber1TaskNumber1TaskNumber1", Done = true});
             ToDoList.Add(new Doings { ToDo = "TaskNumber2", Done = false });
             ToDoList.Add(new Doings { ToDo = "TaskNumber3", Done = true });
             lBox.ItemsSource = ToDoList;
@@ -44,6 +44,12 @@ namespace ToDoWpf
         private void MinimizeBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             SystemCommands.MinimizeWindow(this);
+        }
+
+        private void Add_Task_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Add_Task add_Task = new Add_Task();
+            add_Task.InitializeComponent();
         }
     }
 }

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="To Do List" Height="500" Width="400" WindowStartupLocation="CenterScreen" 
         ResizeMode="CanResizeWithGrip" AllowsTransparency="True" WindowStyle="None" 
-        MinHeight="300" MinWidth="350"  Loaded="Window_Loaded">
+        MinHeight="300" MinWidth="350"  Loaded="Window_Loaded" Opacity="0.95">
     <Grid x:Name="MainGrid">
         <Grid.Background>
             <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
@@ -63,33 +63,30 @@
             </TextBlock>
         </Grid>
         <Grid Grid.Row="1">
-            <ListBox x:Name="lBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+            <ItemsControl x:Name="lBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                      Margin="10 0 10 40" HorizontalContentAlignment="Stretch" Foreground="#2A2A2A"  
-                     FontSize="12" FontFamily="Microsoft YaHei" BorderThickness="0" Background="White">
-                <ListBox.ItemTemplate>
+                     FontSize="16" FontFamily="Yu Gothic UI Semibold" BorderThickness="0" Background="White">
+                <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid HorizontalAlignment="Stretch" >
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.05*"/>
+                                <ColumnDefinition Width="0.2*" MaxWidth="80"/>
                                 <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="0.05*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40"/>
                                 <RowDefinition Height="3"/>
                             </Grid.RowDefinitions>
                             <TextBlock Text="{Binding date}" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" 
-                                   HorizontalAlignment="Left"></TextBlock>
+                                   HorizontalAlignment="Center"  MinWidth="40"></TextBlock>
                             <TextBlock Text="{Binding ToDo}" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" 
-                                   HorizontalAlignment="Left" Margin="5 0 5 0"  ></TextBlock>
-                            <CheckBox IsChecked="{Binding Done}" Grid.Column="2" Grid.Row="0" 
-                                     VerticalAlignment="Center" HorizontalAlignment="Right"></CheckBox>
+                                   HorizontalAlignment="Left"></TextBlock>
                             <Line Stroke="DarkCyan" Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" StrokeThickness="2" X1="0" X2="10" Y1="39" Y2="39" Stretch="Uniform"></Line>
                         </Grid>
                     </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Grid>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Grid MouseLeftButtonDown="Add_Task_MouseLeftButtonDown">
                 <Line x:Name="AddLine1" StrokeStartLineCap="Square" StrokeEndLineCap="Square"
                   X1="8" Y1="0" X2="8" Y2="16" 
                   Stroke="LightGray" StrokeThickness="2.8" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 10">
