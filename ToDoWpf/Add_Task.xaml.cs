@@ -26,7 +26,7 @@ namespace ToDoWpf
 
         private void ExitBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            this.DialogResult = true;
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -34,14 +34,9 @@ namespace ToDoWpf
 
         }
 
-        private void MinimizeBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
         private void TopBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            DragMove();
         }
     }
 }

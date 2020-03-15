@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoWpf"
         mc:Ignorable="d"
-        Title="Add" Height="450" Width="350" MinHeight="400" MinWidth="300" 
+        Title="Add" Height="300" Width="450" MinHeight="250" MinWidth="400" 
         ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" 
-        Opacity="0.95" WindowStyle="None" AllowsTransparency="True">
+        WindowStyle="None" AllowsTransparency="True" >
     <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
@@ -31,19 +31,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="16"></ColumnDefinition>
-                <ColumnDefinition Width="19"></ColumnDefinition>
-                <ColumnDefinition Width="16"></ColumnDefinition>
                 <ColumnDefinition Width="13"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Grid x:Name="MinimizeBar" MouseLeftButtonDown="MinimizeBar_MouseLeftButtonDown" 
-                  Grid.Row="1" Grid.Column="1" ToolTip="Minimize" Background="#2A2A2A">
-                <Line x:Name="Line" StrokeEndLineCap="Round" StrokeStartLineCap="Round" 
-                  X1="0" Y1="8" X2="16" Y2="8" 
-                  Stroke="LightGray" StrokeThickness="2.8">
-                </Line>
-            </Grid>
             <Grid x:Name="ExitBar" MouseLeftButtonDown="ExitBar_MouseLeftButtonDown" 
-                  Grid.Row="1" Grid.Column="3" 
+                  Grid.Row="1" Grid.Column="1" 
                   ToolTip="Exit" Background="#2A2A2A" >
                 <Line x:Name="ExitLine1" StrokeStartLineCap="Square" 
                   StrokeEndLineCap="Square"
@@ -59,8 +50,9 @@
         </Grid>
         <Grid Grid.Row="0" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
             <TextBlock FontSize="18" Foreground="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" >
-                To Do List
+                Add
             </TextBlock>
         </Grid>
+        
     </Grid>
 </Window>
