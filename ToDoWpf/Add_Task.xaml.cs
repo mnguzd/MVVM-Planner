@@ -1,22 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ToDoWpf
 {
-    /// <summary>
-    /// Логика взаимодействия для Add_Task.xaml
-    /// </summary>
     public partial class Add_Task : Window
     {
         public Add_Task()
@@ -26,17 +12,46 @@ namespace ToDoWpf
 
         private void ExitBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.DialogResult = true;
+            DialogResult = true;
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            DragMove();
         }
 
         private void TopBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void Add_Task_Grid_Dop_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (TextInput.Text.Length > 0)
+            {
+                Class1.ToDo.Add(new Doings { ToDo = TextInput.Text, Done = false });
+                TextInput.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Enter your task or don`t touch this button, ok?","Message",MessageBoxButton.OK,MessageBoxImage.Information);
+            }
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (TextInput.Text.Length > 0)
+                {
+                    Class1.ToDo.Add(new Doings { ToDo = TextInput.Text, Done = false });
+                    TextInput.Text = "";
+                }
+                else
+                {
+                    MessageBox.Show("Enter your task or don`t touch this button, ok?", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
         }
     }
 }

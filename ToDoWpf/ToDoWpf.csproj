@@ -58,6 +58,7 @@
     <Compile Include="Add_Task.xaml.cs">
       <DependentUpon>Add_Task.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Class1.cs" />
     <Compile Include="ToDoInfo.cs" />
     <Page Include="Add_Task.xaml">
       <SubType>Designer</SubType>

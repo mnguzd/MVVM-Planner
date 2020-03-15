@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="To Do List" Height="500" Width="400" WindowStartupLocation="CenterScreen" 
         ResizeMode="CanResizeWithGrip" AllowsTransparency="True" WindowStyle="None" 
-        MinHeight="300" MinWidth="350"  Loaded="Window_Loaded" Opacity="0.95">
+        MinHeight="300" MinWidth="350"  Loaded="Window_Loaded">
     <Grid x:Name="MainGrid">
         <Grid.Background>
             <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
@@ -18,6 +18,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="35"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Name="TopBar" MouseLeftButtonDown="TopBar_LeftButton_Down">
             <Grid.Background>
@@ -25,77 +26,88 @@
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
-                <RowDefinition Height="16"></RowDefinition>
+                <RowDefinition Height="18"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="16"></ColumnDefinition>
+                <ColumnDefinition Width="18"></ColumnDefinition>
                 <ColumnDefinition Width="19"></ColumnDefinition>
-                <ColumnDefinition Width="16"></ColumnDefinition>
+                <ColumnDefinition Width="18"></ColumnDefinition>
                 <ColumnDefinition Width="13"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid x:Name="MinimizeBar" MouseLeftButtonDown="MinimizeBar_MouseLeftButtonDown" 
-                  Grid.Row="1" Grid.Column="1" ToolTip="Minimize" Background="#2A2A2A">
+                  Grid.Row="1" Grid.Column="1" ToolTip="Minimize" Background="Transparent">
                 <Line x:Name="Line" StrokeEndLineCap="Round" StrokeStartLineCap="Round" 
-                  X1="0" Y1="8" X2="16" Y2="8" 
-                  Stroke="LightGray" StrokeThickness="2.8">
-            </Line>
+                  X1="2" Y1="9" X2="16" Y2="9" 
+                  Stroke="LightGray" StrokeThickness="3">
+                </Line>
             </Grid>
             <Grid x:Name="ExitBar" MouseLeftButtonDown="ExitBar_MouseLeftButtonDown" 
                   Grid.Row="1" Grid.Column="3" 
-                  ToolTip="Exit" Background="#2A2A2A" >
-                <Line x:Name="ExitLine1" StrokeStartLineCap="Square" 
-                  StrokeEndLineCap="Square"
-                  X1="0" Y1="0" X2="16" Y2="16" 
-                  Stroke="LightGray" StrokeThickness="2.8">
-            </Line>
-                <Line x:Name="ExitLine2" StrokeStartLineCap="Square" 
-                  StrokeEndLineCap="Square" 
-                  X1="16" Y1="0" X2="0" Y2="16" 
-                  Stroke="LightGray" StrokeThickness="2.8">
+                  ToolTip="Exit" Background="Transparent" >
+                <Line x:Name="ExitLine1" StrokeStartLineCap="Round"
+                  StrokeEndLineCap="Round"
+                  X1="2" Y1="2" X2="16" Y2="16" 
+                  Stroke="LightGray" StrokeThickness="3">
                 </Line>
+                <Line x:Name="ExitLine2" StrokeStartLineCap="Round" 
+                  StrokeEndLineCap="Round" 
+                  X1="16" Y1="2" X2="2" Y2="16" 
+                  Stroke="LightGray" StrokeThickness="3">
+                </Line>
+
             </Grid>
         </Grid>
         <Grid Grid.Row="0" MouseLeftButtonDown="TopBar_LeftButton_Down">
-            <TextBlock FontSize="18" Foreground="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" >
-                To Do List
+            <TextBlock x:Name="Tb" FontSize="18" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" 
+                       FontFamily="Comic Sans MS" Text="To Do List" Foreground="LightGray" >
             </TextBlock>
         </Grid>
         <Grid Grid.Row="1">
-            <ItemsControl x:Name="lBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                     Margin="10 0 10 40" HorizontalContentAlignment="Stretch" Foreground="#2A2A2A"  
-                     FontSize="16" FontFamily="Yu Gothic UI Semibold" BorderThickness="0" Background="White">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid HorizontalAlignment="Stretch" >
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.2*" MaxWidth="80"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="40"/>
-                                <RowDefinition Height="3"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="{Binding date}" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" 
+            <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                <ItemsControl x:Name="lBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                     Margin="10 10 10 0" HorizontalContentAlignment="Stretch" Foreground="#2A2A2A"  
+                     FontSize="16" FontFamily="Yu Gothic UI Semibold" BorderThickness="0" Background="#FFF8FF">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.2*" MaxWidth="80"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="3"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding Date}" Grid.Column="0" Grid.Row="0" 
+                                           VerticalAlignment="Center" 
                                    HorizontalAlignment="Center"  MinWidth="40"></TextBlock>
-                            <TextBlock Text="{Binding ToDo}" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" 
+                                <TextBlock Text="{Binding ToDo}" Grid.Column="1" Grid.Row="0" 
+                                           VerticalAlignment="Center" 
                                    HorizontalAlignment="Left"></TextBlock>
-                            <Line Stroke="DarkCyan" Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" StrokeThickness="2" X1="0" X2="10" Y1="39" Y2="39" Stretch="Uniform"></Line>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <Grid MouseLeftButtonDown="Add_Task_MouseLeftButtonDown">
-                <Line x:Name="AddLine1" StrokeStartLineCap="Square" StrokeEndLineCap="Square"
-                  X1="8" Y1="0" X2="8" Y2="16" 
-                  Stroke="LightGray" StrokeThickness="2.8" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 10">
-                </Line>
-                <Line x:Name="AddLine2" StrokeStartLineCap="Square" StrokeEndLineCap="Square" 
-                  X1="0" Y1="0" X2="16" Y2="0" 
-                  Stroke="LightGray" StrokeThickness="2.8" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="8 0 0 17">
-                </Line>
-            </Grid>
+                                <Line Stroke="DarkCyan" Grid.Row="1" Grid.ColumnSpan="3" 
+                                      Grid.Column="0" StrokeThickness="2" X1="0" X2="10" Y1="39" Y2="39" 
+                                      Stretch="Fill"></Line>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+        <Grid  x:Name="Add_Task_Grid" Grid.Row="2" 
+               MouseLeftButtonDown="Add_Task_MouseLeftButtonDown" 
+               Background="Transparent" 
+               Height="24" Width="24" VerticalAlignment="Center">
+            <Line x:Name="AddLine1" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                  X1="12" Y1="2" X2="12" Y2="22" 
+                  StrokeThickness="3" Stroke="LightGray">
+            </Line>
+            <Line x:Name="AddLine2" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                  X1="2" Y1="12" X2="22" Y2="12" 
+                  Stroke="LightGray" StrokeThickness="3">
+            </Line>
         </Grid>
     </Grid>
 </Window>

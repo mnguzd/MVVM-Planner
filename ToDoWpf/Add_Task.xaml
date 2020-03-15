@@ -7,17 +7,18 @@
         mc:Ignorable="d"
         Title="Add" Height="300" Width="450" MinHeight="250" MinWidth="400" 
         ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" 
-        WindowStyle="None" AllowsTransparency="True" >
+        WindowStyle="None" AllowsTransparency="True" KeyDown="Window_KeyDown" >
     <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
-                <GradientStop Color="DarkCyan" Offset="0" />
-                <GradientStop Color="#3E3D4B" Offset="1" />
+                <GradientStop Color="#3E3D4B" Offset="0" />
+                <GradientStop Color="DarkCyan" Offset="1" />
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Name="TopBar" MouseLeftButtonDown="TopBar_MouseLeftButtonDown">
             <Grid.Background>
@@ -25,26 +26,26 @@
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
-                <RowDefinition Height="16"></RowDefinition>
+                <RowDefinition Height="18"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="16"></ColumnDefinition>
+                <ColumnDefinition Width="18"></ColumnDefinition>
                 <ColumnDefinition Width="13"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid x:Name="ExitBar" MouseLeftButtonDown="ExitBar_MouseLeftButtonDown" 
                   Grid.Row="1" Grid.Column="1" 
-                  ToolTip="Exit" Background="#2A2A2A" >
-                <Line x:Name="ExitLine1" StrokeStartLineCap="Square" 
-                  StrokeEndLineCap="Square"
-                  X1="0" Y1="0" X2="16" Y2="16" 
-                  Stroke="LightGray" StrokeThickness="2.8">
+                  ToolTip="Exit" Background="Transparent" >
+                <Line x:Name="ExitLine1" StrokeStartLineCap="Round" 
+                  StrokeEndLineCap="Round"
+                  X1="2" Y1="2" X2="16" Y2="16" 
+                  Stroke="LightGray" StrokeThickness="3">
                 </Line>
-                <Line x:Name="ExitLine2" StrokeStartLineCap="Square" 
-                  StrokeEndLineCap="Square" 
-                  X1="16" Y1="0" X2="0" Y2="16" 
-                  Stroke="LightGray" StrokeThickness="2.8">
+                <Line x:Name="ExitLine2" StrokeStartLineCap="Round" 
+                  StrokeEndLineCap="Round" 
+                  X1="16" Y1="2" X2="2" Y2="16" 
+                  Stroke="LightGray" StrokeThickness="3">
                 </Line>
             </Grid>
         </Grid>
@@ -53,6 +54,19 @@
                 Add
             </TextBlock>
         </Grid>
-        
+        <TextBox x:Name="TextInput" HorizontalAlignment="Stretch" Grid.Row="1" Margin="10 10 10 0" 
+                 TextWrapping="Wrap" VerticalAlignment="Stretch"  FontSize="16" 
+                 FontFamily="Yu Gothic UI Semibold" Background="#FFF8FF"/>
+        <Grid  x:Name="Add_Task_Grid_Dop" Grid.Row="2" MouseLeftButtonDown="Add_Task_Grid_Dop_MouseLeftButtonDown" Background="Transparent" 
+               Height="24" Width="24" VerticalAlignment="Center">
+            <Line x:Name="AddLine1" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                  X1="12" Y1="2" X2="12" Y2="22" 
+                  StrokeThickness="3" Stroke="LightGray">
+            </Line>
+            <Line x:Name="AddLine2" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                  X1="2" Y1="12" X2="22" Y2="12" 
+                  Stroke="LightGray" StrokeThickness="3">
+            </Line>
+        </Grid>
     </Grid>
 </Window>
