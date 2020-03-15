@@ -48,8 +48,8 @@ namespace ToDoWpf
 
         private void Add_Task_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Add_Task add_Task = new Add_Task();
-            add_Task.InitializeComponent();
+            Add_Task add_task = new Add_Task();
+            add_task.ShowDialog();
         }
     }
 }
