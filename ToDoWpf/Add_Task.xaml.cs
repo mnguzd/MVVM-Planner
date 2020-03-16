@@ -8,6 +8,7 @@ namespace ToDoWpf
         public Add_Task()
         {
             InitializeComponent();
+            TextInput.Focus();
         }
 
         private void ExitBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

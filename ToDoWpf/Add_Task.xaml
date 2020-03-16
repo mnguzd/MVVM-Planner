@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:ToDoWpf"
         mc:Ignorable="d"
         Title="Add" Height="300" Width="450" MinHeight="250" MinWidth="400" 
-        ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" 
-        WindowStyle="None" AllowsTransparency="True" KeyDown="Window_KeyDown" >
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
+        WindowStyle="None" AllowsTransparency="True" KeyDown="Window_KeyDown" Background="Transparent">
     <Window.Resources>
         <ControlTemplate x:Key="ExitButton">
             <Grid x:Name="ExitBar" MouseLeftButtonDown="ExitBar_MouseLeftButtonDown" 
-                  ToolTip="Exit" Background="Transparent" Height="18" Width="18">
+                  ToolTip="Exit" Background="Transparent" Height="18" Width="18" Cursor="Hand">
                 <Line x:Name="ExitLine1" StrokeStartLineCap="Round" 
                   StrokeEndLineCap="Round"
                   X1="2" Y1="2" X2="16" Y2="16" 
@@ -25,11 +25,10 @@
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Cursor" Value="Hand"/>
                     <Setter TargetName="ExitBar" Property="Grid.Width" Value="20"/>
                     <Setter TargetName="ExitBar" Property="Grid.Height" Value="20"/>
-                    <Setter TargetName="ExitLine1" Property="Line.Stroke" Value="#18A3A3"/>
-                    <Setter TargetName="ExitLine2" Property="Line.Stroke" Value="#18A3A3"/>
+                    <Setter TargetName="ExitLine1" Property="Line.Stroke" Value="OrangeRed"/>
+                    <Setter TargetName="ExitLine2" Property="Line.Stroke" Value="OrangeRed"/>
                     <Setter TargetName="ExitLine1" Property="Line.X2" Value="18"/>
                     <Setter TargetName="ExitLine1" Property="Line.Y2" Value="18"/>
                     <Setter TargetName="ExitLine2" Property="Line.X1" Value="18"/>
@@ -39,7 +38,7 @@
         </ControlTemplate>
         <ControlTemplate x:Key="AddButton">
             <Grid  x:Name="Add_Task_Grid_Dop" MouseLeftButtonDown="Add_Task_Grid_Dop_MouseLeftButtonDown" 
-                   Background="Transparent"
+                   Background="Transparent" Cursor="Hand"
                Height="24" Width="24" VerticalAlignment="Center">
                 <Line x:Name="AddLine1" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
                   X1="12" Y1="2" X2="12" Y2="22" 
@@ -54,7 +53,6 @@
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter TargetName="Add_Task_Grid_Dop" Property="Grid.Height" Value="26"/>
                     <Setter TargetName="Add_Task_Grid_Dop" Property="Grid.Width" Value="26"/>
-                    <Setter Property="Cursor" Value="Hand"/>
                     <Setter TargetName="AddLine1" Property="Line.Y2" Value="24"/>
                     <Setter TargetName="AddLine1" Property="Line.X1" Value="13"/>
                     <Setter TargetName="AddLine1" Property="Line.X2" Value="13"/>
@@ -65,22 +63,20 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Resources>
-    <Grid>
-        <Grid.Background>
+    <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="8 8 8 8">
+        <Border.Background>
             <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
-                <GradientStop Color="#3E3D4B" Offset="0" />
+                <GradientStop Color="#2A2A2A" Offset="0" />
                 <GradientStop Color="DarkCyan" Offset="1" />
             </LinearGradientBrush>
-        </Grid.Background>
-        <Grid.RowDefinitions>
+        </Border.Background>
+        <Grid>
+            <Grid.RowDefinitions>
             <RowDefinition Height="35"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="35"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Name="TopBar" MouseLeftButtonDown="TopBar_MouseLeftButtonDown">
-            <Grid.Background>
-                <SolidColorBrush Color="#2A2A2A"/>
-            </Grid.Background>
+        <Grid Grid.Row="0" Name="TopBar" MouseLeftButtonDown="TopBar_MouseLeftButtonDown" Background="Transparent">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="24"></RowDefinition>
@@ -99,9 +95,13 @@
                 Add
             </TextBlock>
         </Grid>
-        <TextBox x:Name="TextInput" HorizontalAlignment="Stretch" Grid.Row="1" Margin="10 10 10 0" 
-                 TextWrapping="Wrap" VerticalAlignment="Stretch"  FontSize="16" 
-                 FontFamily="Yu Gothic UI Semibold" Background="#FFF8FF"/>
+        <Border Margin="10 0 10 0" HorizontalAlignment="Stretch"  Background="#FFF8FF"
+                VerticalAlignment="Stretch" Grid.Row="1" CornerRadius="2 2 2 2" BorderThickness="1" BorderBrush="Transparent" >
+            <TextBox x:Name="TextInput" BorderThickness="0" Margin="3 3 3 3"
+                 TextWrapping="Wrap"   FontSize="18" Background="Transparent"
+                 FontFamily="Yu Gothic UI Semibold"/>
+        </Border>
         <Control Template="{StaticResource AddButton}" Grid.Row="2" Width="28" Height="28"  VerticalAlignment="Center" ></Control>
     </Grid>
+    </Border>
 </Window>
