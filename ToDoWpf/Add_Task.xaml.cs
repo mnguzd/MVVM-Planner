@@ -45,7 +45,7 @@ namespace ToDoWpf
             {
                 if (TextInput.Text.Length > 0)
                 {
-                    Class1.ToDo.Add(new Doings { ToDo = TextInput.Text, Done = false });
+                    Class1.ToDo.Add(new Doings { ToDo = TextInput.Text, Done = true });
                     TextInput.Text = "";
                 }
                 else

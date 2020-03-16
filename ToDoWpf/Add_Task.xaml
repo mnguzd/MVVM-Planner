@@ -63,7 +63,7 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Resources>
-    <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="8 8 8 8">
+    <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="4 4 4 4">
         <Border.Background>
             <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
                 <GradientStop Color="#2A2A2A" Offset="0" />
@@ -72,36 +72,47 @@
         </Border.Background>
         <Grid>
             <Grid.RowDefinitions>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Name="TopBar" MouseLeftButtonDown="TopBar_MouseLeftButtonDown" Background="Transparent">
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Name="TopBar" MouseLeftButtonDown="TopBar_MouseLeftButtonDown" Background="Transparent">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="24"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="24"></ColumnDefinition>
-                <ColumnDefinition Width="13"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Control Template="{StaticResource ExitButton}" Grid.Row="1" Grid.Column="1"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="24"></ColumnDefinition>
+                    <ColumnDefinition Width="13"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Control Template="{StaticResource ExitButton}" Grid.Row="1" Grid.Column="1"
                     HorizontalAlignment="Center" VerticalAlignment="Center" ></Control>
         </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="28"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" 
+                         Margin="0 0 5 0" Background="Transparent" FontSize="12" FontFamily="Yu Gothic UI Semibold"
+                         VerticalContentAlignment="Center" Foreground="#A3A3A3">[Enter] - add the task</Label>
+            </Grid>
         <Grid Grid.Row="0" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
-            <TextBlock FontSize="18" Foreground="#E8F1F2" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" >
-                Add
-            </TextBlock>
+            <Label FontSize="18" Foreground="#E8F1F2" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" >
+                New task
+            </Label>
         </Grid>
         <Border Margin="10 0 10 0" HorizontalAlignment="Stretch"  Background="#FFF8FF"
-                VerticalAlignment="Stretch" Grid.Row="1" CornerRadius="2 2 2 2" BorderThickness="1" BorderBrush="Transparent" >
-            <TextBox x:Name="TextInput" BorderThickness="0" Margin="3 3 3 3"
+                VerticalAlignment="Stretch" Grid.Row="1" CornerRadius="4 4 4 4" BorderThickness="1" BorderBrush="Transparent" >
+            <TextBox x:Name="TextInput" BorderThickness="0" Margin="4 4 4 4"
                  TextWrapping="Wrap"   FontSize="18" Background="Transparent"
                  FontFamily="Yu Gothic UI Semibold"/>
         </Border>
-        <Control Template="{StaticResource AddButton}" Grid.Row="2" Width="28" Height="28"  VerticalAlignment="Center" ></Control>
+        <Control Template="{StaticResource AddButton}" Grid.Row="2" Grid.Column="1" Width="28" Height="28"  VerticalAlignment="Center" ></Control>
+            
     </Grid>
     </Border>
 </Window>

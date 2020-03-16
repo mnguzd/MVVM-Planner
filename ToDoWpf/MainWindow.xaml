@@ -9,19 +9,13 @@
         ResizeMode="CanResizeWithGrip" AllowsTransparency="True" WindowStyle="None" 
         MinHeight="300" MinWidth="350"  Loaded="Window_Loaded" Background="Transparent">
     <Window.Resources>
-        <ControlTemplate x:Key="ExitButton"  >
+        <ControlTemplate x:Key="ExitButton" >
             <Grid x:Name="ExitBar" MouseLeftButtonDown="ExitBar_MouseLeftButtonDown" 
                   Background="Transparent" Width="18" Height="18" Cursor="Hand">
-                <Line x:Name="ExitLine1" StrokeStartLineCap="Round"
-                  StrokeEndLineCap="Round"
-                  X1="2" Y1="2" X2="16" Y2="16" 
-                  Stroke="#E8F1F2" StrokeThickness="3">
-                </Line>
-                <Line x:Name="ExitLine2" StrokeStartLineCap="Round" 
-                  StrokeEndLineCap="Round" 
-                  X1="16" Y1="2" X2="2" Y2="16" 
-                  Stroke="#E8F1F2" StrokeThickness="3">
-                </Line>
+                <Line x:Name="ExitLine1" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                  X1="2" Y1="2" X2="16" Y2="16" Stroke="#E8F1F2" StrokeThickness="3"/>
+                <Line x:Name="ExitLine2" StrokeStartLineCap="Round" StrokeEndLineCap="Round" 
+                      X1="16" Y1="2" X2="2" Y2="16" Stroke="#E8F1F2" StrokeThickness="3"/>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -40,9 +34,7 @@
             <Grid x:Name="MinimizeBar" MouseLeftButtonDown="MinimizeBar_MouseLeftButtonDown" 
                    Background="Transparent" Width="18" Height="24" Cursor="Hand">
                 <Line x:Name="MinimizeLine" StrokeEndLineCap="Round" StrokeStartLineCap="Round" 
-                  X1="2" Y1="12" X2="16" Y2="12"
-                  Stroke="#E8F1F2" StrokeThickness="3">
-                </Line>
+                  X1="2" Y1="12" X2="16" Y2="12" Stroke="#E8F1F2" StrokeThickness="3"/>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -57,13 +49,9 @@
                Background="Transparent" Cursor="Hand"
                Height="24" Width="24" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Line x:Name="AddLine1" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
-                  X1="12" Y1="2" X2="12" Y2="22" 
-                  StrokeThickness="3" Stroke="#E8F1F2">
-                </Line>
+                  X1="12" Y1="2" X2="12" Y2="22" StrokeThickness="3" Stroke="#E8F1F2"/>
                 <Line x:Name="AddLine2" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
-                  X1="2" Y1="12" X2="22" Y2="12" 
-                  Stroke="#E8F1F2" StrokeThickness="3">
-                </Line>
+                  X1="2" Y1="12" X2="22" Y2="12" Stroke="#E8F1F2" StrokeThickness="3"/>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -78,6 +66,31 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        <ControlTemplate x:Key="MainData">
+            <Grid HorizontalAlignment="Stretch" x:Name="ItemGrid" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*" MaxWidth="80"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="3"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{Binding Date}" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" 
+                                   HorizontalAlignment="Center"  MinWidth="40"/>
+                <TextBlock x:Name="TextToDo" Text="{Binding ToDo}" Grid.Column="1" Grid.Row="0"  VerticalAlignment="Center" 
+                                   HorizontalAlignment="Left"/>
+                <CheckBox x:Name="CheckDone" IsChecked="{Binding Done}"  Visibility="Hidden"></CheckBox>
+                <Line Stroke="DarkCyan" Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" StrokeThickness="2" 
+                      X1="0" X2="10" Y1="39" Y2="39" Stretch="Fill"/>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <DataTrigger Binding="{Binding ElementName=CheckDone, Path=IsChecked}" Value="True">
+                    <Setter TargetName="ItemGrid" Property="Grid.Background" Value="LightGreen"/>
+                    <Setter TargetName="TextToDo" Property="TextBlock.TextDecorations" Value="Strikethrough"/>
+                </DataTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </Window.Resources>
     <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="4 4 4 4">
         <Border.Background>
@@ -88,66 +101,49 @@
         </Border.Background>
         <Grid x:Name="MainGrid">
             <Grid.RowDefinitions>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
-        </Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="35"/>
+            </Grid.RowDefinitions>
         <Grid Grid.Row="0" Name="TopBar" MouseLeftButtonDown="TopBar_LeftButton_Down" Background="Transparent">
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition Height="24"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="24"></ColumnDefinition>
-                <ColumnDefinition Width="19"></ColumnDefinition>
-                <ColumnDefinition Width="24"></ColumnDefinition>
-                <ColumnDefinition Width="13"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="24"/>
+                    <ColumnDefinition Width="19"/>
+                    <ColumnDefinition Width="24"/>
+                    <ColumnDefinition Width="13"/>
+                </Grid.ColumnDefinitions>
             <Control x:Name="Minimize" Template="{StaticResource MinimizeButton}" Grid.Row="1" Grid.Column="1" 
                      HorizontalAlignment="Center" Width="24" VerticalAlignment="Center"/>
             <Control x:Name="Exit" Template="{StaticResource ExitButton}" Grid.Row="1" Grid.Column="3"
                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
         <Grid Grid.Row="0" MouseLeftButtonDown="TopBar_LeftButton_Down">
-            <TextBlock x:Name="Tb" FontSize="18" 
+                <TextBlock x:Name="Tb" FontSize="18" 
                        HorizontalAlignment="Center" VerticalAlignment="Center" 
-                       FontFamily="Comic Sans MS" Text="Daily Planner" Foreground="#E8F1F2" >
-            </TextBlock>
+                       FontFamily="Comic Sans MS" Text="Daily Planner" Foreground="#E8F1F2" />
+            </Grid>
+            <Grid Grid.Row="1">
+                <Border x:Name="MainBorder" BorderBrush="Transparent" BorderThickness="1" Background="#FFF8FF" Margin="10 0 10 0" CornerRadius="4 4 4 4">
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                        <ItemsControl x:Name="lBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                     HorizontalContentAlignment="Stretch" Foreground="#2A2A2A"
+                     FontSize="15" FontFamily="Microsoft Sans Serif" BorderThickness="0" Background="Transparent" FontWeight="Bold">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Control Template="{StaticResource MainData}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+            <Control Template="{StaticResource AddButton}" Grid.Row="2" Width="28" Height="28" VerticalAlignment="Center"/>
         </Grid>
-        <Grid Grid.Row="1">
-            <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                <ItemsControl x:Name="lBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                     Margin="10 0 10 0" HorizontalContentAlignment="Stretch" Foreground="#2A2A2A"
-                     FontSize="18" FontFamily="Yu Gothic UI Semibold" BorderThickness="0" Background="#FFF8FF">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid HorizontalAlignment="Stretch" >
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.2*" MaxWidth="80"/>
-                                    <ColumnDefinition Width="1*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="40"/>
-                                    <RowDefinition Height="3"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Text="{Binding Date}" Grid.Column="0" Grid.Row="0" 
-                                           VerticalAlignment="Center" 
-                                   HorizontalAlignment="Center"  MinWidth="40"></TextBlock>
-                                <TextBlock Text="{Binding ToDo}" Grid.Column="1" Grid.Row="0" 
-                                           VerticalAlignment="Center" 
-                                   HorizontalAlignment="Left"></TextBlock>
-                                <Line Stroke="DarkCyan" Grid.Row="1" Grid.ColumnSpan="3" 
-                                      Grid.Column="0" StrokeThickness="2" X1="0" X2="10" Y1="39" Y2="39" 
-                                      Stretch="Fill"></Line>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-        </Grid>
-        <Control Template="{StaticResource AddButton}" Grid.Row="2" Width="28" Height="28" VerticalAlignment="Center" ></Control>
-    </Grid>
     </Border>
 </Window>

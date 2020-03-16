@@ -22,6 +22,7 @@ namespace ToDoWpf
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             lBox.ItemsSource = Class1.ToDo;
+            
         }
         private void MinimizeBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
