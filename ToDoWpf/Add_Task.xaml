@@ -8,6 +8,63 @@
         Title="Add" Height="300" Width="450" MinHeight="250" MinWidth="400" 
         ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" 
         WindowStyle="None" AllowsTransparency="True" KeyDown="Window_KeyDown" >
+    <Window.Resources>
+        <ControlTemplate x:Key="ExitButton">
+            <Grid x:Name="ExitBar" MouseLeftButtonDown="ExitBar_MouseLeftButtonDown" 
+                  ToolTip="Exit" Background="Transparent" Height="18" Width="18">
+                <Line x:Name="ExitLine1" StrokeStartLineCap="Round" 
+                  StrokeEndLineCap="Round"
+                  X1="2" Y1="2" X2="16" Y2="16" 
+                  Stroke="#E8F1F2" StrokeThickness="3">
+                </Line>
+                <Line x:Name="ExitLine2" StrokeStartLineCap="Round" 
+                  StrokeEndLineCap="Round" 
+                  X1="16" Y1="2" X2="2" Y2="16" 
+                  Stroke="#E8F1F2" StrokeThickness="3">
+                </Line>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter TargetName="ExitBar" Property="Grid.Width" Value="20"/>
+                    <Setter TargetName="ExitBar" Property="Grid.Height" Value="20"/>
+                    <Setter TargetName="ExitLine1" Property="Line.Stroke" Value="#18A3A3"/>
+                    <Setter TargetName="ExitLine2" Property="Line.Stroke" Value="#18A3A3"/>
+                    <Setter TargetName="ExitLine1" Property="Line.X2" Value="18"/>
+                    <Setter TargetName="ExitLine1" Property="Line.Y2" Value="18"/>
+                    <Setter TargetName="ExitLine2" Property="Line.X1" Value="18"/>
+                    <Setter TargetName="ExitLine2" Property="Line.Y2" Value="18"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="AddButton">
+            <Grid  x:Name="Add_Task_Grid_Dop" MouseLeftButtonDown="Add_Task_Grid_Dop_MouseLeftButtonDown" 
+                   Background="Transparent"
+               Height="24" Width="24" VerticalAlignment="Center">
+                <Line x:Name="AddLine1" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                  X1="12" Y1="2" X2="12" Y2="22" 
+                  StrokeThickness="3" Stroke="#E8F1F2">
+                </Line>
+                <Line x:Name="AddLine2" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                  X1="2" Y1="12" X2="22" Y2="12" 
+                  Stroke="#E8F1F2" StrokeThickness="3">
+                </Line>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="Add_Task_Grid_Dop" Property="Grid.Height" Value="26"/>
+                    <Setter TargetName="Add_Task_Grid_Dop" Property="Grid.Width" Value="26"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter TargetName="AddLine1" Property="Line.Y2" Value="24"/>
+                    <Setter TargetName="AddLine1" Property="Line.X1" Value="13"/>
+                    <Setter TargetName="AddLine1" Property="Line.X2" Value="13"/>
+                    <Setter TargetName="AddLine2" Property="Line.X2" Value="24"/>
+                    <Setter TargetName="AddLine2" Property="Line.Y1" Value="13"/>
+                    <Setter TargetName="AddLine2" Property="Line.Y2" Value="13"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
@@ -26,47 +83,25 @@
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
-                <RowDefinition Height="18"></RowDefinition>
+                <RowDefinition Height="24"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="18"></ColumnDefinition>
+                <ColumnDefinition Width="24"></ColumnDefinition>
                 <ColumnDefinition Width="13"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Grid x:Name="ExitBar" MouseLeftButtonDown="ExitBar_MouseLeftButtonDown" 
-                  Grid.Row="1" Grid.Column="1" 
-                  ToolTip="Exit" Background="Transparent" >
-                <Line x:Name="ExitLine1" StrokeStartLineCap="Round" 
-                  StrokeEndLineCap="Round"
-                  X1="2" Y1="2" X2="16" Y2="16" 
-                  Stroke="LightGray" StrokeThickness="3">
-                </Line>
-                <Line x:Name="ExitLine2" StrokeStartLineCap="Round" 
-                  StrokeEndLineCap="Round" 
-                  X1="16" Y1="2" X2="2" Y2="16" 
-                  Stroke="LightGray" StrokeThickness="3">
-                </Line>
-            </Grid>
+            <Control Template="{StaticResource ExitButton}" Grid.Row="1" Grid.Column="1"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" ></Control>
         </Grid>
         <Grid Grid.Row="0" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
-            <TextBlock FontSize="18" Foreground="LightGray" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" >
+            <TextBlock FontSize="18" Foreground="#E8F1F2" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" >
                 Add
             </TextBlock>
         </Grid>
         <TextBox x:Name="TextInput" HorizontalAlignment="Stretch" Grid.Row="1" Margin="10 10 10 0" 
                  TextWrapping="Wrap" VerticalAlignment="Stretch"  FontSize="16" 
                  FontFamily="Yu Gothic UI Semibold" Background="#FFF8FF"/>
-        <Grid  x:Name="Add_Task_Grid_Dop" Grid.Row="2" MouseLeftButtonDown="Add_Task_Grid_Dop_MouseLeftButtonDown" Background="Transparent" 
-               Height="24" Width="24" VerticalAlignment="Center">
-            <Line x:Name="AddLine1" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
-                  X1="12" Y1="2" X2="12" Y2="22" 
-                  StrokeThickness="3" Stroke="LightGray">
-            </Line>
-            <Line x:Name="AddLine2" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
-                  X1="2" Y1="12" X2="22" Y2="12" 
-                  Stroke="LightGray" StrokeThickness="3">
-            </Line>
-        </Grid>
+        <Control Template="{StaticResource AddButton}" Grid.Row="2" Width="28" Height="28"  VerticalAlignment="Center" ></Control>
     </Grid>
 </Window>
