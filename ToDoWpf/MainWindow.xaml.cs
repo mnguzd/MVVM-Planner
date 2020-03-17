@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace ToDoWpf
@@ -33,6 +34,10 @@ namespace ToDoWpf
         {
             Add_Task add_task = new Add_Task();
             add_task.ShowDialog();
+        }
+
+        private void MainControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
         }
     }
 }
