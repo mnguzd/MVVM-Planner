@@ -13,20 +13,22 @@
             <Grid x:Name="ExitBar" MouseLeftButtonDown="ExitBar_MouseLeftButtonDown" 
                   Background="Transparent" Width="18" Height="18" Cursor="Hand">
                 <Line x:Name="ExitLine1" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
-                  X1="2" Y1="2" X2="16" Y2="16" Stroke="#E8F1F2" StrokeThickness="3"/>
+                  X1="2" Y1="2" X2="16" Y2="16" Stroke="#4E4E50" StrokeThickness="3"/>
                 <Line x:Name="ExitLine2" StrokeStartLineCap="Round" StrokeEndLineCap="Round" 
-                      X1="16" Y1="2" X2="2" Y2="16" Stroke="#E8F1F2" StrokeThickness="3"/>
+                      X1="16" Y1="2" X2="2" Y2="16" Stroke="#4E4E50" StrokeThickness="3"/>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter TargetName="ExitBar" Property="Grid.Width" Value="20"/>
                     <Setter TargetName="ExitBar" Property="Grid.Height" Value="20"/>
-                    <Setter TargetName="ExitLine1" Property="Line.Stroke" Value="OrangeRed"/>
-                    <Setter TargetName="ExitLine2" Property="Line.Stroke" Value="OrangeRed"/>
+                    <Setter TargetName="ExitLine1" Property="Line.Stroke" Value="#E91D14"/>
+                    <Setter TargetName="ExitLine2" Property="Line.Stroke" Value="#E91D14"/>
                     <Setter TargetName="ExitLine1" Property="Line.X2" Value="18"/>
                     <Setter TargetName="ExitLine1" Property="Line.Y2" Value="18"/>
                     <Setter TargetName="ExitLine2" Property="Line.X1" Value="18"/>
                     <Setter TargetName="ExitLine2" Property="Line.Y2" Value="18"/>
+                    <Setter TargetName="ExitLine1" Property="Line.StrokeThickness" Value="3.5"/>
+                    <Setter TargetName="ExitLine2" Property="Line.StrokeThickness" Value="3.5"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -34,12 +36,14 @@
             <Grid x:Name="MinimizeBar" MouseLeftButtonDown="MinimizeBar_MouseLeftButtonDown" 
                    Background="Transparent" Width="18" Height="24" Cursor="Hand">
                 <Line x:Name="MinimizeLine" StrokeEndLineCap="Round" StrokeStartLineCap="Round" 
-                  X1="2" Y1="12" X2="16" Y2="12" Stroke="#E8F1F2" StrokeThickness="3"/>
+                  X1="2" Y1="12" X2="16" Y2="12" Stroke="#4E4E50" StrokeThickness="3"/>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter TargetName="MinimizeBar" Property="Grid.Width" Value="22"/>
                     <Setter TargetName="MinimizeLine" Property="Line.X2" Value="20"/>
+                    <Setter TargetName="MinimizeLine" Property="Line.StrokeThickness" Value="3.5"/>
+                    <Setter TargetName="MinimizeLine" Property="Line.Stroke" Value="#753DDD"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -49,9 +53,9 @@
                Background="Transparent" Cursor="Hand"
                Height="24" Width="24" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Line x:Name="AddLine1" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
-                  X1="12" Y1="2" X2="12" Y2="22" StrokeThickness="3" Stroke="#E8F1F2"/>
+                  X1="12" Y1="2" X2="12" Y2="22" StrokeThickness="3" Stroke="#4E4E50"/>
                 <Line x:Name="AddLine2" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
-                  X1="2" Y1="12" X2="22" Y2="12" Stroke="#E8F1F2" StrokeThickness="3"/>
+                  X1="2" Y1="12" X2="22" Y2="12" Stroke="#4E4E50" StrokeThickness="3"/>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -63,6 +67,10 @@
                     <Setter TargetName="AddLine2" Property="Line.X2" Value="24"/>
                     <Setter TargetName="AddLine2" Property="Line.Y1" Value="13"/>
                     <Setter TargetName="AddLine2" Property="Line.Y2" Value="13"/>
+                    <Setter TargetName="AddLine1" Property="Line.StrokeThickness" Value="3.5"/>
+                    <Setter TargetName="AddLine2" Property="Line.StrokeThickness" Value="3.5"/>
+                    <Setter TargetName="AddLine1" Property="Line.Stroke" Value="#753DDD"/>
+                    <Setter TargetName="AddLine2" Property="Line.Stroke" Value="#753DDD"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -77,16 +85,23 @@
                     <RowDefinition Height="3"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="{Binding Date}" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" 
-                                   HorizontalAlignment="Center"  MinWidth="40"/>
+                      HorizontalAlignment="Center"  MinWidth="40"/>
                 <TextBlock x:Name="TextToDo" Text="{Binding ToDo}" Grid.Column="1" Grid.Row="0"  VerticalAlignment="Center" 
-                                   HorizontalAlignment="Left"/>
-                <CheckBox x:Name="CheckDone" IsChecked="{Binding Done}"  Visibility="Hidden"></CheckBox>
-                <Line Stroke="DarkCyan" Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="0" StrokeThickness="2" 
-                      X1="0" X2="10" Y1="39" Y2="39" Stretch="Fill"/>
+                      HorizontalAlignment="Left"/>
+                <Line Grid.Row="1" Grid.ColumnSpan="2" StrokeThickness="3" X1="0" X2="500"
+                     Stretch="Fill" StrokeEndLineCap="Square" StrokeStartLineCap="Square" Stroke="#965EED" >
+                </Line>
             </Grid>
             <ControlTemplate.Triggers>
-                <DataTrigger Binding="{Binding ElementName=CheckDone, Path=IsChecked}" Value="True">
-                    <Setter TargetName="ItemGrid" Property="Grid.Background" Value="LightGreen"/>
+                <DataTrigger Binding="{Binding Done}" Value="True">
+                    <Setter TargetName="ItemGrid" Property="Grid.Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#EEF5FB" Offset="0" />
+                                <GradientStop Color="#C0DAF1" Offset="1" />
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
                     <Setter TargetName="TextToDo" Property="TextBlock.TextDecorations" Value="Strikethrough"/>
                 </DataTrigger>
             </ControlTemplate.Triggers>
@@ -94,9 +109,10 @@
     </Window.Resources>
     <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="4 4 4 4">
         <Border.Background>
-            <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
-                <GradientStop Color="DarkCyan" Offset="0" />
-                <GradientStop Color="#2A2A2A" Offset="1" />
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#719EC8" Offset="0" />
+                <GradientStop Color="#E1F0FE" Offset="0.5"/>
+                <GradientStop Color="#D2C9C0" Offset="1" />
             </LinearGradientBrush>
         </Border.Background>
         <Grid x:Name="MainGrid">
@@ -124,16 +140,23 @@
                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
         <Grid Grid.Row="0" MouseLeftButtonDown="TopBar_LeftButton_Down">
-                <TextBlock x:Name="Tb" FontSize="18" 
-                       HorizontalAlignment="Center" VerticalAlignment="Center" 
-                       FontFamily="Comic Sans MS" Text="Daily Planner" Foreground="#E8F1F2" />
+                <Label x:Name="Tb" FontSize="20" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Content="Daily Planner" FontFamily="Tahoma" FontWeight="Bold">
+                    <Label.Foreground>
+                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                            <GradientStop Color="#383838" Offset="0" />
+                            <GradientStop Color="#4E4E50" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Label.Foreground>
+                </Label>
             </Grid>
             <Grid Grid.Row="1">
-                <Border x:Name="MainBorder" BorderBrush="Transparent" BorderThickness="1" Background="#FFF8FF" Margin="10 0 10 0" CornerRadius="4 4 4 4">
+                <Border x:Name="MainBorder" BorderBrush="Transparent" BorderThickness="1" 
+                        Background="#FFF8FF" Margin="10 0 10 0" CornerRadius="4 4 4 4">
                     <ScrollViewer VerticalScrollBarVisibility="Hidden">
                         <ItemsControl x:Name="lBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                     HorizontalContentAlignment="Stretch" Foreground="#2A2A2A"
-                     FontSize="15" FontFamily="Microsoft Sans Serif" BorderThickness="0" Background="Transparent" FontWeight="Bold">
+                                 HorizontalContentAlignment="Stretch" Foreground="#383838" FontWeight="Bold"
+                                 FontSize="15" FontFamily="Comic Sans MS" BorderThickness="0" Background="Transparent"> 
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Control Template="{StaticResource MainData}"/>

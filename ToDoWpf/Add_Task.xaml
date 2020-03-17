@@ -15,24 +15,26 @@
                 <Line x:Name="ExitLine1" StrokeStartLineCap="Round" 
                   StrokeEndLineCap="Round"
                   X1="2" Y1="2" X2="16" Y2="16" 
-                  Stroke="#E8F1F2" StrokeThickness="3">
+                  Stroke="#4E4E50" StrokeThickness="3">
                 </Line>
                 <Line x:Name="ExitLine2" StrokeStartLineCap="Round" 
                   StrokeEndLineCap="Round" 
                   X1="16" Y1="2" X2="2" Y2="16" 
-                  Stroke="#E8F1F2" StrokeThickness="3">
+                  Stroke="#4E4E50" StrokeThickness="3">
                 </Line>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter TargetName="ExitBar" Property="Grid.Width" Value="20"/>
                     <Setter TargetName="ExitBar" Property="Grid.Height" Value="20"/>
-                    <Setter TargetName="ExitLine1" Property="Line.Stroke" Value="OrangeRed"/>
-                    <Setter TargetName="ExitLine2" Property="Line.Stroke" Value="OrangeRed"/>
+                    <Setter TargetName="ExitLine1" Property="Line.Stroke" Value="#E91D14"/>
+                    <Setter TargetName="ExitLine2" Property="Line.Stroke" Value="#E91D14"/>
                     <Setter TargetName="ExitLine1" Property="Line.X2" Value="18"/>
                     <Setter TargetName="ExitLine1" Property="Line.Y2" Value="18"/>
                     <Setter TargetName="ExitLine2" Property="Line.X1" Value="18"/>
                     <Setter TargetName="ExitLine2" Property="Line.Y2" Value="18"/>
+                    <Setter TargetName="ExitLine1" Property="Line.StrokeThickness" Value="3.5"/>
+                    <Setter TargetName="ExitLine2" Property="Line.StrokeThickness" Value="3.5"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -42,11 +44,11 @@
                Height="24" Width="24" VerticalAlignment="Center">
                 <Line x:Name="AddLine1" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
                   X1="12" Y1="2" X2="12" Y2="22" 
-                  StrokeThickness="3" Stroke="#E8F1F2">
+                  StrokeThickness="3" Stroke="#4E4E50">
                 </Line>
                 <Line x:Name="AddLine2" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
                   X1="2" Y1="12" X2="22" Y2="12" 
-                  Stroke="#E8F1F2" StrokeThickness="3">
+                  Stroke="#4E4E50" StrokeThickness="3">
                 </Line>
             </Grid>
             <ControlTemplate.Triggers>
@@ -59,15 +61,20 @@
                     <Setter TargetName="AddLine2" Property="Line.X2" Value="24"/>
                     <Setter TargetName="AddLine2" Property="Line.Y1" Value="13"/>
                     <Setter TargetName="AddLine2" Property="Line.Y2" Value="13"/>
+                    <Setter TargetName="AddLine1" Property="Line.StrokeThickness" Value="3.5"/>
+                    <Setter TargetName="AddLine2" Property="Line.StrokeThickness" Value="3.5"/>
+                    <Setter TargetName="AddLine1" Property="Line.Stroke" Value="#753DDD"/>
+                    <Setter TargetName="AddLine2" Property="Line.Stroke" Value="#753DDD"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Resources>
     <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="4 4 4 4">
         <Border.Background>
-            <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
-                <GradientStop Color="#2A2A2A" Offset="0" />
-                <GradientStop Color="DarkCyan" Offset="1" />
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#719EC8" Offset="0" />
+                <GradientStop Color="#E1F0FE" Offset="0.5"/>
+                <GradientStop Color="#D2C9C0" Offset="1" />
             </LinearGradientBrush>
         </Border.Background>
         <Grid>
@@ -98,18 +105,23 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" 
                          Margin="0 0 5 0" Background="Transparent" FontSize="12" FontFamily="Yu Gothic UI Semibold"
-                         VerticalContentAlignment="Center" Foreground="#A3A3A3">[Enter] - add the task</Label>
+                         VerticalContentAlignment="Center" Foreground="#8A8886">[Enter] - add the task</Label>
             </Grid>
         <Grid Grid.Row="0" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
-            <Label FontSize="18" Foreground="#E8F1F2" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Comic Sans MS" >
-                New task
-            </Label>
+                <Label FontSize="18" HorizontalAlignment="Center" Content="New task" VerticalAlignment="Center" FontFamily="Tahoma" FontWeight="Bold" >
+                    <Label.Foreground>
+                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                            <GradientStop Color="#383838" Offset="0" />
+                            <GradientStop Color="#4E4E50" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Label.Foreground>
+                </Label>
         </Grid>
         <Border Margin="10 0 10 0" HorizontalAlignment="Stretch"  Background="#FFF8FF"
                 VerticalAlignment="Stretch" Grid.Row="1" CornerRadius="4 4 4 4" BorderThickness="1" BorderBrush="Transparent" >
             <TextBox x:Name="TextInput" BorderThickness="0" Margin="4 4 4 4"
-                 TextWrapping="Wrap"   FontSize="18" Background="Transparent"
-                 FontFamily="Yu Gothic UI Semibold"/>
+                 TextWrapping="Wrap"   FontSize="15" Background="Transparent"
+                 FontFamily="Comic Sans Ms" FontWeight="Bold" Foreground="#383838"/>
         </Border>
         <Control Template="{StaticResource AddButton}" Grid.Row="2" Grid.Column="1" Width="28" Height="28"  VerticalAlignment="Center" ></Control>
             
