@@ -59,8 +59,15 @@
       <DependentUpon>Add_Task.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="editing.xaml.cs">
+      <DependentUpon>editing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ToDoInfo.cs" />
     <Page Include="Add_Task.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="editing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

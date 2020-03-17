@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using System.Windows.Input;
 
 namespace ToDoWpf
@@ -23,7 +21,7 @@ namespace ToDoWpf
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             lBox.ItemsSource = Class1.ToDo;
-            
+
         }
         private void MinimizeBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -35,9 +33,19 @@ namespace ToDoWpf
             Add_Task add_task = new Add_Task();
             add_task.ShowDialog();
         }
-
-        private void MainControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void MainControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            //int index = lBox.SelectedIndex;
+            //editing NewEditing = new editing(index);
+            //NewEditing.ShowDialog();
+        }
+
+        private void Control_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
+            int index = lBox.SelectedIndex;
+            editing NewEditing = new editing(index);
+            NewEditing.ShowDialog();
         }
     }
 }
