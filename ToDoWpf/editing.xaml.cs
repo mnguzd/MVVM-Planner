@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.Windows.Media;
 using System.Windows;
 using System.Windows.Input;
 
@@ -12,6 +14,11 @@ namespace ToDoWpf
         public editing(int SelectedItemIndex)
         {
             InitializeComponent();
+
+            if (Class1.ToDo[SelectedItemIndex].Done)
+                DoneText.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(78, 195, 117));
+            else
+                NotDoneText.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(78, 195, 117));
             DateLabel.Content = Class1.ToDo[SelectedItemIndex].Date;
             TextInput.Text = Class1.ToDo[SelectedItemIndex].ToDo;
             TextInput.SelectionStart = TextInput.Text.Length;
@@ -88,6 +95,38 @@ namespace ToDoWpf
             Class1.ToDo[index].Time = DateTime.Now.ToShortTimeString();
             Class1.ToDo[index].Date = DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
             DateLabel.Content = Class1.ToDo[index].Date;
+        }
+
+        private void DoneText_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Class1.ToDo[index].Done = true;
+            if (Class1.ToDo[index].Done)
+            {
+                DoneText.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(78, 195, 117));
+                NotDoneText.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(78, 78, 88));
+            }
+            else
+            {
+                DoneText.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(78, 78, 88));
+                NotDoneText.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(78, 195, 117));
+            }
+        }
+
+        private void NotDoneText_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Class1.ToDo[index].Done = false;
+            if (Class1.ToDo[index].Done)
+            {
+                DoneText.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(78,195,117));
+                NotDoneText.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(78, 78, 88));
+            }
+            else
+            {
+                NotDoneText.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(78, 195, 117));
+                DoneText.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(78, 78, 88));
+
+            }
+
         }
     }
 }

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoWpf"
-        mc:Ignorable="d"
+        mc:Ignorable="d" ShowInTaskbar="False"
         Title="Add" Height="300" Width="450" MinHeight="250" MinWidth="400" 
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
         WindowStyle="None" AllowsTransparency="True" KeyDown="Window_KeyDown" Background="Transparent">
@@ -105,16 +105,12 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" 
                          Margin="0 0 5 0" Background="Transparent" FontSize="12" FontFamily="Yu Gothic UI Semibold"
-                         VerticalContentAlignment="Center" Foreground="#8A8886">[Enter] - add the task</Label>
+                         VerticalContentAlignment="Center" Foreground="#8A8886">[Enter] - add the task
+                </Label>
             </Grid>
         <Grid Grid.Row="0" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
-                <Label FontSize="18" HorizontalAlignment="Center" Content="New task" VerticalAlignment="Center" FontFamily="Tahoma" FontWeight="Bold" >
-                    <Label.Foreground>
-                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                            <GradientStop Color="#383838" Offset="0" />
-                            <GradientStop Color="#4E4E50" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </Label.Foreground>
+                <Label FontSize="18" HorizontalAlignment="Center" Content="New task" VerticalAlignment="Center" 
+                       FontFamily="Tahoma" FontWeight="Bold" Foreground="#4E4E50" >
                 </Label>
         </Grid>
         <Border Margin="10 0 10 0" HorizontalAlignment="Stretch"  Background="#FFF8FF"

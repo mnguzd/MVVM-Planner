@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoWpf"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Icon="icon.ico"
         Title="To Do List" Height="500" Width="400" WindowStartupLocation="CenterScreen" 
         ResizeMode="CanResizeWithGrip" AllowsTransparency="True" WindowStyle="None" 
         MinHeight="300" MinWidth="350"  Loaded="Window_Loaded" Background="Transparent">
@@ -109,8 +109,8 @@
                     <Line x:Name="DoneLine2"  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
                   X1="8" Y1="16" X2="16" Y2="2" Stroke="#4E4E50" StrokeThickness="3" Visibility="Hidden" />
                 </Grid>
-                <Line Grid.Row="1" Grid.ColumnSpan="4" StrokeThickness="3" X1="0" X2="500"
-                     Stretch="Fill" StrokeEndLineCap="Square" StrokeStartLineCap="Square" Stroke="#965EED" >
+                <Line x:Name="Underline" Grid.Row="1" Grid.ColumnSpan="4" StrokeThickness="3" X1="0" X2="500"
+                     Stretch="Fill" StrokeEndLineCap="Square" StrokeStartLineCap="Square" Stroke="#6091AA" >
                 </Line>
             </Grid>
             <ControlTemplate.Triggers>
@@ -161,6 +161,7 @@
                     <Setter TargetName="DoneLine2" Property="Line.Y1" Value="18"/>
                 </Trigger>
             </ControlTemplate.Triggers>
+            
         </ControlTemplate>
         <Style TargetType="{x:Type ListViewItem}">
             <Setter Property="Template">
@@ -216,13 +217,8 @@
         </Grid>
             <Grid Grid.Row="0" MouseLeftButtonDown="TopBar_LeftButton_Down">
                 <Label x:Name="Tb" FontSize="20" 
-                       HorizontalAlignment="Center" VerticalAlignment="Center" Content="Daily Planner" FontFamily="Tahoma" FontWeight="Bold">
-                    <Label.Foreground>
-                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                            <GradientStop Color="#383838" Offset="0" />
-                            <GradientStop Color="#4E4E50" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </Label.Foreground>
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Content="Daily Planner" 
+                       FontFamily="Tahoma" FontWeight="Bold" Foreground="#4E4E50">
                 </Label>
             </Grid>
             <Grid Grid.Row="1">
