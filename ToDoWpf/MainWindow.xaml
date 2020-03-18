@@ -43,7 +43,6 @@
                     <Setter TargetName="MinimizeBar" Property="Grid.Width" Value="22"/>
                     <Setter TargetName="MinimizeLine" Property="Line.X2" Value="20"/>
                     <Setter TargetName="MinimizeLine" Property="Line.StrokeThickness" Value="3.5"/>
-                    <Setter TargetName="MinimizeLine" Property="Line.Stroke" Value="#753DDD"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -69,8 +68,8 @@
                     <Setter TargetName="AddLine2" Property="Line.Y2" Value="13"/>
                     <Setter TargetName="AddLine1" Property="Line.StrokeThickness" Value="3.5"/>
                     <Setter TargetName="AddLine2" Property="Line.StrokeThickness" Value="3.5"/>
-                    <Setter TargetName="AddLine1" Property="Line.Stroke" Value="#753DDD"/>
-                    <Setter TargetName="AddLine2" Property="Line.Stroke" Value="#753DDD"/>
+                    <Setter TargetName="AddLine1" Property="Line.Stroke" Value="#4EC375"/>
+                    <Setter TargetName="AddLine2" Property="Line.Stroke" Value="#4EC375"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -80,28 +79,37 @@
                     <ColumnDefinition Width="0.2*" MaxWidth="80"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="3"/>
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="TextDate" Text="{Binding Time}" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" 
-                      HorizontalAlignment="Center"  MinWidth="30"  />
-                <Grid x:Name="TextGrid" Grid.Row="0" Grid.Column="1"  MouseLeftButtonDown="Control_MouseLeftButtonDown" Grid.ColumnSpan="2" Background="Transparent">
+                <Grid Background="Transparent" Grid.Column="0" Grid.Row="0"   MouseLeftButtonDown="Control_MouseLeftButtonDown">
+                    <TextBlock x:Name="TextDate" Text="{Binding Time}" VerticalAlignment="Center" 
+                           HorizontalAlignment="Center"  MinWidth="30" />
+                </Grid>
+                <Grid x:Name="TextGrid" Grid.Row="0" Grid.Column="1"  MouseLeftButtonDown="Control_MouseLeftButtonDown" Grid.ColumnSpan="3" Background="Transparent">
                     <TextBlock x:Name="TextToDo" Text="{Binding ToDo}"  VerticalAlignment="Center" 
                       HorizontalAlignment="Left" Background="Transparent" />
                 </Grid>
-                <Border x:Name="DeleteBorder" BorderBrush="#719EC8" BorderThickness="2 0 0 0" Grid.Row="0" Grid.Column="2" 
-                        Height="30" Width="30" HorizontalAlignment="Center" MouseLeftButtonDown="DeleteBorder_MouseLeftButtonDown"
-                        VerticalAlignment="Center" Background="Transparent" Visibility="Hidden">
-                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Line x:Name="DeleteLine1"  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
-                  X1="2" Y1="2" X2="16" Y2="16" Stroke="#4E4E50" StrokeThickness="3" Visibility="Hidden"/>
-                        <Line x:Name="DeleteLine2"  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
-                  X1="2" Y1="16" X2="16" Y2="2" Stroke="#4E4E50" StrokeThickness="3" Visibility="Hidden"/>
-                    </Grid>
-                </Border>
-                <Line Grid.Row="1" Grid.ColumnSpan="3" StrokeThickness="3" X1="0" X2="500"
+                <Grid  x:Name="DeleteBorder" Grid.Row="0" Grid.Column="3" 
+                        Height="18" Width="18" HorizontalAlignment="Center" MouseLeftButtonDown="DeleteBorder_MouseLeftButtonDown"
+                        VerticalAlignment="Center" Background="Transparent" Visibility="Hidden" Cursor="Hand">
+                    <Line x:Name="DeleteLine1"  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                   X1="2" Y1="2" X2="16" Y2="16"  Stroke="#4E4E50" StrokeThickness="3" Visibility="Hidden"/>
+                    <Line x:Name="DeleteLine2"  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                 X1="16" Y1="2" X2="2" Y2="16" Stroke="#4E4E50" StrokeThickness="3" Visibility="Hidden"/>
+                </Grid>
+                <Grid x:Name="DoneBorder" Grid.Row="0" Grid.Column="2" 
+                        Height="18" Width="18" HorizontalAlignment="Center" Visibility="Hidden"
+                        VerticalAlignment="Center" Background="Transparent" Cursor="Hand" MouseLeftButtonDown="DoneBorder_MouseLeftButtonDown">
+                    <Line x:Name="DoneLine1"  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                  X1="2" Y1="8" X2="8" Y2="16" Stroke="#4E4E50" StrokeThickness="3" Visibility="Hidden" />
+                    <Line x:Name="DoneLine2"  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                  X1="8" Y1="16" X2="16" Y2="2" Stroke="#4E4E50" StrokeThickness="3" Visibility="Hidden" />
+                </Grid>
+                <Line Grid.Row="1" Grid.ColumnSpan="4" StrokeThickness="3" X1="0" X2="500"
                      Stretch="Fill" StrokeEndLineCap="Square" StrokeStartLineCap="Square" Stroke="#965EED" >
                 </Line>
             </Grid>
@@ -118,15 +126,39 @@
                     <Setter TargetName="TextToDo" Property="TextBlock.TextDecorations" Value="Strikethrough"/>
                 </DataTrigger>
                 <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="TextGrid" Property="Grid.ColumnSpan" Value="1"/>
                     <Setter TargetName="TextToDo" Property="FocusManager.FocusedElement" Value="{Binding ElementName=TextToDo}"/>
                     <Setter TargetName="DeleteLine1" Property="Line.Visibility" Value="Visible"/>
                     <Setter TargetName="DeleteLine2" Property="Line.Visibility" Value="Visible"/>
-                    <Setter TargetName="TextGrid" Property="Grid.ColumnSpan" Value="1"/>
                     <Setter TargetName="DeleteBorder" Property="Border.Visibility" Value="Visible"/>
+                    <Setter TargetName="DoneLine1" Property="Line.Visibility" Value="Visible"/>
+                    <Setter TargetName="DoneLine2" Property="Line.Visibility" Value="Visible"/>
+                    <Setter TargetName="DoneBorder" Property="Grid.Visibility" Value="Visible"/>
                 </Trigger>
                 <Trigger SourceName="DeleteBorder" Property="IsMouseOver" Value="True">
+                    <Setter TargetName="DeleteBorder" Property="Width" Value="20"></Setter>
+                    <Setter TargetName="DeleteBorder" Property="Height" Value="20"></Setter>
                     <Setter TargetName="DeleteLine1" Property="Line.Stroke" Value="#E91D14"/>
                     <Setter TargetName="DeleteLine2" Property="Line.Stroke" Value="#E91D14"/>
+                    <Setter TargetName="DeleteLine1" Property="Line.X2" Value="18"/>
+                    <Setter TargetName="DeleteLine1" Property="Line.Y2" Value="18"/>
+                    <Setter TargetName="DeleteLine2" Property="Line.X1" Value="18"/>
+                    <Setter TargetName="DeleteLine2" Property="Line.Y2" Value="18"/>
+                    <Setter TargetName="DeleteLine1" Property="Line.StrokeThickness" Value="3.5"/>
+                    <Setter TargetName="DeleteLine2" Property="Line.StrokeThickness" Value="3.5"/>
+                </Trigger>
+                <Trigger SourceName="DoneBorder" Property="IsMouseOver" Value="True">
+                    <Setter TargetName="DoneLine1" Property="Line.Stroke" Value="#4EC375"/>
+                    <Setter TargetName="DoneLine2" Property="Line.Stroke" Value="#4EC375"/>
+                    <Setter TargetName="DoneBorder" Property="Width" Value="20"/>
+                    <Setter TargetName="DoneBorder" Property="Height" Value="20"/>
+                    <Setter TargetName="DoneLine1" Property="Line.X1" Value="2"/>
+                    <Setter TargetName="DoneLine1" Property="Line.X2" Value="8"/>
+                    <Setter TargetName="DoneLine1" Property="Line.Y2" Value="18"/>
+                    <Setter TargetName="DoneLine2" Property="Line.X2" Value="18"/>
+                    <Setter TargetName="DoneLine2" Property="Line.Y2" Value="2"/>
+                    <Setter TargetName="DoneLine2" Property="Line.X1" Value="8"/>
+                    <Setter TargetName="DoneLine2" Property="Line.Y1" Value="18"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -200,7 +232,8 @@
                                  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Foreground="#383838" FontWeight="Bold"
                                  FontSize="15" FontFamily="Comic Sans MS" Background="Transparent" BorderThickness="0"
                                  Margin="-1 -1 -1 -1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                                  ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionMode="Single"
+                                  ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionMode="Single" 
+                              
                                  >
                         <ListView.ItemTemplate>
                             <DataTemplate>

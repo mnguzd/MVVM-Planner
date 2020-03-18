@@ -1,22 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ToDoWpf
 {
-    /// <summary>
-    /// Логика взаимодействия для editing.xaml
-    /// </summary>
+
     public partial class editing : Window
     {
         private readonly int index = new int();
@@ -55,7 +43,8 @@ namespace ToDoWpf
                 switch (result)
                 {
                     case MessageBoxResult.Yes: Class1.ToDo.RemoveAt(index); DialogResult = true; break;
-                    case MessageBoxResult.No: TextInput.Text=StartText; TextInput.SelectionStart = TextInput.Text.Length;
+                    case MessageBoxResult.No:
+                        TextInput.Text = StartText; TextInput.SelectionStart = TextInput.Text.Length;
                         TextInput.Focus(); break;
                 }
             }
@@ -87,6 +76,18 @@ namespace ToDoWpf
                     DialogResult = true;
                 }
             }
+        }
+
+        private void DeleteTask_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Class1.ToDo.RemoveAt(index); DialogResult = true;
+        }
+
+        private void UpdateTime_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Class1.ToDo[index].Time = DateTime.Now.ToShortTimeString();
+            Class1.ToDo[index].Date = DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
+            DateLabel.Content = Class1.ToDo[index].Date;
         }
     }
 }

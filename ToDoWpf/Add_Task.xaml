@@ -63,8 +63,8 @@
                     <Setter TargetName="AddLine2" Property="Line.Y2" Value="13"/>
                     <Setter TargetName="AddLine1" Property="Line.StrokeThickness" Value="3.5"/>
                     <Setter TargetName="AddLine2" Property="Line.StrokeThickness" Value="3.5"/>
-                    <Setter TargetName="AddLine1" Property="Line.Stroke" Value="#753DDD"/>
-                    <Setter TargetName="AddLine2" Property="Line.Stroke" Value="#753DDD"/>
+                    <Setter TargetName="AddLine1" Property="Line.Stroke" Value="#4EC375"/>
+                    <Setter TargetName="AddLine2" Property="Line.Stroke" Value="#4EC375"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
