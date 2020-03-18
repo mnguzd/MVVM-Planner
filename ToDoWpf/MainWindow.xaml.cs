@@ -33,19 +33,14 @@ namespace ToDoWpf
             Add_Task add_task = new Add_Task();
             add_task.ShowDialog();
         }
-        private void MainControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            //int index = lBox.SelectedIndex;
-            //editing NewEditing = new editing(index);
-            //NewEditing.ShowDialog();
-        }
-
         private void Control_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            
             int index = lBox.SelectedIndex;
             editing NewEditing = new editing(index);
             NewEditing.ShowDialog();
+            lBox.Items.Refresh();
         }
+
+      
     }
 }

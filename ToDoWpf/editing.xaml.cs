@@ -19,10 +19,14 @@ namespace ToDoWpf
     /// </summary>
     public partial class editing : Window
     {
-        public editing(int index)
+        private readonly int index = new int();
+        private string StartText;
+        public editing(int SelectedItemIndex)
         {
             InitializeComponent();
-            TextInput.Text = Class1.ToDo[index].ToDo;
+            TextInput.Text = Class1.ToDo[SelectedItemIndex].ToDo;
+            index = SelectedItemIndex;
+            StartText = TextInput.Text;
         }
 
         private void ExitBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -40,6 +44,23 @@ namespace ToDoWpf
             DragMove();
         }
 
-        
+        private void EditButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (TextInput.Text.Length == 0)
+            {
+                MessageBoxResult result = MessageBox.Show("Do you want to delete this task?", "Empty task", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes: Class1.ToDo.RemoveAt(index); DialogResult = true; break;
+                    case MessageBoxResult.No: TextInput.Text=StartText; TextInput.SelectionStart = TextInput.Text.Length;
+                        TextInput.Focus(); break;
+                }
+            }
+            else
+            {
+                Class1.ToDo[index].ToDo = TextInput.Text;
+                DialogResult = true;
+            }
+        }
     }
 }

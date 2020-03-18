@@ -107,6 +107,7 @@
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter TargetName="TextToDo" Property="TextBlock.Foreground" Value="Red"></Setter>
                     <Setter TargetName="TextDate" Property="TextBlock.Foreground" Value="Red"></Setter>
+                    <Setter TargetName="TextToDo" Property="FocusManager.FocusedElement" Value="{Binding ElementName=TextToDo}"></Setter>
                 </Trigger>
                 
             </ControlTemplate.Triggers>
@@ -119,11 +120,17 @@
                             <ContentPresenter HorizontalAlignment="Left" 
                                               VerticalAlignment="Center"/>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="IsSelected" Value="True"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
+                    
                 </Setter.Value>
             </Setter>
-            
         </Style>
+        
     </Window.Resources>
     <Border BorderBrush="Transparent" BorderThickness="1" CornerRadius="4 4 4 4">
         <Border.Background>
@@ -175,12 +182,12 @@
                                  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Foreground="#383838" FontWeight="Bold"
                                  FontSize="15" FontFamily="Comic Sans MS" Background="Transparent" BorderThickness="0"
                                  Margin="-1 -1 -1 -1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                  ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionMode="Single"
                                  >
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Control Template="{StaticResource MainData}" 
-                                         MouseLeftButtonUp="MainControl_MouseLeftButtonUp" MouseLeftButtonDown="Control_MouseLeftButtonDown" />
+                                <Control x:Name="MainControl" Template="{StaticResource MainData}" 
+                                         MouseLeftButtonDown="Control_MouseLeftButtonDown"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>

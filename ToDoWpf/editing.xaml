@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ToDoWpf"
         mc:Ignorable="d"
         Title="Add" Height="400" Width="600" MinHeight="250" MinWidth="400" 
-        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
+        ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" 
         WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     <Window.Resources>
         <ControlTemplate x:Key="ExitButton">
@@ -35,6 +35,25 @@
                     <Setter TargetName="ExitLine2" Property="Line.Y2" Value="18"/>
                     <Setter TargetName="ExitLine1" Property="Line.StrokeThickness" Value="3.5"/>
                     <Setter TargetName="ExitLine2" Property="Line.StrokeThickness" Value="3.5"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="CheckButton">
+            <Grid  x:Name="Add_Task_Grid_Dop" MouseLeftButtonDown="EditButton_MouseLeftButtonDown"
+                   Background="Transparent" Cursor="Hand"
+               Height="24" Width="24" VerticalAlignment="Center">
+                <Line x:Name="CheckLine1" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                  X1="2" Y1="12" X2="12" Y2="22" 
+                  StrokeThickness="3" Stroke="Green">
+                </Line>
+                <Line x:Name="CheckLine2" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                  X1="12" Y1="22" X2="22" Y2="2" 
+                  Stroke="Green" StrokeThickness="3">
+                </Line>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -70,9 +89,10 @@
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="28"></ColumnDefinition>
+                    <ColumnDefinition Width="60"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+                <Control Template="{StaticResource CheckButton}" Grid.Row="2" Grid.Column="1"></Control>
             </Grid>
             <Grid Grid.Row="0" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
                 <Label FontSize="18" HorizontalAlignment="Center" Content="Edit" VerticalAlignment="Center" FontFamily="Tahoma" FontWeight="Bold" >
