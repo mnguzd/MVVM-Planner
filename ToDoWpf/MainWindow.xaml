@@ -75,20 +75,33 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <ControlTemplate x:Key="MainData">
-            <Grid HorizontalAlignment="Stretch" x:Name="ItemGrid" Cursor="Hand" Background="Transparent" >
+            <Grid HorizontalAlignment="Stretch" x:Name="ItemGrid" Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.2*" MaxWidth="80"/>
                     <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="3"/>
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="TextDate" Text="{Binding Date}" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" 
-                      HorizontalAlignment="Center"  MinWidth="30"/>
-                <TextBlock x:Name="TextToDo" Text="{Binding ToDo}" Grid.Column="1" Grid.Row="0"  VerticalAlignment="Center" 
-                      HorizontalAlignment="Left"/>
-                <Line Grid.Row="1" Grid.ColumnSpan="2" StrokeThickness="3" X1="0" X2="500"
+                <TextBlock x:Name="TextDate" Text="{Binding Time}" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" 
+                      HorizontalAlignment="Center"  MinWidth="30"  />
+                <Grid x:Name="TextGrid" Grid.Row="0" Grid.Column="1"  MouseLeftButtonDown="Control_MouseLeftButtonDown" Grid.ColumnSpan="2" Background="Transparent">
+                    <TextBlock x:Name="TextToDo" Text="{Binding ToDo}"  VerticalAlignment="Center" 
+                      HorizontalAlignment="Left" Background="Transparent" />
+                </Grid>
+                <Border x:Name="DeleteBorder" BorderBrush="#719EC8" BorderThickness="2 0 0 0" Grid.Row="0" Grid.Column="2" 
+                        Height="30" Width="30" HorizontalAlignment="Center" MouseLeftButtonDown="DeleteBorder_MouseLeftButtonDown"
+                        VerticalAlignment="Center" Background="Transparent" Visibility="Hidden">
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Line x:Name="DeleteLine1"  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                  X1="2" Y1="2" X2="16" Y2="16" Stroke="#4E4E50" StrokeThickness="3" Visibility="Hidden"/>
+                        <Line x:Name="DeleteLine2"  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                  X1="2" Y1="16" X2="16" Y2="2" Stroke="#4E4E50" StrokeThickness="3" Visibility="Hidden"/>
+                    </Grid>
+                </Border>
+                <Line Grid.Row="1" Grid.ColumnSpan="3" StrokeThickness="3" X1="0" X2="500"
                      Stretch="Fill" StrokeEndLineCap="Square" StrokeStartLineCap="Square" Stroke="#965EED" >
                 </Line>
             </Grid>
@@ -105,11 +118,16 @@
                     <Setter TargetName="TextToDo" Property="TextBlock.TextDecorations" Value="Strikethrough"/>
                 </DataTrigger>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="TextToDo" Property="TextBlock.Foreground" Value="Red"></Setter>
-                    <Setter TargetName="TextDate" Property="TextBlock.Foreground" Value="Red"></Setter>
-                    <Setter TargetName="TextToDo" Property="FocusManager.FocusedElement" Value="{Binding ElementName=TextToDo}"></Setter>
+                    <Setter TargetName="TextToDo" Property="FocusManager.FocusedElement" Value="{Binding ElementName=TextToDo}"/>
+                    <Setter TargetName="DeleteLine1" Property="Line.Visibility" Value="Visible"/>
+                    <Setter TargetName="DeleteLine2" Property="Line.Visibility" Value="Visible"/>
+                    <Setter TargetName="TextGrid" Property="Grid.ColumnSpan" Value="1"/>
+                    <Setter TargetName="DeleteBorder" Property="Border.Visibility" Value="Visible"/>
                 </Trigger>
-                
+                <Trigger SourceName="DeleteBorder" Property="IsMouseOver" Value="True">
+                    <Setter TargetName="DeleteLine1" Property="Line.Stroke" Value="#E91D14"/>
+                    <Setter TargetName="DeleteLine2" Property="Line.Stroke" Value="#E91D14"/>
+                </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <Style TargetType="{x:Type ListViewItem}">
@@ -187,7 +205,7 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Control x:Name="MainControl" Template="{StaticResource MainData}" 
-                                         MouseLeftButtonDown="Control_MouseLeftButtonDown"/>
+                                      />
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>

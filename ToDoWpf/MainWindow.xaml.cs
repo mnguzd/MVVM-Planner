@@ -41,6 +41,9 @@ namespace ToDoWpf
             lBox.Items.Refresh();
         }
 
-      
+        private void DeleteBorder_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Class1.ToDo.RemoveAt(lBox.SelectedIndex);
+        }
     }
 }

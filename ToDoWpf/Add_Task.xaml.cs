@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ToDoWpf
@@ -30,12 +31,8 @@ namespace ToDoWpf
         {
             if (TextInput.Text.Length > 0)
             {
-                Class1.ToDo.Add(new Doings { ToDo = TextInput.Text, Done = false });
+                Class1.ToDo.Add(new Doings { ToDo = TextInput.Text, Done = false,});
                 TextInput.Text = "";
-            }
-            else
-            {
-                MessageBox.Show("Enter your task or don`t touch this button, ok?","Message",MessageBoxButton.OK,MessageBoxImage.Information);
             }
         }
 
@@ -47,10 +44,6 @@ namespace ToDoWpf
                 {
                     Class1.ToDo.Add(new Doings { ToDo = TextInput.Text, Done = true });
                     TextInput.Text = "";
-                }
-                else
-                {
-                    MessageBox.Show("Enter your task or don`t touch this button, ok?", "Message", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }

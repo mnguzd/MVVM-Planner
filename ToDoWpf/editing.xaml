@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoWpf"
         mc:Ignorable="d"
-        Title="Add" Height="400" Width="600" MinHeight="250" MinWidth="400" 
+        Title="Add" Height="300" Width="500" MinHeight="250" MinWidth="400" 
         ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" 
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent" KeyDown="Window_KeyDown">
     <Window.Resources>
         <ControlTemplate x:Key="ExitButton">
             <Grid x:Name="ExitBar" MouseLeftButtonDown="ExitBar_MouseLeftButtonDown"
@@ -85,7 +85,7 @@
                 </Grid.ColumnDefinitions>
                 <Control Template="{StaticResource ExitButton}" Grid.Row="1" Grid.Column="1"
                     HorizontalAlignment="Center" VerticalAlignment="Center" ></Control>
-        </Grid>
+            </Grid>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -93,6 +93,18 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Control Template="{StaticResource CheckButton}" Grid.Row="2" Grid.Column="1"></Control>
+                <Label x:Name="DateLabel" Grid.Column="0" Grid.Row="1" Height="35" Margin="10 0 0 0"
+                       HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" FontFamily="Tahoma" FontWeight="Bold" FontSize="14">
+                    <Label.Foreground>
+                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                            <GradientStop Color="#383838" Offset="0" />
+                            <GradientStop Color="#4E4E50" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Label.Foreground>
+                </Label>
+                <Label Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" 
+                         Margin="0 0 5 0" Background="Transparent" FontSize="12" FontFamily="Yu Gothic UI Semibold"
+                         VerticalContentAlignment="Center" Foreground="#8A8886">[Enter] - submit editing</Label>
             </Grid>
             <Grid Grid.Row="0" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
                 <Label FontSize="18" HorizontalAlignment="Center" Content="Edit" VerticalAlignment="Center" FontFamily="Tahoma" FontWeight="Bold" >
@@ -104,7 +116,7 @@
                     </Label.Foreground>
                 </Label>
             </Grid>
-            <Border Margin="10 0 10 0" HorizontalAlignment="Stretch"  Background="#FFF8FF"
+            <Border Margin="10 0 50 0" HorizontalAlignment="Stretch"  Background="#FFF8FF"
                 VerticalAlignment="Stretch" Grid.Row="1" CornerRadius="4 4 4 4" BorderThickness="1" BorderBrush="Transparent"
                     >
                 <TextBox x:Name="TextInput" BorderThickness="0" Margin="4 4 4 4"
