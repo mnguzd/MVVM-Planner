@@ -31,7 +31,7 @@ namespace ToDoWpf
         {
             if (TextInput.Text.Length > 0)
             {
-                Class1.ToDo.Add(new Doings { ToDo = TextInput.Text});
+                Class1.ToDo.Insert(0,new Doings { ToDo = TextInput.Text});
                 TextInput.Text = "";
             }
         }
@@ -42,7 +42,7 @@ namespace ToDoWpf
             {
                 if (TextInput.Text.Length > 0)
                 {
-                    Class1.ToDo.Add(new Doings { ToDo = TextInput.Text });
+                    Class1.ToDo.Insert(0,new Doings { ToDo = TextInput.Text });
                     TextInput.Text = "";
                 }
             }

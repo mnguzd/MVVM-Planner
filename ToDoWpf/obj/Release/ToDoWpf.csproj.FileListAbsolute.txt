@@ -15,3 +15,4 @@ C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\Add_Task.g.cs
 C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\Add_Task.baml
 C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\editing.g.cs
 C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\editing.baml
+C:\Users\roman\Desktop\Coding\Projects C#\ToDoWpf\obj\Release\ToDoWpf.csprojAssemblyReference.cache

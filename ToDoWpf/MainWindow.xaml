@@ -74,9 +74,17 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <ControlTemplate x:Key="MainData">
-            <Grid HorizontalAlignment="Stretch" x:Name="ItemGrid" Background="Transparent">
+            <Border x:Name="ItemBorder" BorderThickness="1" BorderBrush="Transparent" CornerRadius="20 20 20 20" Margin="10 2 10 2" Background="#F5FAFA"
+                    >
+                <Border.RenderTransform>
+                    <TranslateTransform X="0" Y="5"></TranslateTransform>
+                </Border.RenderTransform>
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" Direction="270" ShadowDepth="3" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
+                </Border.Effect>
+                <Grid HorizontalAlignment="Stretch" x:Name="ItemGrid" Background="Transparent">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.2*" MaxWidth="80"/>
+                    <!--<ColumnDefinition Width="0.2*" MaxWidth="80"/>-->
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
@@ -85,15 +93,15 @@
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="3"/>
                 </Grid.RowDefinitions>
-                <Grid Background="Transparent" Grid.Column="0" Grid.Row="0"   MouseLeftButtonDown="Control_MouseLeftButtonDown">
+                <!--<Grid Background="Transparent" Grid.Column="0" Grid.Row="0"   MouseLeftButtonDown="Control_MouseLeftButtonDown">
                     <TextBlock x:Name="TextDate" Text="{Binding Time}" VerticalAlignment="Center" 
                            HorizontalAlignment="Center"  MinWidth="30" />
-                </Grid>
-                <Grid x:Name="TextGrid" Grid.Row="0" Grid.Column="1"  MouseLeftButtonDown="Control_MouseLeftButtonDown" Grid.ColumnSpan="3" Background="Transparent">
+                </Grid>-->
+                <Grid x:Name="TextGrid" Grid.Row="0" Grid.Column="0"  MouseLeftButtonDown="Control_MouseLeftButtonDown" Grid.ColumnSpan="3" Background="Transparent" Margin="5 0 0 0">
                     <TextBlock x:Name="TextToDo" Text="{Binding ToDo}"  VerticalAlignment="Center" 
                       HorizontalAlignment="Left" Background="Transparent" />
                 </Grid>
-                <Grid  x:Name="DeleteBorder" Grid.Row="0" Grid.Column="3" 
+                <Grid  x:Name="DeleteBorder" Grid.Row="0" Grid.Column="2" 
                         Height="18" Width="18" HorizontalAlignment="Center" MouseLeftButtonDown="DeleteBorder_MouseLeftButtonDown"
                         VerticalAlignment="Center" Background="Transparent" Visibility="Hidden" Cursor="Hand">
                     <Line x:Name="DeleteLine1"  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
@@ -101,7 +109,7 @@
                     <Line x:Name="DeleteLine2"  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
                  X1="16" Y1="2" X2="2" Y2="16" Stroke="#4E4E50" StrokeThickness="3" Visibility="Hidden"/>
                 </Grid>
-                <Grid x:Name="DoneBorder" Grid.Row="0" Grid.Column="2" 
+                <Grid x:Name="DoneBorder" Grid.Row="0" Grid.Column="1" 
                         Height="18" Width="18" HorizontalAlignment="Center" Visibility="Hidden"
                         VerticalAlignment="Center" Background="Transparent" Cursor="Hand" MouseLeftButtonDown="DoneBorder_MouseLeftButtonDown">
                     <Line x:Name="DoneLine1"  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
@@ -109,20 +117,17 @@
                     <Line x:Name="DoneLine2"  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
                   X1="8" Y1="16" X2="16" Y2="2" Stroke="#4E4E50" StrokeThickness="3" Visibility="Hidden" />
                 </Grid>
-                <Line x:Name="Underline" Grid.Row="1" Grid.ColumnSpan="4" StrokeThickness="3" X1="0" X2="500"
-                     Stretch="Fill" StrokeEndLineCap="Square" StrokeStartLineCap="Square" Stroke="#6091AA" >
+                <Line x:Name="Underline" Grid.Row="1" Grid.ColumnSpan="3" StrokeThickness="3" X1="0" X2="500"
+                     Stretch="Fill" StrokeEndLineCap="Square" StrokeStartLineCap="Square" Stroke="Transparent" >
                 </Line>
             </Grid>
+            </Border>
             <ControlTemplate.Triggers>
                 <DataTrigger Binding="{Binding Done}" Value="True">
-                    <Setter TargetName="ItemGrid" Property="Grid.Background">
-                        <Setter.Value>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#EEF5FB" Offset="0" />
-                                <GradientStop Color="#C0DAF1" Offset="1" />
-                            </LinearGradientBrush>
-                        </Setter.Value>
-                    </Setter>
+                    <Setter TargetName="DoneLine1" Property="Line.Visibility" Value="Hidden"/>
+                    <Setter TargetName="DoneLine2" Property="Line.Visibility" Value="Hidden"/>
+                    <Setter TargetName="DoneBorder" Property="Grid.Visibility" Value="Hidden"/>
+                    <Setter TargetName="TextToDo" Property="TextBlock.Foreground" Value="#ACACAC"/>
                     <Setter TargetName="TextToDo" Property="TextBlock.TextDecorations" Value="Strikethrough"/>
                 </DataTrigger>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -223,13 +228,12 @@
             </Grid>
             <Grid Grid.Row="1">
                 <Border x:Name="MainBorder" BorderBrush="Transparent" BorderThickness="1" 
-                        Background="#FFF8FF" Margin="10 0 10 0" CornerRadius="4 4 4 4">
+                        Background="Transparent" Margin="10 0 10 0" CornerRadius="4 4 4 4">
                     <ListView x:Name="lBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                                  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Foreground="#383838" FontWeight="Bold"
                                  FontSize="15" FontFamily="Comic Sans MS" Background="Transparent" BorderThickness="0"
                                  Margin="-1 -1 -1 -1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                                   ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionMode="Single" 
-                              
                                  >
                         <ListView.ItemTemplate>
                             <DataTemplate>
