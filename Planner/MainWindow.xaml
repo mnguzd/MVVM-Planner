@@ -1,0 +1,31 @@
+﻿<Window x:Class="Planner.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Planner"
+        xmlns:v="clr-namespace:Planner.Views"
+        xmlns:vm="clr-namespace:Planner.ViewModels"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="600" Width="1000" 
+        ResizeMode="NoResize" WindowStyle="None" Background="{StaticResource Clouds}">
+    <Window.DataContext>
+        <local:AppViewModel></local:AppViewModel>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="{StaticResource PomeGranate}" MouseLeftButtonDown="Border_MouseLeftButtonDown"></Border>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <ContentControl Content="{Binding CurrentView}"></ContentControl>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

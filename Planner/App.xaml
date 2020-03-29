@@ -1,0 +1,33 @@
+﻿<Application x:Class="Planner.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Planner"
+             xmlns:v="clr-namespace:Planner.Views"
+             xmlns:vm="clr-namespace:Planner.ViewModels"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <DataTemplate DataType="{x:Type vm:TasksViewModel}">
+            <v:TasksView></v:TasksView>
+        </DataTemplate>
+        <SolidColorBrush x:Key="Turquoise" Color="#1BBC9B"></SolidColorBrush>
+        <SolidColorBrush x:Key="GreenSea" Color="#16A086"></SolidColorBrush>
+        <SolidColorBrush x:Key="SunFlower" Color="#F1C40F"></SolidColorBrush>
+        <SolidColorBrush x:Key="Orange" Color="#F39C11"></SolidColorBrush>
+        <SolidColorBrush x:Key="Emerald" Color="#2DCC70"></SolidColorBrush>
+        <SolidColorBrush x:Key="Nephritis" Color="#27AE61"></SolidColorBrush>
+        <SolidColorBrush x:Key="Carrot" Color="#E67F22"></SolidColorBrush>
+        <SolidColorBrush x:Key="Pumpkin" Color="#D25400"></SolidColorBrush>
+        <SolidColorBrush x:Key="PeterRiver" Color="#3598DB"></SolidColorBrush>
+        <SolidColorBrush x:Key="BelizeHole" Color="#297FB8"></SolidColorBrush>
+        <SolidColorBrush x:Key="Alizarin" Color="#E84C3D"></SolidColorBrush>
+        <SolidColorBrush x:Key="PomeGranate" Color="#C1392B"></SolidColorBrush>
+        <SolidColorBrush x:Key="Amethyst" Color="#9A59B5"></SolidColorBrush>
+        <SolidColorBrush x:Key="Wisteria" Color="#8D44AD"></SolidColorBrush>
+        <SolidColorBrush x:Key="Clouds" Color="#ECF0F1"></SolidColorBrush>
+        <SolidColorBrush x:Key="Silver" Color="#BEC3C7"></SolidColorBrush>
+        <SolidColorBrush x:Key="WetAsphalt" Color="#34495E"></SolidColorBrush>
+        <SolidColorBrush x:Key="MidNightBlue" Color="#2D3E50"></SolidColorBrush>
+        <SolidColorBrush x:Key="Concrete" Color="#95A5A5"></SolidColorBrush>
+        <SolidColorBrush x:Key="Asbestos" Color="#7E8C8D"></SolidColorBrush>
+    </Application.Resources>
+</Application>

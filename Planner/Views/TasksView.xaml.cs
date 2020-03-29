@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Planner
+namespace Planner.Views
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для TasksView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TasksView : UserControl
     {
-        public MainWindow()
+        public TasksView()
         {
             InitializeComponent();
         }
