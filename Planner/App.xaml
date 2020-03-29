@@ -13,14 +13,30 @@
             <Setter Property="Background" Value="Transparent"></Setter>
             <Setter Property="Height" Value="30"></Setter>
             <Setter Property="Width" Value="30"></Setter>
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
             <Setter Property="BorderThickness" Value="0"></Setter>
-            <Setter Property="Foreground" Value="{DynamicResource Silver}"></Setter>
+            <Setter Property="Foreground" Value="{DynamicResource Asbestos}"></Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="{DynamicResource Clouds}"></Setter>
+                    <Setter Property="Foreground" Value="{DynamicResource PomeGranate}"></Setter>
+                    <Setter Property="Cursor" Value="Hand"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ButtonStyle2" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource PomeGranate}"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="Width" Value="30"></Setter>
+            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Foreground" Value="{DynamicResource Clouds}"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource Emerald}"></Setter>
                     <Setter Property="Cursor" Value="Hand"></Setter>
                 </Trigger>
             </Style.Triggers>
@@ -45,6 +61,14 @@
         <Grid x:Key="MinimizeIcon">
             <Viewbox Stretch="Fill">
                 <Path  Data="M14 22v4h20v-4h-20zm10-18c-11.05 0-20 8.95-20 20s8.95 20 20 20 20-8.95 20-20-8.95-20-20-20zm0 36c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16z"  Stretch="Fill"
+                              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
+                </Path>
+            </Viewbox>
+        </Grid>
+        <Grid x:Key="AddIcon" Height="35" Width="35">
+            <Viewbox Stretch="Fill">
+                <Path  Data="M15,6h-5V1c0-0.55-0.45-1-1-1H7C6.45,0,6,0.45,6,1v5H1C0.45,6,0,6.45,0,7v2c0,0.55,0.45,1,1,1h5v5c0,0.55,0.45,1,1,1h2  
+                       c0.55,0,1-0.45,1-1v-5h5c0.55,0,1-0.45,1-1V7C16,6.45,15.55,6,15,6z"  Stretch="Fill"
                               Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
                 </Path>
             </Viewbox>

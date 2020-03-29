@@ -14,22 +14,30 @@
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Background="{StaticResource WetAsphalt}">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="40"></ColumnDefinition>
                 <ColumnDefinition Width="40"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Border Background="{StaticResource PomeGranate}" MouseLeftButtonDown="Border_MouseLeftButtonDown" Grid.ColumnSpan="3"></Border>
-            <Button Grid.Column ="2" Style="{StaticResource ButtonStyle}" Template="{StaticResource ButtonBaseControlTemplate1}" Margin="0 0 10 0 ">
+            <Grid Grid.Column="1" Grid.ColumnSpan="3" Background="{StaticResource Clouds }">
+                <Grid Background="{StaticResource PomeGranate}" MouseLeftButtonDown="Border_MouseLeftButtonDown" Height="15" VerticalAlignment="Top">
+            </Grid>
+            </Grid>
+            <Button Grid.Column ="3" Style="{StaticResource ButtonStyle}" 
+                    Template="{StaticResource ButtonBaseControlTemplate1}" Margin="0 0 10 0 "
+                    Command="{Binding ClosingWindowCommand}">
                 <Button.Content>
                     <StaticResource ResourceKey="ExitIcon"></StaticResource> 
                 </Button.Content>
             </Button>
-            <Button Grid.Column="1" Style="{StaticResource ButtonStyle}" Template="{StaticResource ButtonBaseControlTemplate1}" Margin="0 0 10 0">
+            <Button Grid.Column="2" Style="{StaticResource ButtonStyle}" 
+                    Template="{StaticResource ButtonBaseControlTemplate1}" Margin="0 0 10  0"
+                    Command="{Binding MinimizeWindowCommand}">
                 <Button.Content>
                     <StaticResource ResourceKey="MinimizeIcon"></StaticResource>
                 </Button.Content>
@@ -42,6 +50,14 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="1">
                 <ContentControl Content="{Binding CurrentView}"></ContentControl>
+            </Grid>
+            <Grid Grid.Column="0" Background="{StaticResource WetAsphalt}">
+                <Button Height="50" Width="200" VerticalAlignment="Bottom" Style="{StaticResource ButtonStyle2}" 
+                        Template="{StaticResource ButtonBaseControlTemplate1}">
+                    <Button.Content >
+                        <StaticResource ResourceKey="AddIcon"></StaticResource>
+                    </Button.Content>
+                </Button>
             </Grid>
         </Grid>
     </Grid>

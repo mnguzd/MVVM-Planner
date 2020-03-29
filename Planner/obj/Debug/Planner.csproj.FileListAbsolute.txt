@@ -16,4 +16,3 @@ C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\App.baml
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\Views\TasksView.g.cs
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\Views\TasksView.baml
-C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\Planner.csprojAssemblyReference.cache
