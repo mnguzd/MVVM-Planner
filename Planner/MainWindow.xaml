@@ -4,8 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Planner"
-        xmlns:v="clr-namespace:Planner.Views"
-        xmlns:vm="clr-namespace:Planner.ViewModels"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="600" Width="1000" 
         ResizeMode="NoResize" WindowStyle="None" Background="{StaticResource Silver }">
@@ -49,15 +47,43 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="1">
-                <ContentControl Content="{Binding CurrentView}"></ContentControl>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                </Grid.RowDefinitions>
+                <ListView x:Name="ListOfFolders" ItemsSource="{Binding SelectedItem.Tasks, ElementName=FoldersListView}" Background="{StaticResource Clouds}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding ToDo}" Foreground="Black" Height="30" Width="40"></Label>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Grid Grid.Row="1" Background="{StaticResource Clouds}">
+                    
+                </Grid>
             </Grid>
             <Grid Grid.Column="0" Background="{StaticResource WetAsphalt}">
-                <Button Height="50" Width="200" VerticalAlignment="Bottom" Style="{StaticResource ButtonStyle2}" 
-                        Template="{StaticResource ButtonBaseControlTemplate1}">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="1" Height="50" Width="200" VerticalAlignment="Bottom" Style="{StaticResource ButtonStyle2}" 
+                        Template="{StaticResource ButtonBaseControlTemplate1}" Command="{Binding AddFolderCommand}">
                     <Button.Content >
                         <StaticResource ResourceKey="AddIcon"></StaticResource>
                     </Button.Content>
                 </Button>
+                <Grid Grid.Row="0">
+                    <ListView x:Name="FoldersListView" ItemsSource="{Binding Folders}" SelectionMode="Single" 
+                                BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Margin="-1 -1 -1 -1" 
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Control Template="{StaticResource MainData}"></Control>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>
