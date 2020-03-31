@@ -14,4 +14,3 @@ C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\Planner.pdb
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\Planner.csproj.CoreCompileInputs.cache
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\App.baml
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\GeneratedInternalTypeHelper.g.cs
-C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\Planner.csprojAssemblyReference.cache

@@ -51,10 +51,10 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="50"></RowDefinition>
                 </Grid.RowDefinitions>
-                <ListView x:Name="ListOfFolders" ItemsSource="{Binding SelectedItem.Tasks, ElementName=FoldersListView}" Background="{StaticResource Clouds}">
+                <ListView x:Name="ListOfFolders" ItemsSource="{Binding SelectedItem.Tasks, ElementName=FoldersListView}" Background="{StaticResource Clouds}" BorderThickness="0">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Label Content="{Binding ToDo}" Foreground="Black" Height="30" Width="40"></Label>
+                            <Control Template="{StaticResource TaskData}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="1"></Control>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
@@ -76,7 +76,7 @@
                 <Grid Grid.Row="0">
                     <ListView x:Name="FoldersListView" ItemsSource="{Binding Folders}" SelectionMode="Single" 
                                 BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Margin="-1 -1 -1 -1" 
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" HorizontalContentAlignment="Stretch">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Control Template="{StaticResource MainData}"></Control>
