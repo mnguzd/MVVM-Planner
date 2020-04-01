@@ -72,7 +72,7 @@
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
-                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="70"></RowDefinition>
                 </Grid.RowDefinitions>
                 
                 <!--ListOfTasks-->
@@ -92,14 +92,42 @@
                 <Grid Grid.Row="1" Background="{StaticResource Clouds}" HorizontalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="InputText" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10 0 0 0" FontFamily="Verdana"
-                             Grid.Column="0" Background="{StaticResource Clouds}" FontSize="18" Height="40" Foreground="{StaticResource MidNightBlue}"
+                    <TextBox x:Name="InputText" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0 0 0 0" FontFamily="Verdana" 
+                             Grid.Column="0" Background="{StaticResource Silver}" FontSize="18" Height="50" Foreground="{StaticResource MidNightBlue}"
                              HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderThickness="0" FontWeight="Bold" >
                     </TextBox>
-                    <Line X1="0" Y1="50" X2="2000" Y2="50" Stroke="{StaticResource PomeGranate}" StrokeThickness="2" Stretch="Fill" Grid.Column="0" Margin="10 15 0 0"
-                          Visibility="{Binding ElementName=FoldersListView, Path=SelectedItem.Selected,Converter={StaticResource BoolConverter},FallbackValue=Hidden}"></Line>
+                    <Line Margin="0 0 0 0" X1="0" Y1="1" X2="1" Y2="1" Stroke="{StaticResource Asbestos}" StrokeThickness="5" 
+                          HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Stretch="Fill" StrokeEndLineCap="Square" StrokeStartLineCap="Square"></Line>
+                     <Border Grid.Column="1" Height="50" VerticalAlignment="Bottom">
+                        <Button Background="{StaticResource PomeGranate}"
+                            IsEnabled="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected,FallbackValue=False}" 
+                            Style="{StaticResource EnterButtonStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="EnterButton">
+                            <Grid Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30">
+                                <StaticResource ResourceKey="EnterIcon"></StaticResource>
+                            </Grid>
+                            <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="Bord" Background="{StaticResource PomeGranate}" >
+                                    <ContentPresenter></ContentPresenter>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand"></Setter>
+                                            <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Emerald}"></Setter>
+                                    </Trigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Asbestos}"></Setter>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Nephritis}"></Setter>
+                                        </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    </Border>
                 </Grid>
             </Grid>
             
@@ -141,7 +169,7 @@
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" HorizontalContentAlignment="Stretch">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Button ClickMode="Release"  Command="{Binding ElementName=FoldersListView,Path=DataContext.SelectFolderCommand}" 
+                                <Button ClickMode="Press"  Command="{Binding ElementName=FoldersListView,Path=DataContext.SelectFolderCommand}" 
                                         CommandParameter="{Binding ElementName=FoldersListView,Path=SelectedItem}">
                                     <Button.Template>
                                         <ControlTemplate TargetType="Button">

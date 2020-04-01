@@ -59,6 +59,20 @@
             <Setter Property="Foreground" Value="{StaticResource Clouds}"></Setter>
         </Style> <!--AddFolderStyle-->
 
+        <Style x:Key="EnterButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PomeGranate}"></Setter>
+            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource Clouds}"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Cursor" Value="Hand"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <Grid x:Key="ExitIcon">
             <Viewbox Stretch="Fill">
                 <Path  Data="M16,4C9.3828,4,4,9.3833,4,16s5.3828,12,12,12s12-5.3833,12-12S22.6172,4,16,4z M16,26c-5.5137,
@@ -67,6 +81,15 @@
                                   s-0.5117-0.0977-0.707-0.293c-0.3906-0.3906-0.3906-1.0234,0-1.4141L14.5859,16l-3.293-3.293   c-0.3906-0.3906-0.3906-1.0234,
                                   0-1.4141s1.0234-0.3906,
                                   1.4141,0L16,14.5859l3.293-3.293c0.3906-0.3906,1.0234-0.3906,1.4141,0   S21.0977,12.3164,20.707,12.707z"  Stretch="Fill"
+                              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
+                </Path>
+            </Viewbox>
+        </Grid>
+        
+        <Grid x:Key="EnterIcon">
+            <Viewbox Stretch="Fill">
+                <Path  Data="m27,2a2,2 0 0 0 -2,2l0,11c0,2.73 -1.27,4 -4,4l-12.08,0l2,-1l2.57,-2.57a2,2 0 0 0 -2.83,-2.83l-7,7a2,
+                       2 0 0 0 0,2.83l7,7a2,2 0 0 0 2.83,-2.83l-2.7,-2.6l-1.94,-1l12.15,0c4.93,0 8,-3.07 8,-8l0,-11a2,2 0 0 0 -2,-2z"  Stretch="Fill"
                               Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
                 </Path>
             </Viewbox>
