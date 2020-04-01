@@ -5,71 +5,8 @@
              StartupUri="MainWindow.xaml"
              >
     <Application.Resources>
-        <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"></Setter>
-            <Setter Property="Height" Value="30"></Setter>
-            <Setter Property="Width" Value="30"></Setter>
-            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
-            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-            <Setter Property="BorderThickness" Value="0"></Setter>
-            <Setter Property="Foreground" Value="{DynamicResource Asbestos}"></Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="{DynamicResource PomeGranate}"></Setter>
-                    <Setter Property="Cursor" Value="Hand"></Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="ButtonStyle2" TargetType="Button">
-            <Setter Property="Background" Value="{DynamicResource PomeGranate}"></Setter>
-            <Setter Property="Height" Value="30"></Setter>
-            <Setter Property="Width" Value="30"></Setter>
-            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
-            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-            <Setter Property="BorderThickness" Value="0"></Setter>
-            <Setter Property="Foreground" Value="{DynamicResource Clouds}"></Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource Emerald}"></Setter>
-                    <Setter Property="Cursor" Value="Hand"></Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <ControlTemplate x:Key="ButtonBaseControlTemplate1" TargetType="{x:Type ButtonBase}">
-            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-            </Border>
-        </ControlTemplate>
-        <Grid x:Key="ExitIcon">
-            <Viewbox Stretch="Fill">
-                <Path  Data="M16,4C9.3828,4,4,9.3833,4,16s5.3828,12,12,12s12-5.3833,12-12S22.6172,4,16,4z M16,26c-5.5137,
-                                  0-10-4.4858-10-10   S10.4863,6,16,6s10,4.4858,10,10S21.5137,26,16,26z M20.707,12.707L17.4141,16l3.293,3.293c0.3906,0.3906,0.3906,
-                                  1.0234,0,1.4141   C20.5117,20.9023,20.2559,21,20,21s-0.5117-0.0977-0.707-0.293L16,17.4141l-3.293,3.293C12.5117,20.9023,12.2559,21,12,21   
-                                  s-0.5117-0.0977-0.707-0.293c-0.3906-0.3906-0.3906-1.0234,0-1.4141L14.5859,16l-3.293-3.293   c-0.3906-0.3906-0.3906-1.0234,
-                                  0-1.4141s1.0234-0.3906,
-                                  1.4141,0L16,14.5859l3.293-3.293c0.3906-0.3906,1.0234-0.3906,1.4141,0   S21.0977,12.3164,20.707,12.707z"  Stretch="Fill"
-                              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
-                </Path>
-            </Viewbox>
-        </Grid>
-        <Grid x:Key="MinimizeIcon">
-            <Viewbox Stretch="Fill">
-                <Path  Data="M14 22v4h20v-4h-20zm10-18c-11.05 0-20 8.95-20 20s8.95 20 20 20 20-8.95 20-20-8.95-20-20-20zm0 36c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16z"  Stretch="Fill"
-                              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
-                </Path>
-            </Viewbox>
-        </Grid>
-        <Grid x:Key="AddIcon" Height="35" Width="35">
-            <Viewbox Stretch="Fill">
-                <Path  Data="M15,6h-5V1c0-0.55-0.45-1-1-1H7C6.45,0,6,0.45,6,1v5H1C0.45,6,0,6.45,0,7v2c0,0.55,0.45,1,1,1h5v5c0,0.55,0.45,1,1,1h2  
-                       c0.55,0,1-0.45,1-1v-5h5c0.55,0,1-0.45,1-1V7C16,6.45,15.55,6,15,6z"  Stretch="Fill"
-                              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
-                </Path>
-            </Viewbox>
-        </Grid>
-       <!--#region Brushes-->
+        
+        <!--#region Brushes-->
         <SolidColorBrush x:Key="Turquoise" Color="#1BBC9B"></SolidColorBrush>
         <SolidColorBrush x:Key="GreenSea" Color="#16A086"></SolidColorBrush>
         <SolidColorBrush x:Key="SunFlower" Color="#F1C40F"></SolidColorBrush>
@@ -92,32 +29,91 @@
         <SolidColorBrush x:Key="Asbestos" Color="#7E8C8D"></SolidColorBrush>
         <!--#endregion-->
 
+        <BooleanToVisibilityConverter x:Key="BoolConverter"/><!--Boolean Converter-->
+
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="Width" Value="30"></Setter>
+            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource Asbestos}"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource PomeGranate}"></Setter>
+                    <Setter Property="Cursor" Value="Hand"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style> <!--MinimizeExit Style-->
+
+        <Style x:Key="ButtonStyle2" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PomeGranate}"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="Width" Value="30"></Setter>
+            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource Clouds}"></Setter>
+        </Style> <!--AddFolderStyle-->
+
+        <Grid x:Key="ExitIcon">
+            <Viewbox Stretch="Fill">
+                <Path  Data="M16,4C9.3828,4,4,9.3833,4,16s5.3828,12,12,12s12-5.3833,12-12S22.6172,4,16,4z M16,26c-5.5137,
+                                  0-10-4.4858-10-10   S10.4863,6,16,6s10,4.4858,10,10S21.5137,26,16,26z M20.707,12.707L17.4141,16l3.293,3.293c0.3906,0.3906,0.3906,
+                                  1.0234,0,1.4141   C20.5117,20.9023,20.2559,21,20,21s-0.5117-0.0977-0.707-0.293L16,17.4141l-3.293,3.293C12.5117,20.9023,12.2559,21,12,21   
+                                  s-0.5117-0.0977-0.707-0.293c-0.3906-0.3906-0.3906-1.0234,0-1.4141L14.5859,16l-3.293-3.293   c-0.3906-0.3906-0.3906-1.0234,
+                                  0-1.4141s1.0234-0.3906,
+                                  1.4141,0L16,14.5859l3.293-3.293c0.3906-0.3906,1.0234-0.3906,1.4141,0   S21.0977,12.3164,20.707,12.707z"  Stretch="Fill"
+                              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
+                </Path>
+            </Viewbox>
+        </Grid>
+        
+        <Grid x:Key="MinimizeIcon">
+            <Viewbox Stretch="Fill">
+                <Path  Data="M14 22v4h20v-4h-20zm10-18c-11.05 0-20 8.95-20 20s8.95 20 20 20 20-8.95 20-20-8.95-20-20-20zm0 36c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16z"  Stretch="Fill"
+                              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
+                </Path>
+            </Viewbox>
+        </Grid>
+
+        <Grid x:Key="AddIcon" Height="35" Width="35">
+            <Viewbox Stretch="Fill">
+                <Path  Data="M15,6h-5V1c0-0.55-0.45-1-1-1H7C6.45,0,6,0.45,6,1v5H1C0.45,6,0,6.45,0,7v2c0,0.55,0.45,1,1,1h5v5c0,0.55,0.45,1,1,1h2  
+                       c0.55,0,1-0.45,1-1v-5h5c0.55,0,1-0.45,1-1V7C16,6.45,15.55,6,15,6z"  Stretch="Fill"
+                              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
+                </Path>
+            </Viewbox>
+        </Grid>
+        
         <ControlTemplate x:Key="MainData">
             <Border x:Name="MainBorder" Background="Transparent" Height="50" Cursor="Hand" BorderThickness="0" Margin="-5 0 0 0" Width="215">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition Width="15"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="1" Foreground="{DynamicResource Clouds}" HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Name}"
+                    <Label Grid.Column="1" Foreground="{StaticResource Clouds}" HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Name}"
                            FontFamily="Segoe" FontSize="18" FontWeight="Bold"></Label>
-                    <Grid x:Name="SelectedGrid" Grid.Column="0" Background="{DynamicResource PomeGranate}" Visibility="Hidden">
-                    </Grid>
+                    <Grid x:Name="SelectedGrid" Grid.Column="0" Background="{StaticResource Nephritis}" Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}"></Grid>
                 </Grid>
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource MidNightBlue}"></Setter>
-                    <Setter TargetName="SelectedGrid" Property="Grid.Visibility" Value="Visible"></Setter>
+                    <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource MidNightBlue}"></Setter>
                 </Trigger>
-                <DataTrigger Binding="{Binding ElementName=SelectedIt,Path=IsSelected}" Value="True">
-                    <Setter TargetName="SelectedGrid" Property="Grid.Visibility" Value="Visible"></Setter>
+                <DataTrigger Binding="{Binding Selected}" Value="True">
+                    <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource MidNightBlue}"></Setter>
                 </DataTrigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+
         <ControlTemplate x:Key="TaskData">
             <Grid HorizontalAlignment="Stretch">
-                <Border x:Name="ItemBorder" BorderThickness="1" BorderBrush="Transparent" Height="50" CornerRadius="20 20 20 20" Margin="10 2 10 2" Background="#F5FAFA" HorizontalAlignment="Stretch">
+                <Border x:Name="ItemBorder" BorderThickness="1" BorderBrush="Transparent" Height="50" CornerRadius="20 20 20 20" Margin="10 2 10 2" Background="{StaticResource Clouds}" HorizontalAlignment="Stretch">
                 <Border.RenderTransform>
                     <TranslateTransform X="0" Y="5"></TranslateTransform>
                 </Border.RenderTransform>
@@ -138,6 +134,19 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocusWithin" Value="True"> <!--Don`t know how, but obly this works the way I want -->
+                                <Setter Property="IsSelected" Value="True"></Setter>
+                            </Trigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Selected}" Value="True"></Condition>
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="IsSelected" Value="True"></Setter>
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                        </ControlTemplate.Triggers>
                         <Border>
                             <ContentPresenter HorizontalAlignment="Left" 
                                               VerticalAlignment="Center">

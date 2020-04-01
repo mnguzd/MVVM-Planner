@@ -10,6 +10,10 @@
     <Window.DataContext>
         <local:AppViewModel></local:AppViewModel>
     </Window.DataContext>
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolConverter"/>
+        <!--BoolConverter-->
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
@@ -22,20 +26,39 @@
                 <ColumnDefinition Width="40"></ColumnDefinition>
                 <ColumnDefinition Width="40"></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            
+            <!--TopDragPanel-->
             <Grid Grid.Column="1" Grid.ColumnSpan="3" Background="{StaticResource Clouds }">
                 <Grid Background="{StaticResource PomeGranate}" MouseLeftButtonDown="Border_MouseLeftButtonDown" Height="15" VerticalAlignment="Top">
             </Grid>
             </Grid>
+            
+            <!--ExitButton-->
             <Button Grid.Column ="3" Style="{StaticResource ButtonStyle}" 
-                    Template="{StaticResource ButtonBaseControlTemplate1}" Margin="0 0 10 0 "
-                    Command="{Binding ClosingWindowCommand}">
+                    Margin="0 0 10 0 " Command="{Binding ClosingWindowCommand}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="Transparent">
+                            <ContentPresenter></ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
                 <Button.Content>
                     <StaticResource ResourceKey="ExitIcon"></StaticResource> 
                 </Button.Content>
             </Button>
+            
+            <!--MinimizeButton-->
             <Button Grid.Column="2" Style="{StaticResource ButtonStyle}" 
-                    Template="{StaticResource ButtonBaseControlTemplate1}" Margin="0 0 10  0"
-                    Command="{Binding MinimizeWindowCommand}">
+                     Margin="0 0 10  0"
+                    Command="{Binding MinimizeWindowCommand}" Background="Transparent">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="Transparent">
+                            <ContentPresenter></ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
                 <Button.Content>
                     <StaticResource ResourceKey="MinimizeIcon"></StaticResource>
                 </Button.Content>
@@ -51,35 +74,90 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="50"></RowDefinition>
                 </Grid.RowDefinitions>
-                <ListView x:Name="ListOfFolders" ItemsSource="{Binding SelectedItem.Tasks, ElementName=FoldersListView}" Background="{StaticResource Clouds}" BorderThickness="0">
+                
+                <!--ListOfTasks-->
+                <ListView x:Name="ListOfTasks" 
+                          BorderThickness="0" 
+                          ItemsSource="{Binding SelectedItem.Tasks, 
+                          ElementName=FoldersListView}" 
+                          Background="{StaticResource Clouds}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Control Template="{StaticResource TaskData}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="1"></Control>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Grid Grid.Row="1" Background="{StaticResource Clouds}">
-                    
+                
+                <!--TaskInput-->
+                <Grid Grid.Row="1" Background="{StaticResource Clouds}" HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="InputText" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10 0 0 0" FontFamily="Verdana"
+                             Grid.Column="0" Background="{StaticResource Clouds}" FontSize="18" Height="40" Foreground="{StaticResource MidNightBlue}"
+                             HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderThickness="0" FontWeight="Bold" >
+                    </TextBox>
+                    <Line X1="0" Y1="50" X2="2000" Y2="50" Stroke="{StaticResource PomeGranate}" StrokeThickness="2" Stretch="Fill" Grid.Column="0" Margin="10 15 0 0"
+                          Visibility="{Binding ElementName=FoldersListView, Path=SelectedItem.Selected,Converter={StaticResource BoolConverter},FallbackValue=Hidden}"></Line>
                 </Grid>
             </Grid>
+            
+            <!--LeftColumn-->
             <Grid Grid.Column="0" Background="{StaticResource WetAsphalt}">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="50"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button Grid.Row="1" Height="50" Width="200" VerticalAlignment="Bottom" Style="{StaticResource ButtonStyle2}" 
-                        Template="{StaticResource ButtonBaseControlTemplate1}" Command="{Binding AddFolderCommand}">
+                <!--AddFoldersButton-->
+                <Button Grid.Row="1" Height="50" Width="200" VerticalAlignment="Bottom" 
+                        Style="{StaticResource ButtonStyle2}" 
+                        Command="{Binding AddFolderCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{StaticResource PomeGranate}" Name="Bord" Cursor="Hand">
+                                <ContentPresenter></ContentPresenter>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Emerald}"></Setter>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Nephritis}"></Setter>
+                                    <Setter Property="Cursor" Value="Hand"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
                     <Button.Content >
                         <StaticResource ResourceKey="AddIcon"></StaticResource>
                     </Button.Content>
                 </Button>
+                
+                <!--FoldersView-->
                 <Grid Grid.Row="0">
-                    <ListView x:Name="FoldersListView" ItemsSource="{Binding Folders}" SelectionMode="Single" 
+                    <ListView x:Name="FoldersListView" ItemsSource="{Binding Folders}" SelectionMode="Single" SelectedItem="SelectedFolder"
                                 BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Margin="-1 -1 -1 -1" 
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" HorizontalContentAlignment="Stretch">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Control Template="{StaticResource MainData}"></Control>
+                                <Button ClickMode="Release"  Command="{Binding ElementName=FoldersListView,Path=DataContext.SelectFolderCommand}" 
+                                        CommandParameter="{Binding ElementName=FoldersListView,Path=SelectedItem}">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border x:Name="Bord">
+                                                <ContentPresenter></ContentPresenter>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource MidNightBlue}"></Setter>
+                                                    <Setter Property="Cursor" Value="Hand"></Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                    <Control Template="{StaticResource MainData}"></Control>
+                                </Button>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
