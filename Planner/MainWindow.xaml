@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Planner"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="600" Width="1000" 
-        ResizeMode="NoResize" WindowStyle="None" Background="{StaticResource Silver }">
+        ResizeMode="NoResize" WindowStyle="None" Background="{StaticResource Clouds}">
     <Window.DataContext>
         <local:AppViewModel></local:AppViewModel>
     </Window.DataContext>
@@ -15,26 +15,32 @@
         <!--BoolConverter-->
     </Window.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="{StaticResource WetAsphalt}">
-            <Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+        
+        <!--RightColumn-->
+        <Grid Grid.Column="1"> 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="40"></ColumnDefinition>
                 <ColumnDefinition Width="40"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             
             <!--TopDragPanel-->
-            <Grid Grid.Column="1" Grid.ColumnSpan="3" Background="{StaticResource Clouds }">
-                <Grid Background="{StaticResource PomeGranate}" MouseLeftButtonDown="Border_MouseLeftButtonDown" Height="15" VerticalAlignment="Top">
-            </Grid>
+            <Grid Grid.Row="0" Background="Transparent" Grid.ColumnSpan="3">
+                <Grid Background="{StaticResource BackGroundGradient}" MouseLeftButtonDown="Border_MouseLeftButtonDown" Height="15" VerticalAlignment="Top">
+                </Grid>
             </Grid>
             
             <!--ExitButton-->
-            <Button Grid.Column ="3" Style="{StaticResource ButtonStyle}" 
+            <Button Grid.Column ="2" Style="{StaticResource ButtonStyle}" 
                     Margin="0 0 10 0 " Command="{Binding ClosingWindowCommand}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
@@ -44,12 +50,12 @@
                     </ControlTemplate>
                 </Button.Template>
                 <Button.Content>
-                    <StaticResource ResourceKey="ExitIcon"></StaticResource> 
+                    <StaticResource ResourceKey="ExitIcon"></StaticResource>
                 </Button.Content>
             </Button>
             
             <!--MinimizeButton-->
-            <Button Grid.Column="2" Style="{StaticResource ButtonStyle}" 
+            <Button Grid.Column="1" Style="{StaticResource ButtonStyle}" 
                      Margin="0 0 10  0"
                     Command="{Binding MinimizeWindowCommand}" Background="Transparent">
                 <Button.Template>
@@ -63,134 +69,133 @@
                     <StaticResource ResourceKey="MinimizeIcon"></StaticResource>
                 </Button.Content>
             </Button>
-        </Grid>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition Height="70"></RowDefinition>
-                </Grid.RowDefinitions>
-                
-                <!--ListOfTasks-->
-                <ListView x:Name="ListOfTasks" 
+            
+            <!--ListOfTasks-->
+            <ListView x:Name="ListOfTasks" 
                           BorderThickness="0" 
+                          Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3"
                           ItemsSource="{Binding SelectedItem.Tasks, 
                           ElementName=FoldersListView}" 
-                          Background="{StaticResource Clouds}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Control Template="{StaticResource TaskData}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="1"></Control>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                
-                <!--TaskInput-->
-                <Grid Grid.Row="1" Background="{StaticResource Clouds}" HorizontalAlignment="Stretch">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="150"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="InputText" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="0 0 0 0" FontFamily="Verdana" 
+                          Background="Transparent">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Control Template="{StaticResource TaskData}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="1"></Control>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+            <Grid Grid.Row="1" Background="Transparent" Grid.ColumnSpan="3"></Grid>
+            
+            <!--TaskInput-->
+            <Grid Grid.Row="3" Background="Transparent" HorizontalAlignment="Stretch" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="InputText" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Verdana" 
                              Grid.Column="0" Background="{StaticResource Silver}" FontSize="18" Height="50" Foreground="{StaticResource MidNightBlue}"
                              HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderThickness="0" FontWeight="Bold" >
-                    </TextBox>
-                    <Line Margin="0 0 0 0" X1="0" Y1="1" X2="1" Y2="1" Stroke="{StaticResource Asbestos}" StrokeThickness="5" 
+                </TextBox>
+                <Line Margin="0 0 0 0" X1="0" Y1="1" X2="1" Y2="1" Stroke="{StaticResource Asbestos}" StrokeThickness="5" 
                           HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Stretch="Fill" StrokeEndLineCap="Square" StrokeStartLineCap="Square"></Line>
-                     <Border Grid.Column="1" Height="50" VerticalAlignment="Bottom">
-                        <Button Background="{StaticResource PomeGranate}"
-                            IsEnabled="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected,FallbackValue=False}" 
+                <Border Grid.Column="1" Height="50" VerticalAlignment="Bottom">
+                    <Button IsEnabled="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected,FallbackValue=False}" 
                             Style="{StaticResource EnterButtonStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="EnterButton">
-                            <Grid Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30">
-                                <StaticResource ResourceKey="EnterIcon"></StaticResource>
-                            </Grid>
-                            <Button.Template>
+                        <Grid Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30">
+                            <StaticResource ResourceKey="EnterIcon"></StaticResource>
+                        </Grid>
+                        <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border x:Name="Bord" Background="{StaticResource PomeGranate}" >
+                                <Border x:Name="Bord" Background="{StaticResource BackGroundGradient}" >
                                     <ContentPresenter></ContentPresenter>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Cursor" Value="Hand"></Setter>
-                                            <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Emerald}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                        <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Emerald}"></Setter>
                                     </Trigger>
-                                        <Trigger Property="IsEnabled" Value="False">
-                                            <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Asbestos}"></Setter>
-                                        </Trigger>
-                                        <Trigger Property="IsPressed" Value="True">
-                                            <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Nephritis}"></Setter>
-                                        </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Asbestos}"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Nephritis}"></Setter>
+                                    </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    </Border>
-                </Grid>
+                </Border>
             </Grid>
             
-            <!--LeftColumn-->
-            <Grid Grid.Column="0" Background="{StaticResource WetAsphalt}">
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition Height="50"></RowDefinition>
-                </Grid.RowDefinitions>
-                <!--AddFoldersButton-->
-                <Button Grid.Row="1" Height="50" Width="200" VerticalAlignment="Bottom" 
-                        Style="{StaticResource ButtonStyle2}" 
-                        Command="{Binding AddFolderCommand}">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Background="{StaticResource PomeGranate}" Name="Bord" Cursor="Hand">
-                                <ContentPresenter></ContentPresenter>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Emerald}"></Setter>
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Nephritis}"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Template>
-                    <Button.Content >
-                        <StaticResource ResourceKey="AddIcon"></StaticResource>
-                    </Button.Content>
-                </Button>
-                
-                <!--FoldersView-->
-                <Grid Grid.Row="0">
-                    <ListView x:Name="FoldersListView" ItemsSource="{Binding Folders}" SelectionMode="Single" SelectedItem="SelectedFolder"
-                                BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Margin="-1 -1 -1 -1" 
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" HorizontalContentAlignment="Stretch">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Button ClickMode="Press"  Command="{Binding ElementName=FoldersListView,Path=DataContext.SelectFolderCommand}" 
-                                        CommandParameter="{Binding ElementName=FoldersListView,Path=SelectedItem}">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border x:Name="Bord">
-                                                <ContentPresenter></ContentPresenter>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsPressed" Value="True">
-                                                    <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource MidNightBlue}"></Setter>
-                                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                    <Control Template="{StaticResource MainData}"></Control>
-                                </Button>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </Grid>
-            </Grid>
         </Grid>
+
+        
+        <!--LeftColumn-->
+        <Grid Grid.Column="0" Background="{StaticResource BackGroundGradient}" Name="LeftGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <!--AddFoldersButton-->
+            <Button  Grid.Row="1" Height="50" Width="200" 
+                     VerticalAlignment="Top" Name="AddFolderButton"
+                     Panel.ZIndex="1" Style="{StaticResource ButtonStyle2}"
+                     Command="{Binding AddFolderCommand}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid >
+                            <Border Background="{StaticResource BackGroundGradient}" Name="Bord" Cursor="Hand" Height="35" Width="150" CornerRadius="20 20 20 20">
+                                <StaticResource ResourceKey="AddIcon"></StaticResource>
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="5" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
+                                </Border.Effect>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Emerald}"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Nephritis}"></Setter>
+                                <Setter Property="Cursor" Value="Hand"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            
+            <!--FoldersView-->
+            <Grid Grid.Row="0">
+                <ListView x:Name="FoldersListView" ItemsSource="{Binding Folders}" SelectedItem="SelectedFolder"
+                              BorderThickness="0" Margin="-1 -0 0 0" Height="500" Background="Transparent"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+                              HorizontalContentAlignment="Stretch" SelectionMode="Single" VerticalAlignment="Bottom">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Button ClickMode="Press"  Command="{Binding ElementName=FoldersListView,Path=DataContext.SelectFolderCommand}" 
+                                        CommandParameter="{Binding ElementName=FoldersListView,Path=SelectedItem}">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="Bord">
+                                            <ContentPresenter></ContentPresenter>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource MidNightBlue}"></Setter>
+                                                <Setter Property="Cursor" Value="Hand"></Setter>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                                <Control Template="{StaticResource MainData}"></Control>
+                            </Button>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+            
+        </Grid>
+        
     </Grid>
 </Window>

@@ -7,6 +7,14 @@
     <Application.Resources>
         
         <!--#region Brushes-->
+        <LinearGradientBrush x:Key="Gradient" StartPoint="0,1" EndPoint="1,0">
+            <GradientStop Color="#4CA1AF" Offset="0" />
+            <GradientStop Color="#2C3E50" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="BackGroundGradient" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#3598DB" Offset="0" />
+            <GradientStop Color="#297FB8" Offset="1" />
+        </LinearGradientBrush>
         <SolidColorBrush x:Key="Turquoise" Color="#1BBC9B"></SolidColorBrush>
         <SolidColorBrush x:Key="GreenSea" Color="#16A086"></SolidColorBrush>
         <SolidColorBrush x:Key="SunFlower" Color="#F1C40F"></SolidColorBrush>
@@ -49,7 +57,6 @@
         </Style> <!--MinimizeExit Style-->
 
         <Style x:Key="ButtonStyle2" TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource PomeGranate}"></Setter>
             <Setter Property="Height" Value="30"></Setter>
             <Setter Property="Width" Value="30"></Setter>
             <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
@@ -60,7 +67,7 @@
         </Style> <!--AddFolderStyle-->
 
         <Style x:Key="EnterButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource PomeGranate}"></Setter>
+            <Setter Property="Background" Value="{StaticResource BackGroundGradient}"></Setter>
             <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
@@ -103,7 +110,7 @@
             </Viewbox>
         </Grid>
 
-        <Grid x:Key="AddIcon" Height="35" Width="35">
+        <Grid x:Key="AddIcon" Height="20" Width="20">
             <Viewbox Stretch="Fill">
                 <Path  Data="M15,6h-5V1c0-0.55-0.45-1-1-1H7C6.45,0,6,0.45,6,1v5H1C0.45,6,0,6.45,0,7v2c0,0.55,0.45,1,1,1h5v5c0,0.55,0.45,1,1,1h2  
                        c0.55,0,1-0.45,1-1v-5h5c0.55,0,1-0.45,1-1V7C16,6.45,15.55,6,15,6z"  Stretch="Fill"
@@ -179,6 +186,8 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        
         
     </Application.Resources>
 </Application>
