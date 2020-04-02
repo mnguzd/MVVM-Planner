@@ -8,12 +8,12 @@
         
         <!--#region Brushes-->
         <LinearGradientBrush x:Key="Gradient" StartPoint="0,1" EndPoint="1,0">
-            <GradientStop Color="#4CA1AF" Offset="0" />
-            <GradientStop Color="#2C3E50" Offset="1" />
+            <GradientStop Color="#928DAB" Offset="0"/>
+            <GradientStop Color="#d7d2cc" Offset="1" />
         </LinearGradientBrush>
-        <LinearGradientBrush x:Key="BackGroundGradient" StartPoint="0,0" EndPoint="0,1">
+        <LinearGradientBrush x:Key="BackGroundGradient" StartPoint="0,0" EndPoint="1,0">
             <GradientStop Color="#3598DB" Offset="0" />
-            <GradientStop Color="#297FB8" Offset="1" />
+            <GradientStop Color="#2DCC70" Offset="1" />
         </LinearGradientBrush>
         <SolidColorBrush x:Key="Turquoise" Color="#1BBC9B"></SolidColorBrush>
         <SolidColorBrush x:Key="GreenSea" Color="#16A086"></SolidColorBrush>
@@ -104,7 +104,8 @@
         
         <Grid x:Key="MinimizeIcon">
             <Viewbox Stretch="Fill">
-                <Path  Data="M14 22v4h20v-4h-20zm10-18c-11.05 0-20 8.95-20 20s8.95 20 20 20 20-8.95 20-20-8.95-20-20-20zm0 36c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16z"  Stretch="Fill"
+                <Path  Data="M14 22v4h20v-4h-20zm10-18c-11.05 0-20 8.95-20 20s8.95 20 20 20 20-8.95 20-20-8.95-20-20-20zm0 
+                       36c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16z"  Stretch="Fill"
                               Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
                 </Path>
             </Viewbox>
@@ -120,23 +121,29 @@
         </Grid>
         
         <ControlTemplate x:Key="MainData">
-            <Border x:Name="MainBorder" Background="Transparent" Height="50" Cursor="Hand" BorderThickness="0" Margin="-5 0 0 0" Width="215">
+            <Border x:Name="MainBorder" Background="Transparent" Height="50" Cursor="Hand" BorderThickness="0" Margin="-5 -1 0 0" Width="215">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="15"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="1" Foreground="{StaticResource Clouds}" HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Name}"
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="1" Foreground="{StaticResource Clouds}" HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Name}"
                            FontFamily="Segoe" FontSize="18" FontWeight="Bold"></Label>
-                    <Grid x:Name="SelectedGrid" Grid.Column="0" Background="{StaticResource Nephritis}" Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}"></Grid>
+                        <Grid x:Name="SelectedGrid" Grid.Column="0" Background="{StaticResource Emerald}" Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}">
+                            <Grid.Effect>
+                                <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="3" RenderingBias="Quality" Opacity="0.2"></DropShadowEffect>
+                            </Grid.Effect>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource MidNightBlue}"></Setter>
+                    <Setter TargetName="MainBorder" Property="Background" Value="#9D98B6"></Setter>
                 </Trigger>
                 <DataTrigger Binding="{Binding Selected}" Value="True">
-                    <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource MidNightBlue}"></Setter>
+                    <Setter TargetName="MainBorder" Property="Background" Value="#928DAB"></Setter>
                 </DataTrigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -165,7 +172,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListViewItem}">
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsKeyboardFocusWithin" Value="True"> <!--Don`t know how, but obly this works the way I want -->
+                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                <!--Don`t know how, but obly this works the way I want -->
                                 <Setter Property="IsSelected" Value="True"></Setter>
                             </Trigger>
                             <MultiDataTrigger>
@@ -186,7 +194,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
         
         
     </Application.Resources>
