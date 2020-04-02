@@ -6,26 +6,44 @@ using System.Runtime.CompilerServices;
 
 namespace Planner.Models
 {
-    public class Folder:INotifyPropertyChanged
+    public class Folder:ObservableObject
     {
-        public Folder(string str, string task)
+        //private fields
+        private bool _selected;
+        private string _name;
+        public Folder(string foldername)
         {
-            Name = str;
+            Name = foldername;
             Tasks = new ObservableCollection<Task>();
             Selected = false;
-            for(int i=0;i<Convert.ToInt32(task);i++)
-                Tasks.Add(new Task(task));
         }
-        public ObservableCollection<Task> Tasks { get; set; }
-        private string _name;
-        public string Name { get { return _name; } set { if (value == _name) return; else { _name = value; OnPropertyChanged(nameof(Name)); } } }
-        private bool _isSelected { get; set; }
-        public bool Selected { get { return _isSelected; } set { if (value == _isSelected) return; else { _isSelected = value; OnPropertyChanged(nameof(Selected)) ; } } }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        public ObservableCollection<Task> Tasks { get; set; }
+        public string Name 
+        { 
+            get 
+            { 
+                return _name;
+            } 
+            set 
+            {
+                if (value == _name)
+                    return;
+                _name = value; OnPropertyChanged(nameof(Name));
+            }
+        }
+        public bool Selected
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            get
+            {
+                return _selected;
+            }
+            set
+            {
+                if (value == _selected)
+                    return;
+                _selected = value; OnPropertyChanged(nameof(Selected));
+            }
         }
     }
 }

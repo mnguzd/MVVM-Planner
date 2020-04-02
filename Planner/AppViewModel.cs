@@ -8,20 +8,34 @@ namespace Planner
 {
     public class AppViewModel : ObservableObject
     {
-        public int I { get; set; } = 0;
         public RelayCommand ClosingWindowCommand { get; private set;}
         public RelayCommand MinimizeWindowCommand { get; private set; }
         public RelayCommand AddFolderCommand { get; private set; }
         public RelayCommand SelectFolderCommand { get; private set; }
+        public RelayCommand AddTaskCommand { get; private set; }
         public ObservableCollection<Folder> Folders { get; set; }
+        private string _inputText;
+        public string InputText
+        {
+            get
+            {
+                return _inputText;
+            }
+            set
+            {
+                if (value == _inputText)
+                    return;
+                _inputText = value;
+                OnPropertyChanged(nameof(InputText));
+            }
+        }
         private void MinimizeWindow()
         {
             Application.Current.MainWindow.WindowState = WindowState.Minimized;
         }
         private void AddFolder()
         {
-            I++;
-            Folders.Add(new Folder(DateTime.Now.ToShortTimeString(),I.ToString()));
+            Folders.Add(new Folder(DateTime.Now.ToShortTimeString()));
         }
 
         private void SelectFolder(object parameter)
@@ -34,7 +48,17 @@ namespace Planner
                 }
             (parameter as Folder).Selected = true;
             }
-            else MessageBox.Show("ff");
+        }
+        private void AddTask(object parameter)
+        {
+            if (parameter != null&&(parameter as string).Length>0)
+                for(int i = 0; i < Folders.Count; i++)
+                    if (Folders[i].Selected)
+                    {
+                        Folders[i].Tasks.Add(new Task(parameter.ToString()));
+                        parameter = null;
+                    }
+            InputText = "";
         }
         private bool CanSelectFolder()
         {
@@ -46,6 +70,7 @@ namespace Planner
             MinimizeWindowCommand = new RelayCommand(p => MinimizeWindow(), p => true);
             AddFolderCommand = new RelayCommand(p => AddFolder(), p => true);
             SelectFolderCommand = new RelayCommand(p=>SelectFolder(p), p=>CanSelectFolder());
+            AddTaskCommand = new RelayCommand(p => AddTask(p), p => true);
             Folders = new ObservableCollection<Folder>();
         }
     }

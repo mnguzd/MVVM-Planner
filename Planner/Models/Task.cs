@@ -1,15 +1,42 @@
-﻿using System;
+﻿using Planner.Utilty;
+using System;
 
 namespace Planner.Models
 {
-    public class Task
+    public class Task:ObservableObject
     {
-        public Task(string str)
+        private string _toDo;
+        private bool _done;
+        public Task(string newtask)
         {
-            ToDo = str;
+            ToDo = newtask;
         }
-        public string ToDo { get; set; }
-        public bool Done { get; set; }
+        public string ToDo 
+        {
+            get 
+            {
+                return _toDo; 
+            } 
+            set 
+            { 
+                if (value == _toDo) 
+                    return;
+                _toDo = value; OnPropertyChanged(nameof(ToDo));
+            } 
+        }
+        public bool Done 
+        {
+            get 
+            {
+                return _done;
+            }
+            set 
+            {
+                if (value == _done)
+                    return;
+                _done = value; OnPropertyChanged(nameof(Done));
+            }
+        }
         public string Date { get; set; } = DateTime.Now.ToShortTimeString();
     }
 }

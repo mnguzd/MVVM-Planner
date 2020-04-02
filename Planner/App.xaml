@@ -129,7 +129,7 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="1" Foreground="{StaticResource Clouds}" HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Name}"
-                           FontFamily="Segoe" FontSize="18" FontWeight="Bold"></Label>
+                            FontSize="18" FontWeight="Bold" Name="FoldersName"></Label>
                         <Grid x:Name="SelectedGrid" Grid.Column="0" Background="{StaticResource Emerald}" Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="3" RenderingBias="Quality" Opacity="0.2"></DropShadowEffect>
@@ -140,9 +140,10 @@
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="MainBorder" Property="Background" Value="#9D98B6"></Setter>
+                    <Setter TargetName="MainBorder" Property="Background" Value="#928DAB"></Setter>
                 </Trigger>
                 <DataTrigger Binding="{Binding Selected}" Value="True">
+                    <Setter TargetName="FoldersName" Property="Label.FontStyle" Value="Italic"></Setter>
                     <Setter TargetName="MainBorder" Property="Background" Value="#928DAB"></Setter>
                 </DataTrigger>
             </ControlTemplate.Triggers>
@@ -150,15 +151,14 @@
 
         <ControlTemplate x:Key="TaskData">
             <Grid HorizontalAlignment="Stretch">
-                <Border x:Name="ItemBorder" BorderThickness="1" BorderBrush="Transparent" Height="50" CornerRadius="20 20 20 20" Margin="10 2 10 2" Background="{StaticResource Clouds}" HorizontalAlignment="Stretch">
-                <Border.RenderTransform>
-                    <TranslateTransform X="0" Y="5"></TranslateTransform>
-                </Border.RenderTransform>
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="10" Direction="270" ShadowDepth="3" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
+                <Border x:Name="ItemBorder" BorderThickness="1" BorderBrush="{StaticResource Asbestos}" Height="50"
+                        Margin="20 10 20 0" HorizontalAlignment="Stretch" Background="{StaticResource Clouds}"
+                        CornerRadius="20 20 20 20">
+                    <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" Direction="270" ShadowDepth="1" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
                 </Border.Effect>
                 <Grid>
-                    <Label Content="{Binding ToDo}"></Label>
+                    <Label Content="{Binding ToDo}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0"></Label>
                 <Line x:Name="Underline" StrokeThickness="3" X1="0" X2="555"
                      Stretch="Fill" StrokeEndLineCap="Square" StrokeStartLineCap="Square" Stroke="Transparent" >
                 </Line>
