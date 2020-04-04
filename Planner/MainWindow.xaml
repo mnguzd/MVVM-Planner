@@ -14,6 +14,9 @@
         <BooleanToVisibilityConverter x:Key="BoolConverter"/>
         <!--BoolConverter-->
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="Enter" Command="{Binding AddTaskCommand,UpdateSourceTrigger=PropertyChanged}"></KeyBinding>
+    </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"></ColumnDefinition>
@@ -35,12 +38,12 @@
             </Grid.ColumnDefinitions>
             
             <!--TopDragPanel-->
-            <Grid Grid.Row="0" Background="Transparent" Grid.ColumnSpan="3">
-                <Grid MouseLeftButtonDown="Border_MouseLeftButtonDown" Height="15" VerticalAlignment="Top" Background="#928DAB"/>
+            <Grid Grid.Row="0" Background="{StaticResource Clouds}" Grid.ColumnSpan="3" Panel.ZIndex="1">
+                <Grid MouseLeftButtonDown="Border_MouseLeftButtonDown" Height="15" VerticalAlignment="Top" Background="#928DAB" />
             </Grid>
             
             <!--ExitButton-->
-            <Button Grid.Column ="2" Style="{StaticResource ButtonStyle}" 
+            <Button Grid.Column ="2" Style="{StaticResource ButtonStyle}" Panel.ZIndex="1"
                     Margin="0 0 10 0 " Command="{Binding ClosingWindowCommand}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
@@ -56,7 +59,7 @@
             
             <!--MinimizeButton-->
             <Button Grid.Column="1" Style="{StaticResource ButtonStyle}" 
-                     Margin="0 0 10  0"
+                     Margin="0 0 10  0" Panel.ZIndex="1"
                     Command="{Binding MinimizeWindowCommand}" Background="Transparent">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
@@ -71,21 +74,88 @@
             </Button>
             
             <!--ListOfTasks-->
-            <ListView x:Name="ListOfTasks" Margin="-1 10 -1 0"
+            <ListView x:Name="ListOfTasks" Margin="-1 0 -1 0" Padding="0 10 0 0"
                           BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                          ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectedItem="SelectedTask"
+                           SelectionMode="Single"
                           Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" ScrollViewer.CanContentScroll="False"
                           ItemsSource="{Binding SelectedItem.Tasks,ElementName=FoldersListView}" 
-                          FontFamily="Microsoft YaHei" FontSize="20"
-                          Background="Transparent">
+                          FontFamily="Verdana" FontSize="20" 
+                          Background="#D3CECA">
+                <!--#C9F7CE-->
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Control Template="{StaticResource TaskData}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="1"></Control>
+                        <Grid HorizontalAlignment="Stretch">
+                            <Button  Command="{Binding ElementName=ListOfTasks,Path=DataContext.MakeTaskDoneCommand}" Name="TaskButton"
+                                                        CommandParameter="{Binding ElementName=ListOfTasks,Path=SelectedItem}" Cursor="Hand">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="Button.IsMouseOver" Value="True">
+                                                <Setter TargetName="ItemBorder" Property="Border.Background" Value="#E1E5E6"></Setter>
+                                                
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                        <Border x:Name="ItemBorder" BorderThickness="0" BorderBrush="{StaticResource Asbestos}" Height="50"
+                                                Margin="35 3 35 0" HorizontalAlignment="Center"
+                                                CornerRadius="1 1 1 1" Background="{StaticResource Clouds}">
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="10" Direction="270" ShadowDepth="1" RenderingBias="Quality" Opacity="0.1"></DropShadowEffect>
+                                            </Border.Effect>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="45"></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Name="TaskLabel" Text="{Binding ToDo}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" 
+                                                       Background="Transparent" Focusable="True">
+                                                    <TextBlock.Style>
+                                                        <Style>
+                                                            <Setter Property="TextBlock.Foreground" Value="{StaticResource WetAsphalt}"></Setter>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Done}" Value="True">
+                                                                    <Setter  Property="TextBlock.Foreground" Value="{StaticResource Nephritis}"></Setter>
+                                                                    <Setter Property="TextBlock.TextDecorations" Value="Strikethrough"></Setter>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                                <Line x:Name="Underline" StrokeThickness="1" X1="0" X2="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                                      Stretch="Fill" StrokeEndLineCap="Square" StrokeStartLineCap="Square" Stroke="Transparent" />
+                                                <Button Grid.Column="0" Foreground="{StaticResource Clouds}" Name="DoneButton"
+                                                        Command="{Binding ElementName=ListOfTasks,Path=DataContext.MakeTaskDoneCommand}"
+                                                        CommandParameter="{Binding ElementName=ListOfTasks,Path=SelectedItem}" Cursor="Hand">
+                                                    <Button.Template>
+                                                        <ControlTemplate>
+                                                            <Border VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand" CornerRadius="25 25 25 25" 
+                                                            BorderBrush="{StaticResource Asbestos}" BorderThickness="3" x:Name="ParentBorder">
+                                                                <Border Width="22.5" Height="22.5" CornerRadius="25 25 25 25" BorderThickness="0"  
+                                                                        Background="{StaticResource Clouds}" x:Name="Borf" Margin="-1">
+                                                                    <Control Template="{StaticResource DoneControl}"></Control>
+                                                                </Border>
+                                                            </Border>
+                                                            <ControlTemplate.Triggers>
+                                                                <DataTrigger Binding="{Binding Done}" Value="True">
+                                                                    <Setter TargetName="Borf" Property="Border.Background" Value="{StaticResource Nephritis}"></Setter>
+                                                                    <Setter TargetName="ParentBorder" Property="Border.BorderBrush" Value="{StaticResource Nephritis}"></Setter>
+                                                                </DataTrigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+                                                </Button>
+                                            </Grid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
-            <Grid Grid.Row="1" Background="Transparent" Grid.ColumnSpan="3"></Grid>
+
+            <Grid Grid.Row="1" Background="{StaticResource Clouds}" Grid.ColumnSpan="3">
+            </Grid>
             
             <!--TaskInput-->
             <Border Background="{StaticResource Clouds}" Grid.Row="3" Grid.ColumnSpan="3" BorderThickness="0">
@@ -100,21 +170,20 @@
                 <TextBox x:Name="InputText" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Verdana" Margin="40 0 0 5"
                          Focusable="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected, FallbackValue=False}"
                          Text="{Binding InputText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                             Grid.Column="0" Background="Transparent" FontSize="20" Height="50" Foreground="{StaticResource MidNightBlue}"
-                             HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderThickness="0" FontWeight="Bold">
+                             Grid.Column="0" Background="Transparent" FontSize="20" Height="50" Foreground="{StaticResource WetAsphalt}"
+                             HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderThickness="0">
                 </TextBox>
                 
-                <Line Margin="40 0 -10 10" X1="0" Y1="1" X2="1" Y2="1" Stroke="{StaticResource BackGroundGradient}" StrokeThickness="5" 
+                <Line Margin="40 0 -10 10" X1="0" Y1="1" X2="1" Y2="1" Stroke="{StaticResource BackGroundGradient}" StrokeThickness="3" 
                            Visibility="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected,Converter={StaticResource BoolConverter}, FallbackValue=Hidden}"
                           HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Stretch="Fill" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
                     <Line.Effect>
-                        <DropShadowEffect BlurRadius="10" Direction="270" ShadowDepth="3" RenderingBias="Quality" Opacity="0.5"></DropShadowEffect>
+                        <DropShadowEffect BlurRadius="10" Direction="270" ShadowDepth="1" RenderingBias="Quality" Opacity="0.5"></DropShadowEffect>
                     </Line.Effect>
                 </Line>
 
                     <Button Visibility="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected,Converter={StaticResource BoolConverter}, FallbackValue=Hidden}"  Grid.Column="1" Height="50" 
                              Width="100" Margin="0 0 0 0" Command="{Binding AddTaskCommand}" 
-                            CommandParameter="{Binding ElementName=InputText,Path=Text,Mode=TwoWay}"
                             Style="{StaticResource EnterButtonStyle}"  x:Name="EnterButton">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
@@ -155,15 +224,17 @@
             </Border.Effect>
             <Grid  Name="LeftGrid">
                 <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
             </Grid.RowDefinitions>
             
             <!--AddFoldersButton-->
-            <Button  Grid.Row="1" Height="50" Width="200" 
+            <Button  Grid.Row="2" Height="50" Width="200" 
                      VerticalAlignment="Top" Name="AddFolderButton"
                      Panel.ZIndex="1" Style="{StaticResource ButtonStyle2}"
-                     Command="{Binding AddFolderCommand}">
+                     Command="{Binding AddFolderCommand}"
+                     CommandParameter="{Binding ElementName=InputFolderTextBox,Path=Text}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid >
@@ -188,7 +259,7 @@
             </Button>
             
             <!--FoldersView-->
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="1">
                 <ListView x:Name="FoldersListView" ItemsSource="{Binding Folders}" SelectedItem="SelectedFolder"
                               BorderThickness="0" Margin="-1 0 -1 0" Height="500" Background="Transparent" FontFamily="Microsoft YaHei"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
@@ -214,6 +285,24 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="150" Width="200" Background="Transparent"
+                          Visibility="{Binding IsFolderInputVisible,Converter={StaticResource BoolConverter},FallbackValue=Hidden}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Height="30" Width="200"  Background="Transparent">
+                            <Border BorderThickness="0" CornerRadius="20 20 0 0" Background="{StaticResource Silver}">
+                                <TextBlock Text="New Folder" HorizontalAlignment="Center" TextAlignment="Center" Height="30" VerticalAlignment="Center" 
+                                           Width="200" Foreground="{StaticResource WetAsphalt}"></TextBlock>
+                            </Border>
+                        </Grid>
+                        <Border Grid.Row="1" Background="{StaticResource Silver}">
+                            <TextBox x:Name="InputFolderTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent"
+                                     Text="{Binding InputFolderText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="5 0 5 2" FontFamily="Verdana"
+                                     FontSize="20" FontWeight="Bold" Foreground="{StaticResource WetAsphalt}" BorderThickness="0" TextWrapping="Wrap" MaxLength="13"></TextBox>
+                        </Border>
+                    </Grid>
             </Grid>
             
         </Grid>

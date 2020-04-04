@@ -37,6 +37,6 @@ namespace Planner.Models
                 _done = value; OnPropertyChanged(nameof(Done));
             }
         }
-        public string Date { get; set; } = DateTime.Now.ToShortTimeString();
+        public string Date { get; private set; } = DateTime.Now.ToShortTimeString();
     }
 }

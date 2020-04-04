@@ -119,6 +119,15 @@
                 </Path>
             </Viewbox>
         </Grid>
+
+        <ControlTemplate TargetType="Control" x:Key="DoneControl">
+            <Viewbox Stretch="Fill" Width="15" Height="15">
+                <Path  Data="m30.171,6.131l-0.858,-0.858c-0.944,-0.945 -2.489,-0.945 -3.433,0l-14.586,14.586l-5.175,-5.174c-0.943,-0.944 -2.489,-0.944 -3.432,0.001l-0.858,0.857c-0.943,0.944 
+                       -0.943,2.489 0,3.433l7.744,7.75c0.944,0.945 2.489,0.945 3.433,0l17.165,-17.162c0.941,-0.944 0.941,-2.489 0,-3.433z"  Stretch="Fill"
+                              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
+                </Path>
+            </Viewbox>
+        </ControlTemplate>
         
         <ControlTemplate x:Key="MainData">
             <Border x:Name="MainBorder" Background="Transparent" Height="50" Cursor="Hand" BorderThickness="0" Margin="-5 -1 0 0" Width="215">
@@ -128,8 +137,8 @@
                             <ColumnDefinition Width="20"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="1" Foreground="{StaticResource Clouds}" HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Name}"
-                            FontSize="18" FontWeight="Bold" Name="FoldersName"></Label>
+                        <TextBlock Grid.Column="1" Foreground="{StaticResource Clouds}" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}"
+                            FontSize="18" FontWeight="Bold" Name="FoldersName"></TextBlock>
                         <Grid x:Name="SelectedGrid" Grid.Column="0" Background="{StaticResource Emerald}" Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="3" RenderingBias="Quality" Opacity="0.2"></DropShadowEffect>
@@ -147,24 +156,6 @@
                     <Setter TargetName="MainBorder" Property="Background" Value="#928DAB"></Setter>
                 </DataTrigger>
             </ControlTemplate.Triggers>
-        </ControlTemplate>
-
-        <ControlTemplate x:Key="TaskData">
-            <Grid HorizontalAlignment="Stretch">
-                <Border x:Name="ItemBorder" BorderThickness="1" BorderBrush="{StaticResource Asbestos}" Height="50"
-                        Margin="20 10 20 0" HorizontalAlignment="Stretch" Background="{StaticResource Clouds}"
-                        CornerRadius="20 20 20 20">
-                    <Border.Effect>
-                    <DropShadowEffect BlurRadius="10" Direction="270" ShadowDepth="1" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
-                </Border.Effect>
-                <Grid>
-                    <Label Content="{Binding ToDo}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0"></Label>
-                <Line x:Name="Underline" StrokeThickness="3" X1="0" X2="555"
-                     Stretch="Fill" StrokeEndLineCap="Square" StrokeStartLineCap="Square" Stroke="Transparent" >
-                </Line>
-                </Grid>
-                </Border>
-            </Grid>
         </ControlTemplate>
 
         <Style TargetType="{x:Type ListViewItem}" x:Name="SelectedIt">
