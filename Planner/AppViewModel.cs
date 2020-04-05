@@ -3,6 +3,7 @@ using Planner.Utilty;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Planner
 {
@@ -11,6 +12,7 @@ namespace Planner
         private string _inputTaskText;
         private string _inputFolderText;
         private bool _isFolderInputVisible;
+        private bool _isFolderInputFocused;
         
         public RelayCommand ClosingWindowCommand { get; private set;}
         public RelayCommand MinimizeWindowCommand { get; private set; }
@@ -18,9 +20,10 @@ namespace Planner
         public RelayCommand SelectFolderCommand { get; private set; }
         public RelayCommand AddTaskCommand { get; private set; }
         public RelayCommand MakeTaskDoneCommand { get; private set; }
+        public RelayCommand DeleteTaskCommand { get; private set; }
         
         public ObservableCollection<Folder> Folders { get; set; }
-        public string InputText 
+        public string InputTaskText 
         {
             get
             {
@@ -31,7 +34,21 @@ namespace Planner
                 if (value == _inputTaskText)
                     return;
                 _inputTaskText = value;
-                OnPropertyChanged(nameof(InputText));
+                OnPropertyChanged(nameof(InputTaskText));
+            }
+        }
+        public bool IsFolderInputFocused
+        {
+            get
+            {
+                return _isFolderInputFocused;
+            }
+            set
+            {
+                if (value == _isFolderInputFocused)
+                    return;
+                _isFolderInputFocused = value;
+                OnPropertyChanged(nameof(IsFolderInputFocused));
             }
         }
         public string InputFolderText
@@ -73,24 +90,33 @@ namespace Planner
         }
         private void AddFolder(object parameter)
         {
-            if (CanAddFolder(parameter.ToString())&&IsFolderInputVisible)
+            if (CanAddText(parameter.ToString()) && IsFolderInputVisible)
             {
                 Folders.Add(new Folder(parameter as string));
                 IsFolderInputVisible = !IsFolderInputVisible;
-                InputFolderText = "";
                 return;
             }
             else
+            {
+                InputFolderText = "";
                 IsFolderInputVisible = !IsFolderInputVisible;
-            
+            }
         }
-        private bool CanAddFolder(string InputText)
+        private bool CanAddText(string InputText)
         {
-            if (InputText!=null&&InputText.Length>0)
-                return true;
-            return false;
+            return !(String.IsNullOrWhiteSpace(InputText));
         }
 
+        private void DeleteTask(object parameter)
+        {
+            if (parameter != null)
+            {
+                for (int i = 0; i < Folders.Count; i++)
+                    if (Folders[i].Selected)
+                        Folders[i].Tasks.Remove(parameter as Task);
+            }
+
+        }
         private void SelectFolder(object parameter)
         {
             if (parameter != null)
@@ -104,11 +130,11 @@ namespace Planner
         }
         private void AddTask()
         {
-            if (InputText!=null&&InputText.Length>0)
+            if (CanAddText(InputTaskText))
                 for(int i = 0; i < Folders.Count; i++)
                     if (Folders[i].Selected)
-                        Folders[i].Tasks.Add(new Task(InputText));
-            InputText = "";
+                        Folders[i].Tasks.Add(new Task(InputTaskText));
+            InputTaskText = "";
         }
         public AppViewModel()
         {
@@ -119,6 +145,9 @@ namespace Planner
             SelectFolderCommand = new RelayCommand(p=>SelectFolder(p), p=>true);
             AddTaskCommand = new RelayCommand(p => AddTask(), p => true);
             MakeTaskDoneCommand = new RelayCommand(p => MakeTaskDone(p), p => true);
+            DeleteTaskCommand = new RelayCommand(p => DeleteTask(p), p => true);
+            
+            IsFolderInputFocused = true;
         }
     }
 }

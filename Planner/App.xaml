@@ -129,6 +129,16 @@
             </Viewbox>
         </ControlTemplate>
         
+        <ControlTemplate TargetType="Control" x:Key="DeleteControl">
+            <Viewbox Stretch="Fill">
+                <Path  Data="M14.8,12l3.6-3.6c0.8-0.8,0.8-2,0-2.8c-0.8-0.8-2-0.8-2.8,0L12,9.2L8.4,5.6c-0.8-0.8-2-0.8-2.8,0   
+                       c-0.8,0.8-0.8,2,0,2.8L9.2,12l-3.6,3.6c-0.8,0.8-0.8,2,0,2.8C6,18.8,6.5,19,7,19s1-0.2,1.4-0.6l3.6-3.6l3.6,3.6   
+                       C16,18.8,16.5,19,17,19s1-0.2,1.4-0.6c0.8-0.8,0.8-2,0-2.8L14.8,12z"  Stretch="Fill"
+                              Fill="{Binding BorderBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Border}}">
+                </Path>
+            </Viewbox>
+        </ControlTemplate>
+        
         <ControlTemplate x:Key="MainData">
             <Border x:Name="MainBorder" Background="Transparent" Height="50" Cursor="Hand" BorderThickness="0" Margin="-5 -1 0 0" Width="215">
                 <Grid>
@@ -138,7 +148,7 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="1" Foreground="{StaticResource Clouds}" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}"
-                            FontSize="18" FontWeight="Bold" Name="FoldersName"></TextBlock>
+                            FontSize="18" FontWeight="Bold" Name="FoldersName" TextWrapping="Wrap" Margin="5 0 0 0"></TextBlock>
                         <Grid x:Name="SelectedGrid" Grid.Column="0" Background="{StaticResource Emerald}" Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="3" RenderingBias="Quality" Opacity="0.2"></DropShadowEffect>

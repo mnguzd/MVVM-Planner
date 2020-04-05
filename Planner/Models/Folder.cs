@@ -1,31 +1,28 @@
 ﻿using Planner.Utilty;
-using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace Planner.Models
 {
-    public class Folder:ObservableObject
+    public class Folder : ObservableObject
     {
         //private fields
         private bool _selected;
         private string _name;
-        public Folder(string foldername)
+        public Folder(string folderName)
         {
-            Name = foldername;
+            Name = folderName;
             Tasks = new ObservableCollection<Task>();
             Selected = false;
         }
 
         public ObservableCollection<Task> Tasks { get; set; }
-        public string Name 
-        { 
-            get 
-            { 
+        public string Name
+        {
+            get
+            {
                 return _name;
-            } 
-            set 
+            }
+            set
             {
                 if (value == _name)
                     return;

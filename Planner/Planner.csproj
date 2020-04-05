@@ -58,6 +58,7 @@
     <Compile Include="AppViewModel.cs" />
     <Compile Include="Models\Folder.cs" />
     <Compile Include="Models\Task.cs" />
+    <Compile Include="Utilty\FocusExtension.cs" />
     <Compile Include="Utilty\ObservableObject.cs" />
     <Compile Include="Utilty\RelayCommand.cs" />
     <Page Include="MainWindow.xaml">
