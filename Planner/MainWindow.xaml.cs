@@ -14,5 +14,10 @@ namespace Planner
         {
             DragMove();
         }
+
+        private void Button_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }

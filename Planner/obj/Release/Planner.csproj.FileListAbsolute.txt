@@ -1,0 +1,17 @@
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\bin\Release\Planner.exe.config
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\bin\Release\Planner.exe
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\bin\Release\Planner.pdb
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\Planner.csprojAssemblyReference.cache
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\MainWindow.g.cs
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\App.g.cs
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\GeneratedInternalTypeHelper.g.cs
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\Planner_MarkupCompile.cache
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\Planner_MarkupCompile.lref
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\App.baml
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\MainWindow.baml
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\Planner.g.resources
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\Planner.Properties.Resources.resources
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\Planner.csproj.GenerateResource.cache
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\Planner.csproj.CoreCompileInputs.cache
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\Planner.exe
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\Planner.pdb

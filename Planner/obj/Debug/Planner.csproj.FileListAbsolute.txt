@@ -15,3 +15,6 @@ C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\Planner.cspr
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\App.baml
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\Planner.csprojAssemblyReference.cache
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\bin\Debug\Newtonsoft.Json.dll
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\bin\Debug\Newtonsoft.Json.xml
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\Planner.csproj.CopyComplete

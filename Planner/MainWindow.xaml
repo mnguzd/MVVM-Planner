@@ -40,8 +40,19 @@
             <!--TopDragPanel-->
             <Grid Grid.Row="0" Background="{StaticResource Clouds}" Grid.ColumnSpan="3" Panel.ZIndex="1">
                 <Grid MouseLeftButtonDown="Border_MouseLeftButtonDown" Height="15" VerticalAlignment="Top" Background="#928DAB" />
+                <Grid Visibility="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected,
+                    Converter={StaticResource BoolConverter},FallbackValue=Hidden}" VerticalAlignment="Top"
+                      Margin="0 13 0 0"
+                      >
+                    <Border  HorizontalAlignment="Center"  VerticalAlignment="Bottom" BorderThickness="0" BorderBrush="#928DAB"
+                              Background="#928DAB" CornerRadius="0 0 3 3" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                        <TextBlock  Text="{Binding ElementName=FoldersListView,Path=SelectedItem.Name,FallbackValue=Error}"
+                            FontSize="20" FontFamily="Segoe UI Semibold" Foreground="{StaticResource Clouds}"
+                                   Margin="10 0 10 5" ></TextBlock>
+                    </Border>
+                </Grid>
             </Grid>
-            
+           
             <!--ExitButton-->
             <Button Grid.Column ="2" Style="{StaticResource ButtonStyle}" Panel.ZIndex="1"
                     Margin="0 0 10 0 " Command="{Binding ClosingWindowCommand}">
@@ -176,9 +187,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
-            <Grid Grid.Row="1" Background="{StaticResource Clouds}" Grid.ColumnSpan="3">
-            </Grid>
             
             <!--TaskInput-->
             <Border Background="{StaticResource Clouds}" Grid.Row="3" Grid.ColumnSpan="3" BorderThickness="0">
@@ -292,12 +300,12 @@
             <!--FoldersView-->
                 <Grid Grid.Row="1">
                     <ListView x:Name="FoldersListView" ItemsSource="{Binding Folders}" SelectedItem="SelectedFolder"
-                              BorderThickness="0" Margin="-1 0 -1 0" Height="500" Background="Transparent" FontFamily="Microsoft YaHei"
+                              BorderThickness="0" Margin="-1 0 -1 0" Height="500" Background="Transparent"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
                               HorizontalContentAlignment="Stretch" SelectionMode="Single" VerticalAlignment="Bottom">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Button ClickMode="Press"  Command="{Binding ElementName=FoldersListView,Path=DataContext.SelectFolderCommand}" 
+                                <Button ClickMode="Press" MouseRightButtonDown="Button_MouseRightButtonDown"  Command="{Binding ElementName=FoldersListView,Path=DataContext.SelectFolderCommand}" 
                                         CommandParameter="{Binding ElementName=FoldersListView,Path=SelectedItem}" Cursor="Hand">
                                     <Button.Template>
                                         <ControlTemplate TargetType="Button">
@@ -316,22 +324,22 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="60" Width="200" Background="Transparent"
+                    <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="80" Width="200" Background="Transparent"
                           Visibility="{Binding IsFolderInputVisible,Converter={StaticResource BoolConverter},FallbackValue=Hidden}">
                         <Grid.Effect>
-                            <DropShadowEffect BlurRadius="15" Direction="90" ShadowDepth="3" RenderingBias="Quality" Opacity="0.5" Color="Black"></DropShadowEffect>
+                            <DropShadowEffect BlurRadius="15" Direction="135" ShadowDepth="3" RenderingBias="Quality" Opacity="0.5" Color="Purple"></DropShadowEffect>
                         </Grid.Effect>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"></RowDefinition>
                             <RowDefinition Height="1*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0" Height="30" Width="200"  Background="Transparent">
-                            <Border BorderThickness="0" Background="{StaticResource WetAsphalt}">
+                            <Border BorderThickness="0" Background="{StaticResource Amethyst}" CornerRadius="1 1 0 0">
                                 <TextBlock Text="ENTER THE NAME:" HorizontalAlignment="Center"  TextAlignment="Center" Height="30" VerticalAlignment="Center" 
-                                           Width="180" Foreground="{StaticResource Clouds}" FontSize="16" FontFamily="Verdana" FontWeight="SemiBold"></TextBlock>
+                                           Width="180" Foreground="{StaticResource Clouds}" FontSize="14" FontWeight="SemiBold"/>
                             </Border>
                         </Grid>
-                        <Border Grid.Row="1" Background="{StaticResource WetAsphalt}" Width="200">
+                        <Border Grid.Row="1" Background="{StaticResource Amethyst}" Width="200" CornerRadius="0 0 1 1" >
                             <TextBox x:Name="InputFolderTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent"
                                      xmlns:FocusExtension.IsFocused="{Binding IsFolderInputFocused}"
                                      Text="{Binding InputFolderText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="5 0 5 2" FontFamily="Verdana"
