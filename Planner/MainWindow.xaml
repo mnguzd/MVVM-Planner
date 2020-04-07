@@ -7,20 +7,24 @@
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="600" Width="1000" 
         ResizeMode="NoResize" WindowStyle="None" Background="{StaticResource Clouds}">
+    
     <Window.DataContext>
         <local:AppViewModel></local:AppViewModel>
     </Window.DataContext>
+    
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolConverter"/>
         <!--BoolConverter-->
     </Window.Resources>
+    
     <Window.InputBindings>
         <KeyBinding Key="Enter" Command="{Binding AddTaskCommand,UpdateSourceTrigger=PropertyChanged}"></KeyBinding>
     </Window.InputBindings>
+    
     <Grid>
         <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
         
         <!--RightColumn-->
@@ -83,6 +87,13 @@
                     <StaticResource ResourceKey="MinimizeIcon"></StaticResource>
                 </Button.Content>
             </Button>
+
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+                <Line X1="0" Y1="100" X2="800" Y2="100" 
+                      Stroke="{StaticResource Silver}" StrokeThickness="8" StrokeEndLineCap="Square" StrokeStartLineCap="Square" />
+                <Line X1="0" Y1="100" X2="{Binding LineWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Y2="100" 
+                      Stroke="{StaticResource Emerald}" StrokeThickness="8" StrokeEndLineCap="Square" StrokeStartLineCap="Square" />
+            </Grid>
             
             <!--ListOfTasks-->
             <ListView x:Name="ListOfTasks" Margin="-1 0 -1 0" Padding="0 10 0 0"

@@ -8,6 +8,8 @@ namespace Planner.Models
         //private fields
         private bool _selected;
         private string _name;
+        private int _numberOfDoneTasks;
+        private ObservableCollection<Task> _tasks;
         public Folder(string folderName)
         {
             Name = folderName;
@@ -15,7 +17,37 @@ namespace Planner.Models
             Selected = false;
         }
 
-        public ObservableCollection<Task> Tasks { get; set; }
+        public ObservableCollection<Task> Tasks 
+        { get 
+            { return _tasks; 
+            } 
+            set 
+            {
+                if (value == _tasks)
+                    return;
+                _tasks = value;
+                OnPropertyChanged(nameof(NumberOfDoneTasks));
+                OnPropertyChanged(nameof(Tasks));
+            } 
+        }
+        public int NumberOfDoneTasks 
+        {
+            get
+            {
+                _numberOfDoneTasks=0;
+                for (int i = 0; i < Tasks.Count; i++)
+                    if (Tasks[i].Done)
+                        _numberOfDoneTasks++;
+                return _numberOfDoneTasks;
+            }
+            set
+            {
+                if (value == _numberOfDoneTasks)
+                    return;
+                _numberOfDoneTasks = value;
+                OnPropertyChanged(nameof(NumberOfDoneTasks));
+            }
+        }
         public string Name
         {
             get
