@@ -3,6 +3,7 @@ using Planner.Utilty;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Threading.Tasks;
 
 namespace Planner
 {
@@ -13,6 +14,8 @@ namespace Planner
         private bool _isFolderInputVisible;
         private bool _isFolderInputFocused;
         private double _lineWidth;
+        private double _rightColumnWidth=800;
+        private double _leftColumnWidth = 200;
         private readonly DataService service = new DataService("FolderData.txt");
 
         public RelayCommand ClosingWindowCommand { get; private set; }
@@ -22,10 +25,39 @@ namespace Planner
         public RelayCommand AddTaskCommand { get; private set; }
         public RelayCommand MakeTaskDoneCommand { get; private set; }
         public RelayCommand DeleteTaskCommand { get; private set; }
+        public RelayCommand DeleteFolderCommand { get; set; }
 
 
         public ObservableCollection<Folder> Folders { get; set; }
 
+        public double RightColumnWidth
+        {
+            get
+            {
+                return _rightColumnWidth;
+            }
+            set
+            {
+                if (value == _rightColumnWidth)
+                    return;
+                _rightColumnWidth = value;
+                OnPropertyChanged(nameof(RightColumnWidth));
+            }
+        }
+        public double LeftColumnWidth
+        {
+            get
+            {
+                return _leftColumnWidth;
+            }
+            set
+            {
+                if (value == _leftColumnWidth)
+                    return;
+                _leftColumnWidth = value;
+                OnPropertyChanged(nameof(LeftColumnWidth));
+            }
+        }
         public double LineWidth 
         {
             get
@@ -43,7 +75,7 @@ namespace Planner
                     return 0;
                 }
                 double percentOfDone = Convert.ToDouble(Folders[index].NumberOfDoneTasks) / Convert.ToDouble(Folders[index].Tasks.Count);
-                _lineWidth = 800 * percentOfDone;
+                _lineWidth = RightColumnWidth * percentOfDone;
                 return _lineWidth;
             }
             set
@@ -114,13 +146,22 @@ namespace Planner
         {
             Application.Current.MainWindow.WindowState = WindowState.Minimized;
         }
+        private void DeleteFolder(object parameter)
+        {
+
+            if (parameter != null)
+            {
+                Folders.Remove(parameter as Folder);
+                Folders[Folders.Count - 1].Selected = true;
+            }
+        }
         private void MakeTaskDone(object parameter)
         {
             if (parameter != null)
             {
-                (parameter as Task).Done = !(parameter as Task).Done;
+                (parameter as TaskModel).Done = !(parameter as TaskModel).Done;
 
-                if ((parameter as Task).Done)
+                if ((parameter as TaskModel).Done)
                 {
                     for (int i = 0; i < Folders.Count; i++)
                     {
@@ -166,12 +207,12 @@ namespace Planner
         {
             if (parameter != null)
             {
-                if ((parameter as Task).Done)
+                if ((parameter as TaskModel).Done)
                 {
                     for (int i = 0; i < Folders.Count; i++)
                         if (Folders[i].Selected)
                         {
-                            Folders[i].Tasks.Remove(parameter as Task);
+                            Folders[i].Tasks.Remove(parameter as TaskModel);
                             Folders[i].NumberOfDoneTasks--;
                         }
                 }
@@ -179,7 +220,7 @@ namespace Planner
                 {
                     for (int g = 0; g < Folders.Count; g++)
                         if (Folders[g].Selected)
-                            Folders[g].Tasks.Remove(parameter as Task);
+                            Folders[g].Tasks.Remove(parameter as TaskModel);
                 }
                 OnPropertyChanged(nameof(LineWidth));
             }
@@ -213,7 +254,7 @@ namespace Planner
             if (CanAddText(InputTaskText))
                 for (int i = 0; i < Folders.Count; i++)
                     if (Folders[i].Selected)
-                        Folders[i].Tasks.Add(new Task(InputTaskText));
+                        Folders[i].Tasks.Add(new TaskModel(InputTaskText));
             InputTaskText = "";
             OnPropertyChanged(nameof(LineWidth));
         }
@@ -234,6 +275,7 @@ namespace Planner
             AddTaskCommand = new RelayCommand(p => AddTask(), p => true);
             MakeTaskDoneCommand = new RelayCommand(p => MakeTaskDone(p), p => true);
             DeleteTaskCommand = new RelayCommand(p => DeleteTask(p), p => true);
+            DeleteFolderCommand = new RelayCommand(p => DeleteFolder(p), p => true);
             IsFolderInputFocused = true;
         }
     }

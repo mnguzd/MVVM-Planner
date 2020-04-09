@@ -60,7 +60,7 @@
     </ApplicationDefinition>
     <Compile Include="AppViewModel.cs" />
     <Compile Include="Models\Folder.cs" />
-    <Compile Include="Models\Task.cs" />
+    <Compile Include="Models\TaskModel.cs" />
     <Compile Include="Utilty\DataService.cs" />
     <Compile Include="Utilty\ObservableObject.cs" />
     <Compile Include="Utilty\RelayCommand.cs" />
@@ -110,6 +110,18 @@
   <ItemGroup>
     <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="116945.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

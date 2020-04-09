@@ -23,15 +23,14 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-        
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         <!--RightColumn-->
-        <Grid Grid.Column="1"> 
+        <Grid Grid.Column="1" Background="#D2CDC9" Name="RightColumn" Width="{Binding RightColumnWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,FallbackValue=800}">
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="100"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
                 <RowDefinition Height="60"></RowDefinition>
             </Grid.RowDefinitions>
@@ -42,18 +41,41 @@
             </Grid.ColumnDefinitions>
             
             <!--TopDragPanel-->
-            <Grid Grid.Row="0" Background="{StaticResource Clouds}" Grid.ColumnSpan="3" Panel.ZIndex="1">
+            <Grid Grid.Row="0" Background="Transparent" Grid.ColumnSpan="3" Panel.ZIndex="1">
                 <Grid MouseLeftButtonDown="Border_MouseLeftButtonDown" Height="15" VerticalAlignment="Top" Background="#928DAB" />
                 <Grid Visibility="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected,
                     Converter={StaticResource BoolConverter},FallbackValue=Hidden}" VerticalAlignment="Top"
                       Margin="0 13 0 0"
                       >
-                    <Border  HorizontalAlignment="Center"  VerticalAlignment="Bottom" BorderThickness="0" BorderBrush="#928DAB"
-                              Background="#928DAB" CornerRadius="0 0 3 3" MouseLeftButtonDown="Border_MouseLeftButtonDown">
-                        <TextBlock  Text="{Binding ElementName=FoldersListView,Path=SelectedItem.Name,FallbackValue=Error}"
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                        <Border Grid.Column="0"  HorizontalAlignment="Center"  VerticalAlignment="Bottom" BorderThickness="0" BorderBrush="#928DAB"
+                              Background="#928DAB" CornerRadius="0 0 3 3" MouseLeftButtonDown="Border_MouseLeftButtonDown" Padding="10 0 10 0">
+                        <Grid>
+                                <TextBlock  Text="{Binding ElementName=FoldersListView,Path=SelectedItem.Name,FallbackValue=Error}"
                             FontSize="20" FontFamily="Segoe UI Semibold" Foreground="{StaticResource Clouds}"
-                                   Margin="10 0 10 5" ></TextBlock>
+                                   Margin="0 0 0 5" >
+                                </TextBlock>
+                            </Grid>
                     </Border>
+                    <Button Margin="0 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="20"
+                                    Command="{Binding DeleteFolderCommand}"  Cursor="Hand"
+                                    CommandParameter="{Binding ElementName=FoldersListView,Path=SelectedItem}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                    <Border BorderBrush="#928DAB" BorderThickness="0" x:Name="DeleteBorder" Background="Transparent">
+                                    <Control Height="13" Width="13" Template="{StaticResource DeleteControl}" Name="DeleteControl2"></Control>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="DeleteBorder" Property="Border.BorderBrush" Value="{StaticResource PomeGranate}"></Setter>
+                                            <Setter TargetName="DeleteControl2" Property="Width" Value="15"></Setter>
+                                            <Setter TargetName="DeleteControl2" Property="Height" Value="15"></Setter>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    </StackPanel>
                 </Grid>
             </Grid>
            
@@ -87,23 +109,16 @@
                     <StaticResource ResourceKey="MinimizeIcon"></StaticResource>
                 </Button.Content>
             </Button>
-
-            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
-                <Line X1="0" Y1="100" X2="800" Y2="100" 
-                      Stroke="{StaticResource Silver}" StrokeThickness="8" StrokeEndLineCap="Square" StrokeStartLineCap="Square" />
-                <Line X1="0" Y1="100" X2="{Binding LineWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Y2="100" 
-                      Stroke="{StaticResource Emerald}" StrokeThickness="8" StrokeEndLineCap="Square" StrokeStartLineCap="Square" />
-            </Grid>
-            
             <!--ListOfTasks-->
-            <ListView x:Name="ListOfTasks" Margin="-1 0 -1 0" Padding="0 10 0 0"
+            <ListView x:Name="ListOfTasks" Margin="-1 20 -1 0" Padding="0 10 0 0"
                           BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                          ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectedItem="SelectedTask"
-                           SelectionMode="Single"
-                          Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" ScrollViewer.CanContentScroll="False"
+                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                           SelectedItem="SelectedTask"
+                           SelectionMode="Single" 
+                          Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" ScrollViewer.CanContentScroll="False"
                           ItemsSource="{Binding SelectedItem.Tasks,ElementName=FoldersListView}" 
                           FontFamily="Verdana" FontSize="20" 
-                          Background="#D3CECA">
+                          Background="Transparent">
                 <!--#C9F7CE-->
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -198,17 +213,17 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
             <!--TaskInput-->
-            <Border Background="{StaticResource Clouds}" Grid.Row="3" Grid.ColumnSpan="3" BorderThickness="0">
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="15" Direction="90" ShadowDepth="3" RenderingBias="Quality" Opacity="0.2"></DropShadowEffect>
-                </Border.Effect>
-                <Grid Background="Transparent" HorizontalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="3">
+            <Border Background="{StaticResource Clouds}" Grid.Row="2" Grid.ColumnSpan="3" BorderThickness="0">
+                <Grid Background="Transparent" HorizontalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition Width="150"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
+                    <Line Grid.Column="0" X1="0" Y1="3" X2="{Binding ElementName=RightColumn,Path=ActualWidth}" Y2="3" Grid.ColumnSpan="3"
+                      Stroke="{StaticResource Silver}" StrokeThickness="6" StrokeEndLineCap="Square" StrokeStartLineCap="Square" />
+                    <Line Grid.Column="0" X1="0" Y1="3" X2="{Binding LineWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,FallbackValue=0}" Y2="3" Grid.ColumnSpan="3"
+                      Stroke="{StaticResource Emerald}" StrokeThickness="6" StrokeEndLineCap="Square" StrokeStartLineCap="Square" />
                     <TextBox x:Name="InputText" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Verdana" Margin="40 0 0 5"
                              Focusable="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected, FallbackValue=False}"
                              Text="{Binding InputTaskText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
@@ -268,7 +283,8 @@
 
         
         <!--LeftColumn-->
-        <Border Background="{StaticResource Gradient}" BorderThickness="0" Grid.Column="0">
+        <Grid Grid.Column="0" Width="{Binding LeftColumnWidth, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+            <Border Background="{StaticResource Gradient}" BorderThickness="0">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="5" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
             </Border.Effect>
@@ -310,15 +326,15 @@
             
             <!--FoldersView-->
                 <Grid Grid.Row="1">
-                    <ListView x:Name="FoldersListView" ItemsSource="{Binding Folders}" SelectedItem="SelectedFolder"
+                        <ListView x:Name="FoldersListView" ItemsSource="{Binding Folders}" SelectedItem="SelectedFolder"
                               BorderThickness="0" Margin="-1 0 -1 0" Height="500" Background="Transparent"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
                               HorizontalContentAlignment="Stretch" SelectionMode="Single" VerticalAlignment="Bottom">
-                        <ListView.ItemTemplate>
+                            <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Button ClickMode="Press" MouseRightButtonDown="Button_MouseRightButtonDown"  Command="{Binding ElementName=FoldersListView,Path=DataContext.SelectFolderCommand}" 
+                                    <Button ClickMode="Press" MouseRightButtonDown="Button_MouseRightButtonDown"  Command="{Binding ElementName=FoldersListView,Path=DataContext.SelectFolderCommand}" 
                                         CommandParameter="{Binding ElementName=FoldersListView,Path=SelectedItem}" Cursor="Hand">
-                                    <Button.Template>
+                                        <Button.Template>
                                         <ControlTemplate TargetType="Button">
                                             <Border x:Name="Bord">
                                                 <ContentPresenter></ContentPresenter>
@@ -360,5 +376,6 @@
                 </Grid>
             </Grid>
         </Border>
+        </Grid>
     </Grid>
 </Window>

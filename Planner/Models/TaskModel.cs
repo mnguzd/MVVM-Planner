@@ -3,11 +3,11 @@ using System;
 
 namespace Planner.Models
 {
-    public class Task:ObservableObject
+    public class TaskModel:ObservableObject
     {
         private string _toDo;
         private bool _done;
-        public Task(string newtask)
+        public TaskModel(string newtask)
         {
             ToDo = newtask;
         }

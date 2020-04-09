@@ -128,7 +128,7 @@
                 </Path>
             </Viewbox>
         </ControlTemplate>
-        
+
         <ControlTemplate TargetType="Control" x:Key="DeleteControl">
             <Viewbox Stretch="Fill">
                 <Path  Data="M14.8,12l3.6-3.6c0.8-0.8,0.8-2,0-2.8c-0.8-0.8-2-0.8-2.8,0L12,9.2L8.4,5.6c-0.8-0.8-2-0.8-2.8,0   

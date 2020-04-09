@@ -9,15 +9,15 @@ namespace Planner.Models
         private bool _selected;
         private string _name;
         private int _numberOfDoneTasks;
-        private ObservableCollection<Task> _tasks;
+        private ObservableCollection<TaskModel> _tasks;
         public Folder(string folderName)
         {
             Name = folderName;
-            Tasks = new ObservableCollection<Task>();
+            Tasks = new ObservableCollection<TaskModel>();
             Selected = false;
         }
 
-        public ObservableCollection<Task> Tasks 
+        public ObservableCollection<TaskModel> Tasks 
         { get 
             { return _tasks; 
             } 
