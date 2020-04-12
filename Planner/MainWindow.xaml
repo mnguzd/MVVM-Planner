@@ -337,11 +337,25 @@
                                         <Button.Template>
                                         <ControlTemplate TargetType="Button">
                                             <Border x:Name="Bord">
-                                                <ContentPresenter></ContentPresenter>
-                                            </Border>
+                                                    <Grid>
+                                                        <Control Template="{StaticResource MainData}"></Control>
+                                                    <Border BorderThickness="0 0 0 3" VerticalAlignment="Bottom" HorizontalAlignment="Right" BorderBrush="{StaticResource Emerald}" Background="Transparent">
+                                                            <Grid  x:Name="DoneInfoGrid" Visibility="{Binding Selected,Converter={StaticResource BoolConverter},FallbackValue=Hidden}">
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <Label  Foreground="{StaticResource Clouds}" Content="{Binding NumberOfDoneTasks,FallbackValue=0}" FontSize="13" HorizontalAlignment="Right"
+                                                                    VerticalAlignment="Bottom" FontWeight="Bold" Margin="0 0 0 -5" FontFamily="Verdana" />
+                                                                    <Label  Foreground="{StaticResource Clouds}" Content="/" FontSize="13" HorizontalAlignment="Right"
+                                                                     VerticalAlignment="Bottom" FontWeight="Bold" Margin="-7 0 -7 -5" FontFamily="Verdana" />
+                                                                    <Label  Foreground="{StaticResource Clouds}" Content="{Binding Tasks.Count,FallbackValue=0}" FontSize="13" HorizontalAlignment="Right"
+                                                                    VerticalAlignment="Bottom" FontWeight="Bold" Margin="0 0 0 -5" FontFamily="Verdana" />
+                                                                </StackPanel>
+                                                            </Grid>
+                                                    </Border>
+                                                    </Grid>
+                                                </Border>
                                             <ControlTemplate.Triggers>
-                                                <Trigger Property="IsPressed" Value="True">
-                                                    <Setter TargetName="Bord" Property="Border.Background" Value="#928DAB"></Setter>
+                                                    <Trigger Property="IsPressed" Value="True">
+                                                        <Setter TargetName="Bord" Property="Border.Background" Value="#928DAB"></Setter>
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
