@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Planner
 {
@@ -25,7 +26,8 @@ namespace Planner
         public RelayCommand AddTaskCommand { get; private set; }
         public RelayCommand MakeTaskDoneCommand { get; private set; }
         public RelayCommand DeleteTaskCommand { get; private set; }
-        public RelayCommand DeleteFolderCommand { get; set; }
+        public RelayCommand DeleteFolderCommand { get; private set; }
+        public RelayCommand ChangeRighColumnCommand { get; private set; }
 
 
         public ObservableCollection<Folder> Folders { get; set; }
@@ -145,6 +147,10 @@ namespace Planner
         private void MinimizeWindow()
         {
             Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+        private void ChangeRightColumnWidth()
+        {
+            RightColumnWidth = 1000; //This changes the LineWidth for ProgressLine 
         }
         private void DeleteFolder(object parameter)
         {
@@ -276,6 +282,7 @@ namespace Planner
             MakeTaskDoneCommand = new RelayCommand(p => MakeTaskDone(p), p => true);
             DeleteTaskCommand = new RelayCommand(p => DeleteTask(p), p => true);
             DeleteFolderCommand = new RelayCommand(p => DeleteFolder(p), p => true);
+            ChangeRighColumnCommand = new RelayCommand(p => ChangeRightColumnWidth(), p => true);
             IsFolderInputFocused = true;
         }
     }

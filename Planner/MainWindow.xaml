@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Planner"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="600" Width="1000" 
-        ResizeMode="NoResize" WindowStyle="None" Background="{StaticResource Clouds}">
+        ResizeMode="NoResize" WindowStyle="None" Background="{StaticResource Alizarin}">
     
     <Window.DataContext>
         <local:AppViewModel></local:AppViewModel>
@@ -14,21 +14,63 @@
     
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolConverter"/>
+        <Storyboard x:Key="OpenMenu">
+            <DoubleAnimation Storyboard.TargetProperty="(Grid.Width)"
+                             Storyboard.TargetName="LeftColumnMenu" To="200" From="0" Duration="0:0:0">
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Key="CloseMenu">
+            <DoubleAnimation Storyboard.TargetProperty="(Grid.Width)" 
+                             Storyboard.TargetName="LeftColumnMenu" To="0" From="200" Duration="0:0:0">
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Key="StretchRightColumn">
+            <DoubleAnimation Storyboard.TargetProperty="(Grid.Width)" 
+                             Storyboard.TargetName="RightColumn" To="1000" From="800" Duration="0:0:0">
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Key="StretchRightColumnMargin">
+            <ThicknessAnimation Storyboard.TargetProperty="(Grid.Margin)" 
+                                Storyboard.TargetName="RightColumn" To="-200,0,0,0" From="0,0,0,0" Duration="0:0:0">
+            </ThicknessAnimation>
+        </Storyboard>
+        <Storyboard x:Key="StretchRightColumnBack">
+            <DoubleAnimation Storyboard.TargetProperty="(Grid.Width)" 
+                             Storyboard.TargetName="RightColumn" To="800" From="1000" Duration="0:0:0">
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Key="StretchRightColumnMarginBack">
+            <ThicknessAnimation Storyboard.TargetProperty="(Grid.Margin)" 
+                                Storyboard.TargetName="RightColumn" To="0,0,0,0" From="-200,0,0,0" Duration="0:0:0">
+            </ThicknessAnimation>
+        </Storyboard>
+        
         <!--BoolConverter-->
     </Window.Resources>
-    
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="CloseMenuButton">
+            <BeginStoryboard Storyboard="{StaticResource CloseMenu}"></BeginStoryboard>
+            <BeginStoryboard Storyboard="{StaticResource StretchRightColumn}"></BeginStoryboard>
+            <BeginStoryboard Storyboard="{StaticResource StretchRightColumnMargin}"></BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="OpenMenuButton">
+            <BeginStoryboard Storyboard="{StaticResource OpenMenu}"></BeginStoryboard>
+            <BeginStoryboard Storyboard="{StaticResource StretchRightColumnBack}"></BeginStoryboard>
+            <BeginStoryboard Storyboard="{StaticResource StretchRightColumnMarginBack}"></BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
     <Window.InputBindings>
         <KeyBinding Key="Enter" Command="{Binding AddTaskCommand,UpdateSourceTrigger=PropertyChanged}"></KeyBinding>
     </Window.InputBindings>
-    
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"></ColumnDefinition>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="200" x:Name="LeftColumn"></ColumnDefinition>
+            <ColumnDefinition Width="800"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <!--RightColumn-->
-        <Grid Grid.Column="1" Background="#D2CDC9" Name="RightColumn" Width="{Binding RightColumnWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,FallbackValue=800}">
-
+        <Grid Grid.Column="1" Background="#D2CDC9" Name="RightColumn" HorizontalAlignment="Right" Width="{Binding RightColumnWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,FallbackValue=800,IsAsync=True}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
@@ -39,46 +81,46 @@
                 <ColumnDefinition Width="40"></ColumnDefinition>
                 <ColumnDefinition Width="40"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            
+
             <!--TopDragPanel-->
-            <Grid Grid.Row="0" Background="Transparent" Grid.ColumnSpan="3" Panel.ZIndex="1">
+            <Grid Grid.Row="0" Background="Transparent" Grid.ColumnSpan="3" Panel.ZIndex="1" HorizontalAlignment="Stretch">
                 <Grid MouseLeftButtonDown="Border_MouseLeftButtonDown" Height="15" VerticalAlignment="Top" Background="#928DAB" />
                 <Grid Visibility="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected,
-                    Converter={StaticResource BoolConverter},FallbackValue=Hidden}" VerticalAlignment="Top"
+                    Converter={StaticResource BoolConverter},FallbackValue=Hidden}" VerticalAlignment="Top" HorizontalAlignment="Center"
                       Margin="0 13 0 0"
                       >
                     <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
                         <Border Grid.Column="0"  HorizontalAlignment="Center"  VerticalAlignment="Bottom" BorderThickness="0" BorderBrush="#928DAB"
                               Background="#928DAB" CornerRadius="0 0 3 3" MouseLeftButtonDown="Border_MouseLeftButtonDown" Padding="10 0 10 0">
-                        <Grid>
+                            <Grid>
                                 <TextBlock  Text="{Binding ElementName=FoldersListView,Path=SelectedItem.Name,FallbackValue=Error}"
                             FontSize="20" FontFamily="Segoe UI Semibold" Foreground="{StaticResource Clouds}"
                                    Margin="0 0 0 5" >
                                 </TextBlock>
                             </Grid>
-                    </Border>
-                    <Button Margin="0 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="20"
+                        </Border>
+                        <Button Margin="0 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="20"
                                     Command="{Binding DeleteFolderCommand}"  Cursor="Hand"
                                     CommandParameter="{Binding ElementName=FoldersListView,Path=SelectedItem}">
-                        <Button.Template>
-                            <ControlTemplate>
+                            <Button.Template>
+                                <ControlTemplate>
                                     <Border BorderBrush="#928DAB" BorderThickness="0" x:Name="DeleteBorder" Background="Transparent">
-                                    <Control Height="13" Width="13" Template="{StaticResource DeleteControl}" Name="DeleteControl2"></Control>
-                                </Border>
-                                <ControlTemplate.Triggers>
+                                        <Control Height="13" Width="13" Template="{StaticResource DeleteControl}" Name="DeleteControl2"></Control>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
                                             <Setter TargetName="DeleteBorder" Property="Border.BorderBrush" Value="{StaticResource PomeGranate}"></Setter>
                                             <Setter TargetName="DeleteControl2" Property="Width" Value="15"></Setter>
                                             <Setter TargetName="DeleteControl2" Property="Height" Value="15"></Setter>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </StackPanel>
                 </Grid>
             </Grid>
-           
+
             <!--ExitButton-->
             <Button Grid.Column ="2" Style="{StaticResource ButtonStyle}" Panel.ZIndex="1"
                     Margin="0 0 10 0 " Command="{Binding ClosingWindowCommand}">
@@ -93,7 +135,7 @@
                     <StaticResource ResourceKey="ExitIcon"></StaticResource>
                 </Button.Content>
             </Button>
-            
+
             <!--MinimizeButton-->
             <Button Grid.Column="1" Style="{StaticResource ButtonStyle}" 
                      Margin="0 0 10  0" Panel.ZIndex="1"
@@ -109,6 +151,30 @@
                     <StaticResource ResourceKey="MinimizeIcon"></StaticResource>
                 </Button.Content>
             </Button>
+            <Button x:Name="CloseMenuButton" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" Panel.ZIndex="2"
+                            Height="35" Foreground="{StaticResource Clouds}" Command="{Binding ChangeRighColumnCommand}" Click="CloseMenuButton_Click" Background="Transparent" Cursor="Hand">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Grid Background="Transparent">
+                            <Border Background="{StaticResource Emerald}">
+                                <Control Template="{StaticResource LeftArrow}"></Control>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="OpenMenuButton" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="20" Panel.ZIndex="2"
+                            Height="35" Foreground="{StaticResource Clouds}" Click="OpenMenuButton_Click" Visibility="Hidden" Background="Transparent" Cursor="Hand" Margin="0 0 0 0">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Grid Background="Transparent">
+                            <Border Background="{StaticResource Emerald}">
+                                <Control Template="{StaticResource RightArrow}"></Control>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
             <!--ListOfTasks-->
             <ListView x:Name="ListOfTasks" Margin="-1 20 -1 0" Padding="0 10 0 0"
                           BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -122,8 +188,8 @@
                 <!--#C9F7CE-->
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid HorizontalAlignment="Stretch">
-                            <Button  Command="{Binding ElementName=ListOfTasks,Path=DataContext.MakeTaskDoneCommand}" Name="TaskButton"
+                        <Grid HorizontalAlignment="Right">
+                            <Button  Command="{Binding ElementName=ListOfTasks,Path=DataContext.MakeTaskDoneCommand}" Name="TaskButton" HorizontalAlignment="Right"
                                                         CommandParameter="{Binding ElementName=ListOfTasks,Path=SelectedItem}" Cursor="Hand">
                                 <Button.Template>
                                     <ControlTemplate>
@@ -222,8 +288,8 @@
                     </Grid.ColumnDefinitions>
                     <Line Grid.Column="0" X1="0" Y1="3" X2="{Binding ElementName=RightColumn,Path=ActualWidth}" Y2="3" Grid.ColumnSpan="3"
                       Stroke="{StaticResource Silver}" StrokeThickness="6" StrokeEndLineCap="Square" StrokeStartLineCap="Square" />
-                    <Line Grid.Column="0" X1="0" Y1="3" X2="{Binding LineWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,FallbackValue=0}" Y2="3" Grid.ColumnSpan="3"
-                      Stroke="{StaticResource Emerald}" StrokeThickness="6" StrokeEndLineCap="Square" StrokeStartLineCap="Square" />
+                    <Line Grid.Column="0" X1="0" Y1="3" X2="{Binding LineWidth,UpdateSourceTrigger=PropertyChanged,FallbackValue=0}" Y2="3" Grid.ColumnSpan="3"
+                      Stroke="{StaticResource Emerald}" StrokeThickness="6" StrokeEndLineCap="Square" StrokeStartLineCap="Square" Margin="-3 0 0 0" />
                     <TextBox x:Name="InputText" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Verdana" Margin="40 0 0 5"
                              Focusable="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected, FallbackValue=False}"
                              Text="{Binding InputTaskText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
@@ -242,10 +308,10 @@
                     <Line Margin="40 0 -10 10" X1="0" Y1="1" X2="1" Y2="1" Stroke="{StaticResource BackGroundGradient}" StrokeThickness="3" 
                            Visibility="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected,Converter={StaticResource BoolConverter}, FallbackValue=Hidden}"
                           HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Stretch="Fill" StrokeEndLineCap="Round" StrokeStartLineCap="Round">
-                    <Line.Effect>
-                        <DropShadowEffect BlurRadius="10" Direction="270" ShadowDepth="1" RenderingBias="Quality" Opacity="0.5"></DropShadowEffect>
-                    </Line.Effect>
-                </Line>
+                        <Line.Effect>
+                            <DropShadowEffect BlurRadius="10" Direction="270" ShadowDepth="1" RenderingBias="Quality" Opacity="0.5"></DropShadowEffect>
+                        </Line.Effect>
+                    </Line>
 
                     <Button Visibility="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected,Converter={StaticResource BoolConverter}, FallbackValue=Hidden}"  Grid.Column="1" Height="50" 
                              Width="100" Margin="0 0 0 0" Command="{Binding AddTaskCommand}" 
@@ -281,65 +347,65 @@
             </Border>
         </Grid>
 
-        
+
         <!--LeftColumn-->
-        <Grid Grid.Column="0" Width="{Binding LeftColumnWidth, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+        <Grid x:Name="LeftColumnMenu" Grid.Column="0" Width="{Binding LeftColumnWidth, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+              HorizontalAlignment="Left" VerticalAlignment="Center">
             <Border Background="{StaticResource Gradient}" BorderThickness="0">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="5" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
-            </Border.Effect>
-            <Grid  Name="LeftGrid">
-                <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-            </Grid.RowDefinitions>
-            
-            <!--AddFoldersButton-->
-            <Button  Grid.Row="2" Height="50" Width="200" 
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="5" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
+                </Border.Effect>
+                <Grid  Name="LeftGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <!--AddFoldersButton-->
+                    <Button  Grid.Row="2" Height="50" Width="200" 
                      VerticalAlignment="Bottom" Name="AddFolderButton"
                      Panel.ZIndex="1" Style="{StaticResource ButtonStyle2}"
                      Command="{Binding AddFolderCommand}"
                      CommandParameter="{Binding ElementName=InputFolderTextBox,Path=Text}">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Grid >
-                            <Border Background="{StaticResource BackGroundGradient}" Name="Bord" Cursor="Hand" Height="35" Width="150" CornerRadius="20 20 20 20">
-                                <StaticResource ResourceKey="AddIcon"></StaticResource>
-                                <Border.Effect>
-                                    <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="5" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
-                                </Border.Effect>
-                            </Border>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Emerald}"></Setter>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Nephritis}"></Setter>
-                                <Setter Property="Cursor" Value="Hand"></Setter>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-            
-            <!--FoldersView-->
-                <Grid Grid.Row="1">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Grid >
+                                    <Border Background="{StaticResource BackGroundGradient}" Name="Bord" Cursor="Hand" Height="35" Width="150" CornerRadius="20 20 20 20">
+                                        <StaticResource ResourceKey="AddIcon"></StaticResource>
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="5" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
+                                        </Border.Effect>
+                                    </Border>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Emerald}"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Nephritis}"></Setter>
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <!--FoldersView-->
+                    <Grid Grid.Row="1">
                         <ListView x:Name="FoldersListView" ItemsSource="{Binding Folders}" SelectedItem="SelectedFolder"
                               BorderThickness="0" Margin="-1 0 -1 0" Height="500" Background="Transparent"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
                               HorizontalContentAlignment="Stretch" SelectionMode="Single" VerticalAlignment="Bottom">
                             <ListView.ItemTemplate>
-                            <DataTemplate>
+                                <DataTemplate>
                                     <Button ClickMode="Press" MouseRightButtonDown="Button_MouseRightButtonDown"  Command="{Binding ElementName=FoldersListView,Path=DataContext.SelectFolderCommand}" 
                                         CommandParameter="{Binding ElementName=FoldersListView,Path=SelectedItem}" Cursor="Hand">
                                         <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border x:Name="Bord">
+                                            <ControlTemplate TargetType="Button">
+                                                <Border x:Name="Bord">
                                                     <Grid>
                                                         <Control Template="{StaticResource MainData}"></Control>
-                                                    <Border BorderThickness="0 0 0 3" VerticalAlignment="Bottom" HorizontalAlignment="Right" BorderBrush="{StaticResource Emerald}" Background="Transparent">
+                                                        <Border BorderThickness="0 0 0 3" VerticalAlignment="Bottom" HorizontalAlignment="Right" BorderBrush="{StaticResource Emerald}" Background="Transparent" Margin="0 0 0 1">
                                                             <Grid  x:Name="DoneInfoGrid" Visibility="{Binding Selected,Converter={StaticResource BoolConverter},FallbackValue=Hidden}">
                                                                 <StackPanel Orientation="Horizontal">
                                                                     <Label  Foreground="{StaticResource Clouds}" Content="{Binding NumberOfDoneTasks,FallbackValue=0}" FontSize="13" HorizontalAlignment="Right"
@@ -350,46 +416,46 @@
                                                                     VerticalAlignment="Bottom" FontWeight="Bold" Margin="0 0 0 -5" FontFamily="Verdana" />
                                                                 </StackPanel>
                                                             </Grid>
-                                                    </Border>
+                                                        </Border>
                                                     </Grid>
                                                 </Border>
-                                            <ControlTemplate.Triggers>
+                                                <ControlTemplate.Triggers>
                                                     <Trigger Property="IsPressed" Value="True">
                                                         <Setter TargetName="Bord" Property="Border.Background" Value="#928DAB"></Setter>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                    <Control Template="{StaticResource MainData}"></Control>
-                                </Button>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="80" Width="200" Background="Transparent"
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                        <Control Template="{StaticResource MainData}"></Control>
+                                    </Button>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="80" Width="200" Background="Transparent"
                           Visibility="{Binding IsFolderInputVisible,Converter={StaticResource BoolConverter},FallbackValue=Hidden}">
-                        <Grid.Effect>
-                            <DropShadowEffect BlurRadius="15" Direction="135" ShadowDepth="3" RenderingBias="Quality" Opacity="0.5" Color="Purple"></DropShadowEffect>
-                        </Grid.Effect>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"></RowDefinition>
-                            <RowDefinition Height="1*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0" Height="30" Width="200"  Background="Transparent">
-                            <Border BorderThickness="0" Background="{StaticResource Amethyst}" CornerRadius="1 1 0 0">
-                                <TextBlock Text="ENTER THE NAME:" HorizontalAlignment="Center"  TextAlignment="Center" Height="30" VerticalAlignment="Center" 
+                            <Grid.Effect>
+                                <DropShadowEffect BlurRadius="15" Direction="135" ShadowDepth="3" RenderingBias="Quality" Opacity="0.5" Color="Purple"></DropShadowEffect>
+                            </Grid.Effect>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Height="30" Width="200"  Background="Transparent">
+                                <Border BorderThickness="0" Background="{StaticResource Amethyst}" CornerRadius="1 1 0 0">
+                                    <TextBlock Text="ENTER THE NAME:" HorizontalAlignment="Center"  TextAlignment="Center" Height="30" VerticalAlignment="Center" 
                                            Width="180" Foreground="{StaticResource Clouds}" FontSize="14" FontWeight="SemiBold"/>
-                            </Border>
-                        </Grid>
-                        <Border Grid.Row="1" Background="{StaticResource Amethyst}" Width="200" CornerRadius="0 0 1 1" >
-                            <TextBox x:Name="InputFolderTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent"
+                                </Border>
+                            </Grid>
+                            <Border Grid.Row="1" Background="{StaticResource Amethyst}" Width="200" CornerRadius="0 0 1 1" >
+                                <TextBox x:Name="InputFolderTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent"
                                      xmlns:FocusExtension.IsFocused="{Binding IsFolderInputFocused}"
                                      Text="{Binding InputFolderText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="5 0 5 2" FontFamily="Verdana"
                                      FontSize="20" FontWeight="Bold" Foreground="{StaticResource Clouds}" BorderThickness="0" TextWrapping="NoWrap" MaxLength="23"></TextBox>
-                        </Border>
+                            </Border>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-        </Border>
+            </Border>
         </Grid>
     </Grid>
 </Window>
