@@ -8,8 +8,8 @@
         
         <!--#region Brushes-->
         <LinearGradientBrush x:Key="Gradient" StartPoint="0,1" EndPoint="1,0">
-            <GradientStop Color="#928DAB" Offset="0"/>
-            <GradientStop Color="#d7d2cc" Offset="1" />
+            <GradientStop Color="#2C2D32" Offset="0"/>
+            <GradientStop Color="#2C2D32" Offset="1" />
         </LinearGradientBrush>
         <LinearGradientBrush x:Key="BackGroundGradient" StartPoint="0,0" EndPoint="1,0">
             <GradientStop Color="#3598DB" Offset="0" />
@@ -47,7 +47,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
             <Setter Property="BorderThickness" Value="0"></Setter>
-            <Setter Property="Foreground" Value="{StaticResource Asbestos}"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource Silver}"></Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="{StaticResource PomeGranate}"></Setter>
@@ -81,31 +81,18 @@
         </Style>
 
         <Grid x:Key="ExitIcon">
-            <Viewbox Stretch="Fill">
-                <Path  Data="M16,4C9.3828,4,4,9.3833,4,16s5.3828,12,12,12s12-5.3833,12-12S22.6172,4,16,4z M16,26c-5.5137,
-                                  0-10-4.4858-10-10   S10.4863,6,16,6s10,4.4858,10,10S21.5137,26,16,26z M20.707,12.707L17.4141,16l3.293,3.293c0.3906,0.3906,0.3906,
-                                  1.0234,0,1.4141   C20.5117,20.9023,20.2559,21,20,21s-0.5117-0.0977-0.707-0.293L16,17.4141l-3.293,3.293C12.5117,20.9023,12.2559,21,12,21   
-                                  s-0.5117-0.0977-0.707-0.293c-0.3906-0.3906-0.3906-1.0234,0-1.4141L14.5859,16l-3.293-3.293   c-0.3906-0.3906-0.3906-1.0234,
-                                  0-1.4141s1.0234-0.3906,
-                                  1.4141,0L16,14.5859l3.293-3.293c0.3906-0.3906,1.0234-0.3906,1.4141,0   S21.0977,12.3164,20.707,12.707z"  Stretch="Fill"
+            <Viewbox Stretch="Fill" Height="15" Width="15">
+                <Path  Data="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 
+                       1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"  Stretch="Fill"
                               Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
                 </Path>
             </Viewbox>
         </Grid>
-        
+
         <Grid x:Key="EnterIcon">
             <Viewbox Stretch="Fill">
                 <Path  Data="m27,2a2,2 0 0 0 -2,2l0,11c0,2.73 -1.27,4 -4,4l-12.08,0l2,-1l2.57,-2.57a2,2 0 0 0 -2.83,-2.83l-7,7a2,
                        2 0 0 0 0,2.83l7,7a2,2 0 0 0 2.83,-2.83l-2.7,-2.6l-1.94,-1l12.15,0c4.93,0 8,-3.07 8,-8l0,-11a2,2 0 0 0 -2,-2z"  Stretch="Fill"
-                              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
-                </Path>
-            </Viewbox>
-        </Grid>
-        
-        <Grid x:Key="MinimizeIcon">
-            <Viewbox Stretch="Fill">
-                <Path  Data="M14 22v4h20v-4h-20zm10-18c-11.05 0-20 8.95-20 20s8.95 20 20 20 20-8.95 20-20-8.95-20-20-20zm0 
-                       36c-8.82 0-16-7.18-16-16s7.18-16 16-16 16 7.18 16 16-7.18 16-16 16z"  Stretch="Fill"
                               Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
                 </Path>
             </Viewbox>
@@ -130,7 +117,7 @@
         </ControlTemplate>
 
         <ControlTemplate TargetType="Control" x:Key="LeftArrow">
-            <Viewbox Stretch="Fill" Width="15" Height="20">
+            <Viewbox Stretch="Fill" Width="10" Height="15">
                 <Path  Data="M30.83 32.67l-9.17-9.17 9.17-9.17-2.83-2.83-12 12 12 12z"  Stretch="Fill"
                               Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
                 </Path>
@@ -138,7 +125,7 @@
         </ControlTemplate>
 
         <ControlTemplate TargetType="Control" x:Key="RightArrow">
-            <Viewbox Stretch="Fill" Width="15" Height="20">
+            <Viewbox Stretch="Fill" Width="10" Height="15">
                 <Path  Data="M 16,32.67 25.17,23.5 16,14.33 l 2.83,-2.83 12,12 -12,12 z"  Stretch="Fill"
                               Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
                 </Path>
@@ -154,18 +141,31 @@
                 </Path>
             </Viewbox>
         </ControlTemplate>
-        
+
+        <ControlTemplate TargetType="Control" x:Key="DeleteFolderControl">
+            <Viewbox Stretch="Fill">
+                <Grid>
+                    <Path  Data="M100.3,90.4L73.9,64l26.3-26.4c0.4-0.4,0.4-1,0-1.4l-8.5-8.5c-0.4-0.4-1-0.4-1.4,0L64,54.1L
+                           37.7,27.8  c-0.4-0.4-1-0.4-1.4,0l-8.5,8.5c-0.4,0.4-0.4,1,0,1.4L54,64L27.7,90.3c-0.4,0.4-0.4,1,0
+                           ,1.4l8.5,8.5c0.4,0.4,1.1,0.4,1.4,0L64,73.9  
+                           l26.3,26.3c0.4,0.4,1.1,0.4,1.5,0.1l8.5-8.5C100.7,91.4,100.7,90.8,100.3,90.4z"  Stretch="Fill"
+                              Fill="{Binding BorderBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Border}}">
+                    </Path>
+                </Grid>
+            </Viewbox>
+        </ControlTemplate>
+
         <ControlTemplate x:Key="MainData">
-            <Border x:Name="MainBorder" Background="Transparent" Height="50" Cursor="Hand" BorderThickness="0" Margin="-5 -1 0 0" Width="215">
+            <Border x:Name="MainBorder" Background="Transparent" Height="45" Cursor="Hand" BorderThickness="0" Margin="-5 0 0 0" Width="215">
                 <Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="20"></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="1" Foreground="{StaticResource Clouds}" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}"
-                            FontSize="18" FontWeight="Bold" Name="FoldersName" TextWrapping="Wrap" Margin="5 0 0 0"></TextBlock>
-                        <Grid x:Name="SelectedGrid" Grid.Column="0" Background="{StaticResource Emerald}" Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}">
+                        <TextBlock Grid.Column="1" Foreground="{StaticResource Silver}" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}"
+                            FontSize="15" FontWeight="Bold" Name="FoldersName" TextWrapping="Wrap" Margin="10 0 0 0"></TextBlock>
+                        <Grid x:Name="SelectedGrid" Grid.Column="0" Background="{StaticResource BelizeHole}" Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="3" RenderingBias="Quality" Opacity="0.2"></DropShadowEffect>
                             </Grid.Effect>
@@ -175,11 +175,11 @@
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="MainBorder" Property="Background" Value="#928DAB"></Setter>
+                    <Setter TargetName="MainBorder" Property="Background" Value="#25262B"></Setter>
                 </Trigger>
                 <DataTrigger Binding="{Binding Selected}" Value="True">
                     <Setter TargetName="FoldersName" Property="Label.FontStyle" Value="Italic"></Setter>
-                    <Setter TargetName="MainBorder" Property="Background" Value="#928DAB"></Setter>
+                    <Setter TargetName="MainBorder" Property="Background" Value="#222328"></Setter>
                 </DataTrigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>

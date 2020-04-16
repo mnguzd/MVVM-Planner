@@ -28,6 +28,7 @@ namespace Planner
         public RelayCommand DeleteTaskCommand { get; private set; }
         public RelayCommand DeleteFolderCommand { get; private set; }
         public RelayCommand ChangeRighColumnCommand { get; private set; }
+        public RelayCommand ChangeRightColumnWidthBackCommand { get; private set; }
 
 
         public ObservableCollection<Folder> Folders { get; set; }
@@ -151,6 +152,13 @@ namespace Planner
         private void ChangeRightColumnWidth()
         {
             RightColumnWidth = 1000; //This changes the LineWidth for ProgressLine 
+            OnPropertyChanged(nameof(LineWidth));
+        }
+
+        private void ChangeRightColumnWidthBack()
+        {
+            RightColumnWidth = 800; //This changes the LineWidth for ProgressLine 
+            OnPropertyChanged(nameof(LineWidth));
         }
         private void DeleteFolder(object parameter)
         {
@@ -283,6 +291,7 @@ namespace Planner
             DeleteTaskCommand = new RelayCommand(p => DeleteTask(p), p => true);
             DeleteFolderCommand = new RelayCommand(p => DeleteFolder(p), p => true);
             ChangeRighColumnCommand = new RelayCommand(p => ChangeRightColumnWidth(), p => true);
+            ChangeRightColumnWidthBackCommand = new RelayCommand(p => ChangeRightColumnWidthBack(), p => true);
             IsFolderInputFocused = true;
         }
     }
