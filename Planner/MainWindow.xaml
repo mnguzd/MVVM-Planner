@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Planner"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="600" Width="1000" 
-        ResizeMode="NoResize" WindowStyle="None">
+        ResizeMode="NoResize" WindowStyle="None" Background="{StaticResource Alizarin}">
     
     <Window.DataContext>
         <local:AppViewModel></local:AppViewModel>
@@ -50,32 +50,40 @@
 
         <Storyboard x:Key="OpenInput">
             <DoubleAnimation Storyboard.TargetProperty="(Grid.Height)"
-                             Storyboard.TargetName="TaskInput" To="60" From="0" Duration="0:0:0.5">
+                             Storyboard.TargetName="TaskInput" To="80" From="0" Duration="0:0:0.3">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut" />
+                </DoubleAnimation.EasingFunction>
+
             </DoubleAnimation>
         </Storyboard>
         <Storyboard x:Key="CloseInput">
             <DoubleAnimation Storyboard.TargetProperty="(Grid.Height)" 
-                             Storyboard.TargetName="TaskInput" To="0" From="60" Duration="0:0:0.5">
+                             Storyboard.TargetName="TaskInput" To="20" From="80" Duration="0:0:0.5">
+                <DoubleAnimation.EasingFunction>
+                    <BackEase Amplitude="0.6" EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+
             </DoubleAnimation>
         </Storyboard>
         <Storyboard x:Key="StretchTasks">
             <DoubleAnimation Storyboard.TargetProperty="(Grid.Height)" 
-                             Storyboard.TargetName="TasksGrid" To="550" From="490" Duration="0:0:0.5">
+                             Storyboard.TargetName="TasksGrid" To="550" From="470" Duration="0:0:0">
             </DoubleAnimation>
         </Storyboard>
         <Storyboard x:Key="StretchTasksMargin">
             <ThicknessAnimation Storyboard.TargetProperty="(Grid.Margin)" 
-                                Storyboard.TargetName="TasksGrid" To="-60,0,0,0" From="0,0,0,0" Duration="0:0:0.5">
+                                Storyboard.TargetName="TasksGrid" To="0,0,0,-80" From="0,0,0,0" Duration="0:0:0">
             </ThicknessAnimation>
         </Storyboard>
         <Storyboard x:Key="StretchTasksBack">
             <DoubleAnimation Storyboard.TargetProperty="(Grid.Height)" 
-                             Storyboard.TargetName="TasksGrid" To="490" From="550" Duration="0:0:0.5">
+                             Storyboard.TargetName="TasksGrid" To="490" From="550" Duration="0:0:0">
             </DoubleAnimation>
         </Storyboard>
         <Storyboard x:Key="StretchTasksMarginBack">
             <ThicknessAnimation Storyboard.TargetProperty="(Grid.Margin)" 
-                                Storyboard.TargetName="TasksGrid" To="0,0,0,0" From="-60,0,0,0" Duration="0:0:0.0">
+                                Storyboard.TargetName="TasksGrid" To="0,0,0,-20" From="0,0,0,-80" Duration="0:0:0">
             </ThicknessAnimation>
         </Storyboard>
 
@@ -96,10 +104,10 @@
         </EventTrigger>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="NewTaskButton">
             <BeginStoryboard Storyboard="{StaticResource OpenInput}"></BeginStoryboard>
-            <BeginStoryboard Storyboard="{StaticResource StretchTasksBack}"></BeginStoryboard>
-            <BeginStoryboard Storyboard="{StaticResource StretchTasksMarginBack}"></BeginStoryboard>
+           <BeginStoryboard Storyboard="{StaticResource StretchTasksBack}"></BeginStoryboard>
+           <BeginStoryboard Storyboard="{StaticResource StretchTasksMarginBack}"></BeginStoryboard>
         </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="EnterButton">
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="CloseInputButton">
             <BeginStoryboard Storyboard="{StaticResource CloseInput}"></BeginStoryboard>
             <BeginStoryboard Storyboard="{StaticResource StretchTasks}"></BeginStoryboard>
             <BeginStoryboard Storyboard="{StaticResource StretchTasksMargin}"></BeginStoryboard>
@@ -115,11 +123,11 @@
             <ColumnDefinition Width="800"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <!--RightColumn-->
-        <Grid Grid.Column="1" Background="#222328" Name="RightColumn" HorizontalAlignment="Right" Width="{Binding RightColumnWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,FallbackValue=800,IsAsync=True}">
+        <Grid Grid.Column="1" Background="#222328" Name="RightColumn" VerticalAlignment="Top" HorizontalAlignment="Right" Width="{Binding RightColumnWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,FallbackValue=800,IsAsync=True}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="550"></RowDefinition>
-                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition Height="470"></RowDefinition>
+                <RowDefinition Height="80"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -213,122 +221,156 @@
                 </Button.Template>
             </Button>
             <!--ListOfTasks-->
-            <Grid Grid.Row="1" Height="550" Name="TasksGrid">
+            <Grid Grid.Row="1" Height="550" Name="TasksGrid" VerticalAlignment="Top" Margin="0 0 0 -80">
                 <ListView x:Name="ListOfTasks" Margin="-1 20 -1 0" Padding="0 10 0 0"
                           BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                          ScrollViewer.VerticalScrollBarVisibility="Hidden" VerticalContentAlignment="Top"
                            SelectedItem="SelectedTask" VerticalAlignment="Top"
                            SelectionMode="Single" FontFamily="Segoe UI Semibold"
                           Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" ScrollViewer.CanContentScroll="False"
                           ItemsSource="{Binding SelectedItem.Tasks,ElementName=FoldersListView}" FontSize="17" 
                           Background="Transparent">
-                <!--#C9F7CE-->
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid HorizontalAlignment="Right">
-                            <Button  Command="{Binding ElementName=ListOfTasks,Path=DataContext.MakeTaskDoneCommand}" Name="TaskButton" HorizontalAlignment="Right"
+                    <!--#C9F7CE-->
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Right">
+                                <Button  Command="{Binding ElementName=ListOfTasks,Path=DataContext.MakeTaskDoneCommand}" Name="TaskButton" HorizontalAlignment="Right"
                                                         CommandParameter="{Binding ElementName=ListOfTasks,Path=SelectedItem}" Cursor="Hand">
-                                <Button.Template>
-                                    <ControlTemplate>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="Button.IsMouseOver" Value="True">
-                                                <Setter TargetName="ItemBorder" Property="Border.Background" Value="#25262B"></Setter>
-                                                <Setter TargetName="DeleteTaskGrid" Property="Grid.Visibility" Value="Visible"></Setter>
-                                                <Setter TargetName="TaskLabel" Property="Grid.ColumnSpan" Value="1"></Setter>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                        <Border x:Name="ItemBorder" BorderThickness="0" BorderBrush="{StaticResource Asbestos}" Height="40"
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="Button.IsMouseOver" Value="True">
+                                                    <Setter TargetName="ItemBorder" Property="Border.Background" Value="#25262B"></Setter>
+                                                    <Setter TargetName="DeleteTaskGrid" Property="Grid.Visibility" Value="Visible"></Setter>
+                                                    <Setter TargetName="TaskLabel" Property="Grid.ColumnSpan" Value="1"></Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                            <Border x:Name="ItemBorder" BorderThickness="0" BorderBrush="{StaticResource Asbestos}" Height="40"
                                                 Margin="35 3 35 5" HorizontalAlignment="Center"
                                                 CornerRadius="1 1 1 1" Background="#2C2D32">
-                                            <Border.Effect>
-                                                <DropShadowEffect BlurRadius="15" Direction="270" ShadowDepth="1" RenderingBias="Quality" Opacity="0.2"></DropShadowEffect>
-                                            </Border.Effect>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition></ColumnDefinition>
-                                                    <ColumnDefinition Width="30"></ColumnDefinition>
-                                                </Grid.ColumnDefinitions>
-                                                <Grid x:Name="DeleteTaskGrid" Grid.Column="1" Background="Transparent" Height="30" Width="20"
+                                                <Border.Effect>
+                                                    <DropShadowEffect BlurRadius="15" Direction="270" ShadowDepth="1" RenderingBias="Quality" Opacity="0.2"></DropShadowEffect>
+                                                </Border.Effect>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition></ColumnDefinition>
+                                                        <ColumnDefinition Width="30"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid x:Name="DeleteTaskGrid" Grid.Column="1" Background="Transparent" Height="30" Width="20"
                                                       VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Hidden">
-                                                    <Button Foreground="{StaticResource Asbestos}" x:Name="DeleteTaskButton" 
+                                                        <Button Foreground="{StaticResource Asbestos}" x:Name="DeleteTaskButton" 
                                                             Command="{Binding ElementName=ListOfTasks,Path=DataContext.DeleteTaskCommand}" 
                                                             CommandParameter="{Binding ElementName=ListOfTasks,Path=SelectedItem}">
-                                                        <Button.Template>
-                                                            <ControlTemplate>
-                                                                <Border BorderBrush="{StaticResource PomeGranate}" BorderThickness="0" x:Name="DeleteBorder" Background="Transparent">
-                                                                    <Control Height="15" Width="15" Template="{StaticResource DeleteFolderControl}" Name="DeleteControl"></Control>
-                                                                </Border>
-                                                                <ControlTemplate.Triggers>
-                                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                                        <Setter TargetName="DeleteControl" Property="Control.Height" Value="16"></Setter>
-                                                                        <Setter TargetName="DeleteControl" Property="Control.Width" Value="16"></Setter>
-                                                                    </Trigger>
-                                                                </ControlTemplate.Triggers>
-                                                            </ControlTemplate>
-                                                        </Button.Template>
-                                                    </Button>
-                                                </Grid>
-                                                <TextBlock Name="TaskLabel" Text="{Binding ToDo}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" 
+                                                            <Button.Template>
+                                                                <ControlTemplate>
+                                                                    <Border BorderBrush="{StaticResource PomeGranate}" BorderThickness="0" x:Name="DeleteBorder" Background="Transparent">
+                                                                        <Control Height="15" Width="15" Template="{StaticResource DeleteFolderControl}" Name="DeleteControl"></Control>
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                            <Setter TargetName="DeleteControl" Property="Control.Height" Value="16"></Setter>
+                                                                            <Setter TargetName="DeleteControl" Property="Control.Width" Value="16"></Setter>
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Button.Template>
+                                                        </Button>
+                                                    </Grid>
+                                                    <TextBlock Name="TaskLabel" Text="{Binding ToDo}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" 
                                                        Background="Transparent" Focusable="True" Grid.ColumnSpan="2" Margin="15 0 0 0">
-                                                    <TextBlock.Style>
-                                                        <Style>
-                                                            <Setter Property="TextBlock.Foreground" Value="{StaticResource Silver}"></Setter>
-                                                            <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding Done}" Value="True">
-                                                                    <Setter  Property="TextBlock.Foreground" Value="{StaticResource Nephritis}"></Setter>
-                                                                    <Setter Property="TextBlock.TextDecorations" Value="Strikethrough"></Setter>
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </TextBlock.Style>
-                                                </TextBlock>
+                                                        <TextBlock.Style>
+                                                            <Style>
+                                                                <Setter Property="TextBlock.Foreground" Value="{StaticResource Silver}"></Setter>
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding Done}" Value="True">
+                                                                        <Setter  Property="TextBlock.Foreground" Value="{StaticResource Nephritis}"></Setter>
+                                                                        <Setter Property="TextBlock.TextDecorations" Value="Strikethrough"></Setter>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
                                                     <Line x:Name="Underline" StrokeThickness="1" X1="0" X2="1" Grid.Column="0" Grid.ColumnSpan="2"
                                                       Stretch="Fill" StrokeEndLineCap="Square" StrokeStartLineCap="Square" Stroke="Transparent" />
                                                 </Grid>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+            <!--TaskInput-->
+            <Grid Grid.Row="2" Name="TaskInput" Grid.ColumnSpan="3" Height="20" VerticalAlignment="Bottom" Background="Transparent">
+                <Border Background="Transparent" Grid.ColumnSpan="3" BorderThickness="0">
+                    <Grid Background="Transparent" HorizontalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+                            <Grid.Background>
+                                <SolidColorBrush Color="Transparent" Opacity="0"></SolidColorBrush>
+                            </Grid.Background>
+                            <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="20" Width="100" Name="NewTaskButton" Click="NewTaskButton_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid >
+                                        <Border Background="{StaticResource BelizeHole}" Name="Bord" Cursor="Hand" Height="20" Width="100" CornerRadius="5 5 0 0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label Content="New task" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="-5"
+                                               Foreground="{StaticResource Clouds}" FontFamily="Segoe UI Semibold" FontSize="15" VerticalContentAlignment="Center"></Label>
+                                            <Border.Effect>
+                                                <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="5" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
+                                            </Border.Effect>
                                         </Border>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bord" Property="Border.Background" Value="#166CA5"></Setter>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="Bord" Property="Border.Background" Value="#003D76"></Setter>
+                                            <Setter Property="Cursor" Value="Hand"></Setter>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                            <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="20" Width="100" Name="CloseInputButton" Visibility="Hidden" Click="CloseInputButton_Click">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid >
+                                            <Border Background="{StaticResource Alizarin}" Name="Bord" Cursor="Hand" Height="20" Width="100" CornerRadius="5 5 0 0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <Label Content="Close" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="-5"
+                                               Foreground="{StaticResource Clouds}" FontFamily="Segoe UI Semibold" FontSize="15" VerticalContentAlignment="Center"></Label>
+                                                <Border.Effect>
+                                                    <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="5" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
+                                                </Border.Effect>
+                                            </Border>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Bord" Property="Border.Background" Value="#C1392B"></Setter>
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter TargetName="Bord" Property="Border.Background" Value="#A71F11"></Setter>
+                                                <Setter Property="Cursor" Value="Hand"></Setter>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
                         </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-                <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="0" Height="20" Width="100" Name="NewTaskButton">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Grid >
-                                <Border Background="{StaticResource BelizeHole}" Name="Bord" Cursor="Hand" Height="20" Width="100" CornerRadius="5 5 0 0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <Label Content="New task" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="-5"
-                                               Foreground="{StaticResource Clouds}" FontFamily="Segoe UI Semibold" FontSize="15" VerticalContentAlignment="Center"></Label>
-                                    <Border.Effect>
-                                        <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="5" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
-                                    </Border.Effect>
-                                </Border>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="Bord" Property="Border.Background" Value="#166CA5"></Setter>
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="Bord" Property="Border.Background" Value="#003D76"></Setter>
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-            </Grid>
-            <!--TaskInput-->
-            <Grid Grid.Row="2" Name="TaskInput" Height="0">
-                <Border Background="#2C2D32" Grid.ColumnSpan="3" BorderThickness="0">
-                <Grid Background="Transparent" HorizontalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <!--<Line Grid.Column="0" X1="0" Y1="3" X2="{Binding LineWidth,UpdateSourceTrigger=PropertyChanged,FallbackValue=0}" Y2="3" Grid.ColumnSpan="3"
+                        <!--<Line Grid.Column="0" X1="0" Y1="3" X2="{Binding LineWidth,UpdateSourceTrigger=PropertyChanged,FallbackValue=0}" Y2="3" Grid.ColumnSpan="3"
                       Stroke="{StaticResource Nephritis}" StrokeThickness="4" StrokeEndLineCap="Square" StrokeStartLineCap="Square" Margin="-2 0 0 0" />-->
-                    <TextBox Grid.Column="0" Grid.ColumnSpan="2">
+                        <Grid Grid.Row="1" Grid.ColumnSpan="3" Background="#2C2D32">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
                         <TextBox.Template>
                             <ControlTemplate>
                                 <Grid Height="55">
@@ -358,7 +400,7 @@
                             </ControlTemplate>
                         </TextBox.Template>
                     </TextBox>
-                    <Button Visibility="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected,Converter={StaticResource BoolConverter}, FallbackValue=Hidden}"  Grid.Column="1" Height="50" 
+                    <Button   Grid.Column="1" Height="50" Grid.Row="1"
                              Width="200" Command="{Binding AddTaskCommand}" Margin="0 0 0 0"
                             Style="{StaticResource EnterButtonStyle}"  x:Name="EnterButton" Cursor="Hand">
                         <Button.Template>
@@ -384,7 +426,8 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                </Grid>
+                        </Grid>
+                    </Grid>
             </Border>
             </Grid>
         </Grid>

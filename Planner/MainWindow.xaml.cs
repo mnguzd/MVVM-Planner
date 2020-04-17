@@ -31,5 +31,17 @@ namespace Planner
             CloseMenuButton.Visibility = Visibility.Visible;
             OpenMenuButton.Visibility = Visibility.Hidden;
         }
+
+        private void NewTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            NewTaskButton.Visibility = Visibility.Hidden;
+            CloseInputButton.Visibility = Visibility.Visible;
+        }
+
+        private void CloseInputButton_Click(object sender, RoutedEventArgs e)
+        {
+            NewTaskButton.Visibility = Visibility.Visible;
+            CloseInputButton.Visibility = Visibility.Hidden;
+        }
     }
 }

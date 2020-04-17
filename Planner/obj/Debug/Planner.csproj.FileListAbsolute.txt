@@ -17,4 +17,3 @@ C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\GeneratedInt
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\bin\Debug\Newtonsoft.Json.dll
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\bin\Debug\Newtonsoft.Json.xml
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\Planner.csproj.CopyComplete
-C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Debug\Planner.csprojAssemblyReference.cache
