@@ -15,3 +15,6 @@ C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\Planner.cs
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\Planner.csproj.CoreCompileInputs.cache
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\Planner.exe
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\Planner.pdb
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\bin\Release\Newtonsoft.Json.dll
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\bin\Release\Newtonsoft.Json.xml
+C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\Planner.csproj.CopyComplete

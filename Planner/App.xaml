@@ -160,16 +160,18 @@
                 <Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="10"></ColumnDefinition>
+                            <ColumnDefinition Width="15"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="1" Foreground="{StaticResource Silver}" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}"
                             FontSize="15" FontWeight="Bold" Name="FoldersName" TextWrapping="Wrap" Margin="10 0 0 0"></TextBlock>
-                        <Grid x:Name="SelectedGrid" Grid.Column="0" Background="{StaticResource BelizeHole}" Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}">
-                            <Grid.Effect>
-                                <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="3" RenderingBias="Quality" Opacity="0.2"></DropShadowEffect>
-                            </Grid.Effect>
-                        </Grid>
+                        <Border x:Name="SelectedGrid" Grid.Column="0" BorderThickness="0" CornerRadius="0 7 7 0" Width="10" Height="45"
+                                VerticalAlignment="Center" HorizontalAlignment="Left" SnapsToDevicePixels="True"
+                                Background="{StaticResource BelizeHole}" Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="3" RenderingBias="Quality" Opacity="0.1"></DropShadowEffect>
+                            </Border.Effect>
+                        </Border>
                     </Grid>
                 </Grid>
             </Border>

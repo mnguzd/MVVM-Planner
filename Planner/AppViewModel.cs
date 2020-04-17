@@ -3,8 +3,6 @@ using Planner.Utilty;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Threading.Tasks;
-using System.Threading;
 
 namespace Planner
 {
@@ -14,8 +12,7 @@ namespace Planner
         private string _inputFolderText;
         private bool _isFolderInputVisible;
         private bool _isFolderInputFocused;
-        private double _lineWidth;
-        private double _rightColumnWidth=800;
+        private double _rightColumnWidth = 800;
         private double _leftColumnWidth = 200;
         private readonly DataService service = new DataService("FolderData.txt");
 
@@ -27,8 +24,6 @@ namespace Planner
         public RelayCommand MakeTaskDoneCommand { get; private set; }
         public RelayCommand DeleteTaskCommand { get; private set; }
         public RelayCommand DeleteFolderCommand { get; private set; }
-        public RelayCommand ChangeRighColumnCommand { get; private set; }
-        public RelayCommand ChangeRightColumnWidthBackCommand { get; private set; }
 
 
         public ObservableCollection<Folder> Folders { get; set; }
@@ -59,34 +54,6 @@ namespace Planner
                     return;
                 _leftColumnWidth = value;
                 OnPropertyChanged(nameof(LeftColumnWidth));
-            }
-        }
-        public double LineWidth 
-        {
-            get
-            {
-                int index = new int();
-                for (int i = 0; i < Folders.Count; i++)
-                {
-                    if (Folders[i].Selected)
-                    {
-                        index = i;
-                    }
-                }
-                if (Folders[index].Tasks.Count == 0) 
-                {
-                    return 0;
-                }
-                double percentOfDone = Convert.ToDouble(Folders[index].NumberOfDoneTasks) / Convert.ToDouble(Folders[index].Tasks.Count);
-                _lineWidth = RightColumnWidth * percentOfDone;
-                return _lineWidth;
-            }
-            set
-            {
-                if (value == _lineWidth)
-                    return;
-                _lineWidth = value;
-                OnPropertyChanged(nameof(LineWidth));
             }
         }
         public string InputTaskText
@@ -149,24 +116,16 @@ namespace Planner
         {
             Application.Current.MainWindow.WindowState = WindowState.Minimized;
         }
-        private void ChangeRightColumnWidth()
-        {
-            RightColumnWidth = 1000; //This changes the LineWidth for ProgressLine 
-            OnPropertyChanged(nameof(LineWidth));
-        }
-
-        private void ChangeRightColumnWidthBack()
-        {
-            RightColumnWidth = 800; //This changes the LineWidth for ProgressLine 
-            OnPropertyChanged(nameof(LineWidth));
-        }
         private void DeleteFolder(object parameter)
         {
-
             if (parameter != null)
             {
                 Folders.Remove(parameter as Folder);
-                Folders[Folders.Count - 1].Selected = true;
+                if (Folders.Count > 0)
+                    Folders[Folders.Count - 1].Selected = true;
+                else
+                    foreach(Folder i in Folders)
+                        i.Selected = false;
             }
         }
         private void MakeTaskDone(object parameter)
@@ -174,28 +133,14 @@ namespace Planner
             if (parameter != null)
             {
                 (parameter as TaskModel).Done = !(parameter as TaskModel).Done;
-
                 if ((parameter as TaskModel).Done)
-                {
                     for (int i = 0; i < Folders.Count; i++)
-                    {
                         if (Folders[i].Selected)
-                        {
                             Folders[i].NumberOfDoneTasks++;
-                        }
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < Folders.Count; i++)
-                    {
-                        if (Folders[i].Selected)
-                        {
-                            Folders[i].NumberOfDoneTasks--;
-                        }
-                    }
-                }
-                OnPropertyChanged(nameof(LineWidth));
+                        else
+                            for (int g = 0; g < Folders.Count; g++)
+                                if (Folders[g].Selected)
+                                    Folders[g].NumberOfDoneTasks--;
             }
         }
         private void AddFolder(object parameter)
@@ -236,7 +181,6 @@ namespace Planner
                         if (Folders[g].Selected)
                             Folders[g].Tasks.Remove(parameter as TaskModel);
                 }
-                OnPropertyChanged(nameof(LineWidth));
             }
         }
         private void SelectFolder(object parameter)
@@ -249,7 +193,6 @@ namespace Planner
                 }
             (parameter as Folder).Selected = true;
             }
-            OnPropertyChanged(nameof(LineWidth));
         }
         private void ClosingWindow()
         {
@@ -258,9 +201,9 @@ namespace Planner
             {
                 service.SaveData(Folders);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("Oops, there was an error : "+ex.ToString());
+                MessageBox.Show("Oops, there was an error : " + ex.ToString());
             }
         }
         private void AddTask()
@@ -270,7 +213,6 @@ namespace Planner
                     if (Folders[i].Selected)
                         Folders[i].Tasks.Add(new TaskModel(InputTaskText));
             InputTaskText = "";
-            OnPropertyChanged(nameof(LineWidth));
         }
         public AppViewModel()
         {
@@ -278,11 +220,11 @@ namespace Planner
             {
                 Folders = service.LoadData();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("Oops, there was an error : "+ex.ToString());
+                MessageBox.Show("Oops, there was an error : " + ex.ToString());
             }
-            ClosingWindowCommand = new RelayCommand(p =>ClosingWindow(), p => true);
+            ClosingWindowCommand = new RelayCommand(p => ClosingWindow(), p => true);
             MinimizeWindowCommand = new RelayCommand(p => MinimizeWindow(), p => true);
             AddFolderCommand = new RelayCommand(p => AddFolder(p), p => true);
             SelectFolderCommand = new RelayCommand(p => SelectFolder(p), p => true);
@@ -290,8 +232,6 @@ namespace Planner
             MakeTaskDoneCommand = new RelayCommand(p => MakeTaskDone(p), p => true);
             DeleteTaskCommand = new RelayCommand(p => DeleteTask(p), p => true);
             DeleteFolderCommand = new RelayCommand(p => DeleteFolder(p), p => true);
-            ChangeRighColumnCommand = new RelayCommand(p => ChangeRightColumnWidth(), p => true);
-            ChangeRightColumnWidthBackCommand = new RelayCommand(p => ChangeRightColumnWidthBack(), p => true);
             IsFolderInputFocused = true;
         }
     }

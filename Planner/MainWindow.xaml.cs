@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace Planner
 {
@@ -10,12 +9,12 @@ namespace Planner
         {
             InitializeComponent();
         }
-        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)  //Moving the window, this is UI logic so it is here.
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) //Moving the window
         {
             DragMove();
         }
 
-        private void Button_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        private void Button_MouseRightButtonDown(object sender, MouseButtonEventArgs e) //Removes selection right-clicking
         {
             e.Handled = true;
         }

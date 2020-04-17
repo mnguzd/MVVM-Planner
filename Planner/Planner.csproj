@@ -111,5 +111,11 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logo7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="iconfinder_light-icon_211088.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
