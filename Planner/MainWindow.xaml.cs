@@ -42,5 +42,17 @@ namespace Planner
             NewTaskButton.Visibility = Visibility.Visible;
             CloseInputButton.Visibility = Visibility.Hidden;
         }
+
+        private void NewFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+            NewFolderButton.Visibility = Visibility.Hidden;
+            CloseFolderInputButton.Visibility = Visibility.Visible;
+        }
+
+        private void CloseFolderInputButton_Click(object sender, RoutedEventArgs e)
+        {
+            CloseFolderInputButton.Visibility = Visibility.Hidden;
+            NewFolderButton.Visibility = Visibility.Visible;
+        }
     }
 }

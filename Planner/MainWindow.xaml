@@ -46,52 +46,69 @@
         </Storyboard>
 
 
-
-
         <Storyboard x:Key="OpenInput">
+            <ThicknessAnimation Storyboard.TargetProperty="(Grid.Margin)"
+                             Storyboard.TargetName="TaskInput" To="0 0 0 0" Duration="0:0:0.5">
+                <ThicknessAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut" />
+                </ThicknessAnimation.EasingFunction>
+            </ThicknessAnimation>
+        </Storyboard>
+        <Storyboard x:Key="CloseInput">
+            <ThicknessAnimation Storyboard.TargetProperty="(Grid.Margin)" 
+                             Storyboard.TargetName="TaskInput" To="0 0 0 -60" From="0 0 0 0" Duration="0:0:0.8">
+                <ThicknessAnimation.EasingFunction>
+                    <BackEase Amplitude="0.6" EasingMode="EaseOut"/>
+                </ThicknessAnimation.EasingFunction>
+            </ThicknessAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="OpenFolderInput">
             <DoubleAnimation Storyboard.TargetProperty="(Grid.Height)"
-                             Storyboard.TargetName="TaskInput" To="80" From="0" Duration="0:0:0.3">
+                             Storyboard.TargetName="InputFolderText" To="200" From="20" Duration="0:0:0.3">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase EasingMode="EaseOut" />
                 </DoubleAnimation.EasingFunction>
 
             </DoubleAnimation>
         </Storyboard>
-        <Storyboard x:Key="CloseInput">
+        <Storyboard x:Key="CloseFolderInput">
             <DoubleAnimation Storyboard.TargetProperty="(Grid.Height)" 
-                             Storyboard.TargetName="TaskInput" To="20" From="80" Duration="0:0:0.5">
+                             Storyboard.TargetName="InputFolderText" To="20" From="200" Duration="0:0:0.5">
                 <DoubleAnimation.EasingFunction>
                     <BackEase Amplitude="0.6" EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
 
             </DoubleAnimation>
         </Storyboard>
-        <Storyboard x:Key="StretchTasks">
+        <Storyboard x:Key="StretchFolders">
             <DoubleAnimation Storyboard.TargetProperty="(Grid.Height)" 
-                             Storyboard.TargetName="TasksGrid" To="550" From="470" Duration="0:0:0">
+                             Storyboard.TargetName="FoldersGrid" To="530" From="330" Duration="0:0:0">
             </DoubleAnimation>
         </Storyboard>
-        <Storyboard x:Key="StretchTasksMargin">
+        <Storyboard x:Key="StretchFoldersMargin">
             <ThicknessAnimation Storyboard.TargetProperty="(Grid.Margin)" 
-                                Storyboard.TargetName="TasksGrid" To="0,0,0,-80" From="0,0,0,0" Duration="0:0:0">
+                                Storyboard.TargetName="FoldersGrid" To="0,0,0,-200" From="0,0,0,0" Duration="0:0:0">
             </ThicknessAnimation>
         </Storyboard>
-        <Storyboard x:Key="StretchTasksBack">
+        <Storyboard x:Key="StretchFoldersBack">
             <DoubleAnimation Storyboard.TargetProperty="(Grid.Height)" 
-                             Storyboard.TargetName="TasksGrid" To="490" From="550" Duration="0:0:0">
+                             Storyboard.TargetName="FoldersGrid" To="330" From="530" Duration="0:0:0">
             </DoubleAnimation>
         </Storyboard>
-        <Storyboard x:Key="StretchTasksMarginBack">
+        <Storyboard x:Key="StretchFoldersMarginBack">
             <ThicknessAnimation Storyboard.TargetProperty="(Grid.Margin)" 
-                                Storyboard.TargetName="TasksGrid" To="0,0,0,-20" From="0,0,0,-80" Duration="0:0:0">
+                                Storyboard.TargetName="FoldersGrid" To="0,0,0,-200" From="0,0,0,0" Duration="0:0:0">
             </ThicknessAnimation>
         </Storyboard>
+
 
 
         <!--BoolConverter-->
     </Window.Resources>
 
     <Window.Triggers>
+        
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="CloseMenuButton">
             <BeginStoryboard Storyboard="{StaticResource CloseMenu}"></BeginStoryboard>
             <BeginStoryboard Storyboard="{StaticResource StretchRightColumn}"></BeginStoryboard>
@@ -102,16 +119,25 @@
             <BeginStoryboard Storyboard="{StaticResource StretchRightColumnBack}"></BeginStoryboard>
             <BeginStoryboard Storyboard="{StaticResource StretchRightColumnMarginBack}"></BeginStoryboard>
         </EventTrigger>
+        
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="NewTaskButton">
             <BeginStoryboard Storyboard="{StaticResource OpenInput}"></BeginStoryboard>
-            <BeginStoryboard Storyboard="{StaticResource StretchTasksBack}"></BeginStoryboard>
-            <BeginStoryboard Storyboard="{StaticResource StretchTasksMarginBack}"></BeginStoryboard>
         </EventTrigger>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="CloseInputButton">
             <BeginStoryboard Storyboard="{StaticResource CloseInput}"></BeginStoryboard>
-            <BeginStoryboard Storyboard="{StaticResource StretchTasks}"></BeginStoryboard>
-            <BeginStoryboard Storyboard="{StaticResource StretchTasksMargin}"></BeginStoryboard>
         </EventTrigger>
+
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="NewFolderButton">
+            <BeginStoryboard Storyboard="{StaticResource OpenFolderInput}"></BeginStoryboard>
+            <BeginStoryboard Storyboard="{StaticResource StretchFoldersBack}"></BeginStoryboard>
+            <BeginStoryboard Storyboard="{StaticResource StretchFoldersMarginBack}"></BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="CloseFolderInputButton">
+            <BeginStoryboard Storyboard="{StaticResource CloseFolderInput}"></BeginStoryboard>
+            <BeginStoryboard Storyboard="{StaticResource StretchFolders}"></BeginStoryboard>
+            <BeginStoryboard Storyboard="{StaticResource StretchFoldersMargin}"></BeginStoryboard>
+        </EventTrigger>
+        
     </Window.Triggers>
     <Window.InputBindings>
         <KeyBinding Key="Enter" Command="{Binding AddTaskCommand,UpdateSourceTrigger=PropertyChanged}"></KeyBinding>
@@ -125,8 +151,7 @@
         <Grid Grid.Column="1" Background="#222328" Name="RightColumn" VerticalAlignment="Top" HorizontalAlignment="Right" Width="{Binding RightColumnWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,FallbackValue=800,IsAsync=True}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="470"></RowDefinition>
-                <RowDefinition Height="80"></RowDefinition>
+                <RowDefinition Height="550"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -220,7 +245,7 @@
                 </Button.Template>
             </Button>
             <!--ListOfTasks-->
-            <Grid Grid.Row="1" Height="550" Name="TasksGrid" VerticalAlignment="Top" Margin="0 0 0 -80" Grid.ColumnSpan="3">
+            <Grid Grid.Row="1" Name="TasksGrid" VerticalAlignment="Top" Grid.ColumnSpan="3">
                 <ListView x:Name="ListOfTasks" Margin="-1 20 -1 0" Padding="0 10 0 0"
                           BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                           ScrollViewer.VerticalScrollBarVisibility="Hidden" VerticalContentAlignment="Top"
@@ -305,59 +330,68 @@
                 </ListView>
             </Grid>
             <!--TaskInput-->
-            <Grid Grid.Row="2" Name="TaskInput" Grid.ColumnSpan="3" Height="20" VerticalAlignment="Bottom">
-                <Border Grid.ColumnSpan="3" BorderThickness="0">
-                    <Grid HorizontalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="3">
+            <Grid Grid.Row="1" Name="TaskInput" Grid.ColumnSpan="3" Height="85" VerticalAlignment="Bottom" Margin="0 0 0 -60">
+                <Border>
+                    <Grid HorizontalAlignment="Stretch">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
                             <RowDefinition Height="60"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+                        <Grid Grid.Row="0">
                             <Grid.Background>
                                 <SolidColorBrush Color="Transparent" Opacity="0"></SolidColorBrush>
                             </Grid.Background>
-                            <Button HorizontalAlignment="Center" Visibility="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected,Converter={StaticResource BoolConverter},FallbackValue=Hidden}" VerticalAlignment="Bottom" Height="20" Width="100" Name="NewTaskButton" Click="NewTaskButton_Click">
+                            <Button HorizontalAlignment="Center"
+                                    Visibility="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected,Converter={StaticResource BoolConverter},FallbackValue=Visible}" 
+                                    VerticalAlignment="Bottom" FontFamily="Segoe UI Semibold"
+                                    Height="20" Width="100" Name="NewTaskButton"
+                                    Click="NewTaskButton_Click">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
                                         <Grid >
-                                            <Border Background="{StaticResource BelizeHole}" Name="Bord" Cursor="Hand" Height="20" Width="100" CornerRadius="5 5 0 0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                <Label Content="New task" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="-5"
-                                               Foreground="{StaticResource Clouds}" FontFamily="Segoe UI Semibold" FontSize="15" VerticalContentAlignment="Center"></Label>
+                                            <Border Background="{StaticResource BelizeHole}" Name="TaskButtonBorder" Cursor="Hand"
+                                                    CornerRadius="5 5 0 0">
+                                                <Label Content="New task" HorizontalAlignment="Center" Padding="-5"
+                                               Foreground="{StaticResource Clouds}" FontSize="15"></Label>
                                                 <Border.Effect>
-                                                    <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="5" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
+                                                    <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="1" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
                                                 </Border.Effect>
                                             </Border>
                                         </Grid>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="Bord" Property="Border.Background" Value="#166CA5"></Setter>
+                                                <Setter TargetName="TaskButtonBorder" Property="Border.Background" Value="#166CA5"></Setter>
                                             </Trigger>
                                             <Trigger Property="IsPressed" Value="True">
-                                                <Setter TargetName="Bord" Property="Border.Background" Value="#003D76"></Setter>
+                                                <Setter TargetName="TaskButtonBorder" Property="Border.Background" Value="#003D76"></Setter>
                                                 <Setter Property="Cursor" Value="Hand"></Setter>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
-                            <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="20" Width="100" Name="CloseInputButton" Visibility="Hidden" Click="CloseInputButton_Click">
+                            <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+                                    Height="20" Width="100" 
+                                    Name="CloseInputButton" 
+                                    Visibility="Hidden" FontFamily="Segoe UI Semibold"
+                                    Click="CloseInputButton_Click">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
                                         <Grid >
-                                            <Border Background="{StaticResource Alizarin}" Name="Bord" Cursor="Hand" Height="20" Width="100" CornerRadius="5 5 0 0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                <Label Content="Close" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="-5"
-                                               Foreground="{StaticResource Clouds}" FontFamily="Segoe UI Semibold" FontSize="15" VerticalContentAlignment="Center"></Label>
+                                            <Border Background="{StaticResource Alizarin}" Name="CloseButtonBorder" Cursor="Hand" CornerRadius="5 5 0 0" >
+                                                <Label Content="Close" HorizontalAlignment="Center" Padding="-5"
+                                               Foreground="{StaticResource Clouds}" FontSize="15"></Label>
                                                 <Border.Effect>
-                                                    <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="5" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
+                                                    <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="1" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
                                                 </Border.Effect>
                                             </Border>
                                         </Grid>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="Bord" Property="Border.Background" Value="#C1392B"></Setter>
+                                                <Setter TargetName="CloseButtonBorder" Property="Border.Background" Value="#C1392B"></Setter>
                                             </Trigger>
                                             <Trigger Property="IsPressed" Value="True">
-                                                <Setter TargetName="Bord" Property="Border.Background" Value="#A71F11"></Setter>
+                                                <Setter TargetName="CloseButtonBorder" Property="Border.Background" Value="#A71F11"></Setter>
                                                 <Setter Property="Cursor" Value="Hand"></Setter>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
@@ -365,28 +399,28 @@
                                 </Button.Template>
                             </Button>
                         </Grid>
-                        <Grid Grid.Row="1" Grid.ColumnSpan="3" Background="#2C2D32">
+                        <Grid Grid.Row="1" Background="#2C2D32">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="200"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
+                            <TextBox Grid.Column="0" Grid.Row="1">
                                 <TextBox.Template>
                                     <ControlTemplate>
                                         <Grid Height="55">
-                                            <TextBox x:Name="InputText" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Segoe UI" Margin="10 0 140 0"
-                             Focusable="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected, FallbackValue=False}"
-                            Text="{Binding InputTaskText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"
-                             Background="Transparent" FontSize="20" Height="55" Foreground="{StaticResource Silver}"
-                             HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderThickness="0"/>
-                                            <TextBox x:Name="DefaultText" Text="Write a new task here..."
+                                            <TextBox x:Name="InputText" VerticalAlignment="Center" FontFamily="Segoe UI" Margin="10 0 0 0"
+                                                    Focusable="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected, FallbackValue=False}"
+                                                    Text="{Binding InputTaskText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="1"
+                                                    Background="Transparent" FontSize="20" Foreground="{StaticResource Silver}"
+                                                    HorizontalContentAlignment="Left" BorderThickness="0"/>
+                                            <Label x:Name="DefaultText" Content="Write a new task here..."
                                                Visibility="Hidden" Background="Transparent"
                                                Foreground="{StaticResource Concrete}" BorderThickness="0"
                                                FontFamily="Segoe UI" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"
-                                               FontSize="22" IsReadOnly="True" Focusable="False"
-                                               VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
-                                               Margin="10 0 140 0" Height="55">
-                                            </TextBox>
+                                               FontSize="22" Focusable="False"
+                                               VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                               Margin="10 0 0 0">
+                                            </Label>
                                         </Grid>
                                         <ControlTemplate.Triggers>
                                             <MultiTrigger>
@@ -400,15 +434,17 @@
                                     </ControlTemplate>
                                 </TextBox.Template>
                             </TextBox>
-                            <Button   Grid.Column="1" Height="50" Grid.Row="1"
-                             Width="200" Command="{Binding AddTaskCommand}"
-                            Style="{StaticResource EnterButtonStyle}"  x:Name="EnterButton" Cursor="Hand">
+                            <Button   Grid.Column="1" Height="50"
+                                      Width="200" Command="{Binding AddTaskCommand}"
+                                      Style="{StaticResource EnterButtonStyle}"  
+                                      x:Name="EnterButton" FontFamily="Segoe UI Semibold"
+                                      Cursor="Hand">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
                                         <Grid>
                                             <Border x:Name="Bord" Background="{StaticResource BelizeHole}" CornerRadius="5 5 5 5" Height="35" Width="130" >
                                                 <Label Content="Add" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="-5"
-                                               Foreground="{StaticResource Clouds}" FontFamily="Segoe UI Semibold" FontSize="20" VerticalContentAlignment="Center"></Label>
+                                               Foreground="{StaticResource Clouds}" FontSize="20"></Label>
                                                 <Border.Effect>
                                                     <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="5" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
                                                 </Border.Effect>
@@ -435,19 +471,17 @@
 
         <!--LeftColumn-->
         <Grid x:Name="LeftColumnMenu" Grid.Column="0" Width="{Binding LeftColumnWidth, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-              HorizontalAlignment="Left" VerticalAlignment="Center">
+              HorizontalAlignment="Left" VerticalAlignment="Top">
             <Border Background="{StaticResource Gradient}" BorderThickness="0">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="5" RenderingBias="Quality" Opacity="0.1"></DropShadowEffect>
                 </Border.Effect>
                 <Grid  Name="LeftGrid">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50">
-                        </RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="350"/>
+                        <RowDefinition Height="200"/>
                     </Grid.RowDefinitions>
-                    <!--AddFoldersButton-->
                     <Border Grid.Row="0" BorderThickness="0 2 0 0" BorderBrush="{StaticResource BelizeHole}" Margin="0 0 0 -1">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -467,7 +501,6 @@
                                 </Button.Template>
                             </Button>
                             <Grid Grid.Column="0">
-
                                 <TextBlock Text="POSSUM PLANNER" 
                                        HorizontalAlignment="Center" 
                                        VerticalAlignment="Center" 
@@ -480,39 +513,129 @@
                             </Grid>
                         </Grid>
                     </Border>
-                    <Button  Grid.Row="2" Height="50" Width="200" 
-                     VerticalAlignment="Bottom" Name="AddFolderButton"
-                     Panel.ZIndex="1" Style="{StaticResource ButtonStyle2}"
-                     Command="{Binding AddFolderCommand}"
-                     CommandParameter="{Binding ElementName=InputFolderTextBox,Path=Text}">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Grid >
-                                    <Border Background="{StaticResource BelizeHole}" Name="Bord" Cursor="Hand" Height="35" Width="130" CornerRadius="5 5 5 5" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                        <Label Content="Add" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="-5"
-                                               Foreground="{StaticResource Clouds}" FontFamily="Segoe UI Semibold" FontSize="20" VerticalContentAlignment="Center"></Label>
-                                        <Border.Effect>
-                                            <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="5" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
-                                        </Border.Effect>
-                                    </Border>
-                                </Grid>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="Bord" Property="Border.Background" Value="#166CA5"></Setter>
-                                    </Trigger>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Setter TargetName="Bord" Property="Border.Background" Value="#003D76"></Setter>
-                                        <Setter Property="Cursor" Value="Hand"></Setter>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-
+                    <Grid Grid.Row="2" Name="InputFolderText" VerticalAlignment="Bottom" Height="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="180"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Height="20">
+                            <Grid.Background>
+                                <SolidColorBrush Color="Transparent" Opacity="0"></SolidColorBrush>
+                            </Grid.Background>
+                            <Button HorizontalAlignment="Center"  VerticalAlignment="Bottom" Height="20" Width="100" Name="NewFolderButton" Click="NewFolderButton_Click">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid >
+                                            <Border Background="{StaticResource BelizeHole}" Name="Bord" Cursor="Hand" Height="20" Width="100" CornerRadius="5 5 0 0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <Label Content="New folder" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="-5"
+                                               Foreground="{StaticResource Clouds}" FontFamily="Segoe UI Semibold" FontSize="15" VerticalContentAlignment="Center"></Label>
+                                                <Border.Effect>
+                                                    <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="5" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
+                                                </Border.Effect>
+                                            </Border>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Bord" Property="Border.Background" Value="#166CA5"></Setter>
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter TargetName="Bord" Property="Border.Background" Value="#003D76"></Setter>
+                                                <Setter Property="Cursor" Value="Hand"></Setter>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="20" Width="100" Name="CloseFolderInputButton" Visibility="Hidden" Click="CloseFolderInputButton_Click">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid >
+                                            <Border Background="{StaticResource Alizarin}" Name="Bord" Cursor="Hand" Height="20" Width="100" CornerRadius="5 5 0 0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <Label Content="Close" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="-5"
+                                               Foreground="{StaticResource Clouds}" FontFamily="Segoe UI Semibold" FontSize="15" VerticalContentAlignment="Center"></Label>
+                                                <Border.Effect>
+                                                    <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="5" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
+                                                </Border.Effect>
+                                            </Border>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Bord" Property="Border.Background" Value="#C1392B"></Setter>
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter TargetName="Bord" Property="Border.Background" Value="#A71F11"></Setter>
+                                                <Setter Property="Cursor" Value="Hand"></Setter>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="1" VerticalAlignment="Top" Height="180">
+                            <TextBox>
+                                <TextBox.Template>
+                                    <ControlTemplate>
+                                        <Grid Height="130" VerticalAlignment="Top">
+                                            <TextBox x:Name="InputText" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI"
+                                                     Focusable="{Binding ElementName=FoldersListView,Path=SelectedItem.Selected, FallbackValue=False}"
+                                                     Text="{Binding InputFolderText,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Panel.ZIndex="3"
+                                                     Background="Transparent" FontSize="18" Height="130" Foreground="{StaticResource Silver}"
+                                                     HorizontalContentAlignment="Left" VerticalContentAlignment="Top" BorderThickness="0"/>
+                                            <TextBox x:Name="DefaultText" Text="Write a new folder here..."
+                                               Visibility="Hidden" Background="Transparent"
+                                               Foreground="{StaticResource Concrete}" BorderThickness="0"
+                                               FontFamily="Segoe UI" HorizontalContentAlignment="Left" VerticalContentAlignment="Top"
+                                               FontSize="18" IsReadOnly="True" Focusable="False"
+                                               VerticalAlignment="Top" HorizontalAlignment="Stretch"
+                                               Height="130">
+                                            </TextBox>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition SourceName="InputText"  Property="TextBox.Text" Value=""/>
+                                                    <Condition SourceName="InputText" Property="TextBox.IsKeyboardFocusWithin" Value="False"/>
+                                                </MultiTrigger.Conditions>
+                                                <Setter Property="TextBox.Visibility" TargetName="DefaultText" Value="Visible"/>
+                                            </MultiTrigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </TextBox.Template>
+                            </TextBox>
+                                    <Button Height="50" Width="200" 
+                                            VerticalAlignment="Bottom" Name="AddFolderButton"
+                                            Panel.ZIndex="1" Style="{StaticResource ButtonStyle2}"
+                                            Command="{Binding AddFolderCommand}"
+                                            CommandParameter="{Binding ElementName=InputFolderTextBox,Path=Text}">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Grid >
+                                                <Border Background="{StaticResource BelizeHole}" Name="Bord" Cursor="Hand" Height="35" Width="130" CornerRadius="5 5 5 5" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <Label Content="Add" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="-5"
+                                                                   Foreground="{StaticResource Clouds}" FontFamily="Segoe UI Semibold" FontSize="20" VerticalContentAlignment="Center"></Label>
+                                                    <Border.Effect>
+                                                        <DropShadowEffect BlurRadius="20" Direction="270" ShadowDepth="5" RenderingBias="Quality" Opacity="0.3"></DropShadowEffect>
+                                                    </Border.Effect>
+                                                </Border>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="Bord" Property="Border.Background" Value="#166CA5"></Setter>
+                                                </Trigger>
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter TargetName="Bord" Property="Border.Background" Value="#003D76"></Setter>
+                                                    <Setter Property="Cursor" Value="Hand"></Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                            </Button>
+                        </Grid>
+                    </Grid>
                     <!--FoldersView-->
-                    <Grid Grid.Row="1" VerticalAlignment="Top">
+                    <Grid Grid.Row="1" VerticalAlignment="Top" Name="FoldersGrid" Height="530">
                         <ListView x:Name="FoldersListView" ItemsSource="{Binding Folders}" SelectedItem="SelectedFolder"
-                              BorderThickness="0" Margin="-1 0 -1 0" Height="500" Background="Transparent"
+                              BorderThickness="0" Margin="-1 0 -1 0" Background="Transparent"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
                               HorizontalContentAlignment="Stretch" SelectionMode="Single" VerticalAlignment="Top">
                             <ListView.ItemTemplate>

@@ -10,8 +10,6 @@ namespace Planner
     {
         private string _inputTaskText;
         private string _inputFolderText;
-        private bool _isFolderInputVisible;
-        private bool _isFolderInputFocused;
         private double _rightColumnWidth = 800;
         private double _leftColumnWidth = 200;
         private readonly DataService service = new DataService("FolderData.txt");
@@ -70,20 +68,6 @@ namespace Planner
                 OnPropertyChanged(nameof(InputTaskText));
             }
         }
-        public bool IsFolderInputFocused
-        {
-            get
-            {
-                return _isFolderInputFocused;
-            }
-            set
-            {
-                if (value == _isFolderInputFocused)
-                    return;
-                _isFolderInputFocused = value;
-                OnPropertyChanged(nameof(IsFolderInputFocused));
-            }
-        }
         public string InputFolderText
         {
             get
@@ -98,20 +82,7 @@ namespace Planner
                 OnPropertyChanged(nameof(InputFolderText));
             }
         }
-        public bool IsFolderInputVisible
-        {
-            get
-            {
-                return _isFolderInputVisible;
-            }
-            set
-            {
-                if (value == _isFolderInputVisible)
-                    return;
-                _isFolderInputVisible = value;
-                OnPropertyChanged(nameof(IsFolderInputVisible));
-            }
-        }
+        
         private void MinimizeWindow()
         {
             Application.Current.MainWindow.WindowState = WindowState.Minimized;
@@ -143,19 +114,11 @@ namespace Planner
                                     Folders[g].NumberOfDoneTasks--;
             }
         }
-        private void AddFolder(object parameter)
+        private void AddFolder()
         {
-            if (CanAddText(parameter.ToString()) && IsFolderInputVisible)
-            {
-                Folders.Add(new Folder(parameter as string));
-                IsFolderInputVisible = !IsFolderInputVisible;
-                return;
-            }
-            else
-            {
-                InputFolderText = "";
-                IsFolderInputVisible = !IsFolderInputVisible;
-            }
+            if (CanAddText(InputFolderText))
+                        Folders.Add(new Folder(InputFolderText));
+            InputFolderText = "";
         }
         private bool CanAddText(string InputText)
         {
@@ -226,13 +189,12 @@ namespace Planner
             }
             ClosingWindowCommand = new RelayCommand(p => ClosingWindow(), p => true);
             MinimizeWindowCommand = new RelayCommand(p => MinimizeWindow(), p => true);
-            AddFolderCommand = new RelayCommand(p => AddFolder(p), p => true);
+            AddFolderCommand = new RelayCommand(p => AddFolder(), p => true);
             SelectFolderCommand = new RelayCommand(p => SelectFolder(p), p => true);
             AddTaskCommand = new RelayCommand(p => AddTask(), p => true);
             MakeTaskDoneCommand = new RelayCommand(p => MakeTaskDone(p), p => true);
             DeleteTaskCommand = new RelayCommand(p => DeleteTask(p), p => true);
             DeleteFolderCommand = new RelayCommand(p => DeleteFolder(p), p => true);
-            IsFolderInputFocused = true;
         }
     }
 }
