@@ -6,7 +6,8 @@ namespace Planner.Models
     public class TaskModel:ObservableObject
     {
         private string _toDo;
-        private bool _done;
+        private bool _isDone;
+        private bool _isInProcess;
         public TaskModel(string newtask)
         {
             ToDo = newtask;
@@ -19,24 +20,30 @@ namespace Planner.Models
             } 
             set 
             { 
-                if (value == _toDo) 
-                    return;
-                _toDo = value; OnPropertyChanged(nameof(ToDo));
+                OnPropertyChanged(ref _toDo, value);
             } 
         }
         public bool Done 
         {
             get 
             {
-                return _done;
+                return _isDone;
             }
             set 
             {
-                if (value == _done)
-                    return;
-                _done = value; OnPropertyChanged(nameof(Done));
+                OnPropertyChanged(ref _isDone, value);
             }
         }
-        public string Date { get; private set; } = DateTime.Now.ToShortTimeString();
+        public bool InProcess
+        {
+            get
+            {
+                return _isInProcess;
+            }
+            set
+            {
+                OnPropertyChanged(ref _isInProcess, value);
+            }
+        }
     }
 }

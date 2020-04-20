@@ -10,6 +10,7 @@ namespace Planner
     {
         private string _inputTaskText;
         private string _inputFolderText;
+        private double _lineWidth;
         private double _rightColumnWidth = 800;
         private double _leftColumnWidth = 200;
         private readonly DataService service = new DataService("FolderData.txt");
@@ -22,6 +23,8 @@ namespace Planner
         public RelayCommand MakeTaskDoneCommand { get; private set; }
         public RelayCommand DeleteTaskCommand { get; private set; }
         public RelayCommand DeleteFolderCommand { get; private set; }
+        public RelayCommand ChangeRightColumnWidthCommand { get; private set; }
+        public RelayCommand ChangeRightColumnWidthBackCommand { get; private set; }
 
 
         public ObservableCollection<Folder> Folders { get; set; }
@@ -34,10 +37,7 @@ namespace Planner
             }
             set
             {
-                if (value == _rightColumnWidth)
-                    return;
-                _rightColumnWidth = value;
-                OnPropertyChanged(nameof(RightColumnWidth));
+                OnPropertyChanged(ref _rightColumnWidth, value);
             }
         }
         public double LeftColumnWidth
@@ -48,10 +48,36 @@ namespace Planner
             }
             set
             {
-                if (value == _leftColumnWidth)
+                OnPropertyChanged(ref _leftColumnWidth, value);
+            }
+        }
+
+        public double LineWidth
+        {
+            get
+            {
+                int index = new int();
+                for (int i = 0; i < Folders.Count; i++)
+                {
+                    if (Folders[i].Selected)
+                    {
+                        index = i;
+                    }
+                }
+                if (Folders[index].Tasks.Count == 0)
+                {
+                    return 0;
+                }
+                double percentOfDone = Convert.ToDouble(Folders[index].NumberOfDoneTasks) / Convert.ToDouble(Folders[index].Tasks.Count);
+                _lineWidth = RightColumnWidth * percentOfDone;
+                return _lineWidth;
+            }
+            set
+            {
+                if (value == _lineWidth)
                     return;
-                _leftColumnWidth = value;
-                OnPropertyChanged(nameof(LeftColumnWidth));
+                _lineWidth = value;
+                OnPropertyChanged(nameof(LineWidth));
             }
         }
         public string InputTaskText
@@ -62,10 +88,7 @@ namespace Planner
             }
             set
             {
-                if (value == _inputTaskText)
-                    return;
-                _inputTaskText = value;
-                OnPropertyChanged(nameof(InputTaskText));
+                OnPropertyChanged(ref _inputTaskText, value);
             }
         }
         public string InputFolderText
@@ -76,10 +99,7 @@ namespace Planner
             }
             set
             {
-                if (value == _inputFolderText)
-                    return;
-                _inputFolderText = value;
-                OnPropertyChanged(nameof(InputFolderText));
+                OnPropertyChanged(ref _inputFolderText, value);
             }
         }
         
@@ -105,13 +125,18 @@ namespace Planner
             {
                 (parameter as TaskModel).Done = !(parameter as TaskModel).Done;
                 if ((parameter as TaskModel).Done)
+                {
                     for (int i = 0; i < Folders.Count; i++)
                         if (Folders[i].Selected)
                             Folders[i].NumberOfDoneTasks++;
-                        else
-                            for (int g = 0; g < Folders.Count; g++)
-                                if (Folders[g].Selected)
-                                    Folders[g].NumberOfDoneTasks--;
+                }
+                else
+                {
+                    for (int g = 0; g < Folders.Count; g++)
+                        if (Folders[g].Selected)
+                            Folders[g].NumberOfDoneTasks--;
+                }
+                OnPropertyChanged(nameof(LineWidth));
             }
         }
         private void AddFolder()
@@ -119,6 +144,7 @@ namespace Planner
             if (CanAddText(InputFolderText))
                         Folders.Add(new Folder(InputFolderText));
             InputFolderText = "";
+            OnPropertyChanged(nameof(LineWidth));
         }
         private bool CanAddText(string InputText)
         {
@@ -144,7 +170,18 @@ namespace Planner
                         if (Folders[g].Selected)
                             Folders[g].Tasks.Remove(parameter as TaskModel);
                 }
+                OnPropertyChanged(nameof(LineWidth));
             }
+        }
+        private void ChangeRightColumnWidth()
+        {
+            RightColumnWidth = 1000; //This changes the LineWidth for ProgressLine 
+            OnPropertyChanged(nameof(LineWidth));
+        }
+        private void ChangeRightColumnWidthBack()
+        {
+            RightColumnWidth = 800; //This changes the LineWidth for ProgressLine 
+            OnPropertyChanged(nameof(LineWidth));
         }
         private void SelectFolder(object parameter)
         {
@@ -155,6 +192,7 @@ namespace Planner
                     i.Selected = false;
                 }
             (parameter as Folder).Selected = true;
+                OnPropertyChanged(nameof(LineWidth));
             }
         }
         private void ClosingWindow()
@@ -176,6 +214,7 @@ namespace Planner
                     if (Folders[i].Selected)
                         Folders[i].Tasks.Add(new TaskModel(InputTaskText));
             InputTaskText = "";
+            OnPropertyChanged(nameof(LineWidth));
         }
         public AppViewModel()
         {
@@ -195,6 +234,8 @@ namespace Planner
             MakeTaskDoneCommand = new RelayCommand(p => MakeTaskDone(p), p => true);
             DeleteTaskCommand = new RelayCommand(p => DeleteTask(p), p => true);
             DeleteFolderCommand = new RelayCommand(p => DeleteFolder(p), p => true);
+            ChangeRightColumnWidthCommand = new RelayCommand(p => ChangeRightColumnWidth(), p => true); 
+            ChangeRightColumnWidthBackCommand = new RelayCommand(p => ChangeRightColumnWidthBack(), p => true);
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Collections.Specialized;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Effects;
 
 namespace Planner
 {
@@ -8,6 +10,7 @@ namespace Planner
         public MainWindow()
         {
             InitializeComponent();
+            ((INotifyCollectionChanged)ListOfTasks.Items).CollectionChanged += ListView_CollectionChanged;
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) //Moving the window
         {
@@ -30,29 +33,29 @@ namespace Planner
             CloseMenuButton.Visibility = Visibility.Visible;
             OpenMenuButton.Visibility = Visibility.Hidden;
         }
-
-        private void NewTaskButton_Click(object sender, RoutedEventArgs e)
-        {
-            NewTaskButton.Visibility = Visibility.Hidden;
-            CloseInputButton.Visibility = Visibility.Visible;
-        }
-
-        private void CloseInputButton_Click(object sender, RoutedEventArgs e)
-        {
-            NewTaskButton.Visibility = Visibility.Visible;
-            CloseInputButton.Visibility = Visibility.Hidden;
-        }
-
         private void NewFolderButton_Click(object sender, RoutedEventArgs e)
         {
             NewFolderButton.Visibility = Visibility.Hidden;
             CloseFolderInputButton.Visibility = Visibility.Visible;
+            BlurEffect effect = new BlurEffect
+            {
+                Radius = 2.7,
+                KernelType = KernelType.Gaussian
+            };
+            FoldersGrid.Effect = effect;
         }
 
         private void CloseFolderInputButton_Click(object sender, RoutedEventArgs e)
         {
             CloseFolderInputButton.Visibility = Visibility.Hidden;
             NewFolderButton.Visibility = Visibility.Visible;
+            FoldersGrid.Effect = null;
+        }
+
+        private void ListView_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)   // scroll the new item into view   
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)   
+                ListOfTasks.ScrollIntoView(e.NewItems[0]);
         }
     }
 }

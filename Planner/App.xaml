@@ -1,7 +1,6 @@
 ﻿<Application x:Class="Planner.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Planner"
              StartupUri="MainWindow.xaml"
              >
     <Application.Resources>
@@ -39,6 +38,21 @@
 
         <BooleanToVisibilityConverter x:Key="BoolConverter"/><!--Boolean Converter-->
 
+        <Style x:Key="OpenSans_SemiBold">
+            <Setter Property="TextElement.FontFamily" Value="/Font/OpenSans/#Open Sans SemiBold">
+            </Setter>
+        </Style>
+
+        <Style x:Key="OpenSans">
+            <Setter Property="TextElement.FontFamily" Value="/Font/OpenSans/#Open Sans">
+            </Setter>
+        </Style>
+
+        <Style x:Key="Raleway_SemiBold">
+            <Setter Property="TextElement.FontFamily" Value="/Font/Raleway/#Raleway SemiBold">
+            </Setter>
+        </Style>
+
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"></Setter>
             <Setter Property="Height" Value="30"></Setter>
@@ -50,7 +64,7 @@
             <Setter Property="Foreground" Value="{StaticResource Silver}"></Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="{StaticResource PomeGranate}"></Setter>
+                    <Setter Property="Foreground" Value="{StaticResource Alizarin}"></Setter>
                     <Setter Property="Cursor" Value="Hand"></Setter>
                 </Trigger>
             </Style.Triggers>
@@ -160,17 +174,14 @@
                 <Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="15"></ColumnDefinition>
+                            <ColumnDefinition Width="7"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="1" Foreground="{StaticResource Silver}" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}"
-                            FontSize="15" FontWeight="Bold" Name="FoldersName" TextWrapping="Wrap" Margin="10 0 0 0"></TextBlock>
-                        <Border x:Name="SelectedGrid" Grid.Column="0" BorderThickness="0" CornerRadius="0 7 7 0" Width="10" Height="45"
-                                VerticalAlignment="Center" HorizontalAlignment="Left" SnapsToDevicePixels="True"
+                            FontSize="13" Name="FoldersName" TextWrapping="Wrap" Margin="10 0 0 0" Style="{StaticResource OpenSans_SemiBold}"></TextBlock>
+                        <Border x:Name="SelectedGrid" Grid.Column="0" BorderThickness="0" CornerRadius="0 0 0 0" HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch" SnapsToDevicePixels="True"
                                 Background="{StaticResource BelizeHole}" Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}">
-                            <Border.Effect>
-                                <DropShadowEffect BlurRadius="15" Direction="0" ShadowDepth="3" RenderingBias="Quality" Opacity="0.1"></DropShadowEffect>
-                            </Border.Effect>
                         </Border>
                     </Grid>
                 </Grid>
@@ -180,7 +191,7 @@
                     <Setter TargetName="MainBorder" Property="Background" Value="#25262B"></Setter>
                 </Trigger>
                 <DataTrigger Binding="{Binding Selected}" Value="True">
-                    <Setter TargetName="FoldersName" Property="Label.FontStyle" Value="Italic"></Setter>
+                    <Setter TargetName="FoldersName" Property="Label.Foreground" Value="{StaticResource BelizeHole}"></Setter>
                     <Setter TargetName="MainBorder" Property="Background" Value="#222328"></Setter>
                 </DataTrigger>
             </ControlTemplate.Triggers>

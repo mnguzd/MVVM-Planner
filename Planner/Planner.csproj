@@ -98,6 +98,9 @@
     <None Include="..\.editorconfig">
       <Link>.editorconfig</Link>
     </None>
+    <Resource Include="Font\OpenSans\OpenSans-Regular.ttf" />
+    <Resource Include="Font\OpenSans\OpenSans-SemiBold.ttf" />
+    <Resource Include="Font\Raleway\Raleway-SemiBold.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -110,6 +113,12 @@
   <ItemGroup>
     <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Font\OpenSans\LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Font\Raleway\OFL.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

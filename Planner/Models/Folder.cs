@@ -42,10 +42,7 @@ namespace Planner.Models
             }
             set
             {
-                if (value == _numberOfDoneTasks)
-                    return;
-                _numberOfDoneTasks = value;
-                OnPropertyChanged(nameof(NumberOfDoneTasks));
+                OnPropertyChanged(ref _numberOfDoneTasks, value);
             }
         }
         public string Name
@@ -56,9 +53,7 @@ namespace Planner.Models
             }
             set
             {
-                if (value == _name)
-                    return;
-                _name = value; OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(ref _name, value);
             }
         }
         public bool Selected
@@ -69,9 +64,7 @@ namespace Planner.Models
             }
             set
             {
-                if (value == _selected)
-                    return;
-                _selected = value; OnPropertyChanged(nameof(Selected));
+                OnPropertyChanged(ref _selected, value);
             }
         }
     }
