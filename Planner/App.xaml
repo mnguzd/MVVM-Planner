@@ -5,6 +5,7 @@
              >
     <Application.Resources>
         
+        
         <!--#region Brushes-->
         <LinearGradientBrush x:Key="Gradient" StartPoint="0,1" EndPoint="1,0">
             <GradientStop Color="#2C2D32" Offset="0"/>
@@ -181,7 +182,7 @@
                             FontSize="13" Name="FoldersName" TextWrapping="Wrap" Margin="10 0 0 0" Style="{StaticResource OpenSans_SemiBold}"></TextBlock>
                         <Border x:Name="SelectedGrid" Grid.Column="0" BorderThickness="0" CornerRadius="0 0 0 0" HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch" SnapsToDevicePixels="True"
-                                Background="{StaticResource BelizeHole}" Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}">
+                                Background="{StaticResource PeterRiver}" Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}">
                         </Border>
                     </Grid>
                 </Grid>
@@ -191,7 +192,7 @@
                     <Setter TargetName="MainBorder" Property="Background" Value="#25262B"></Setter>
                 </Trigger>
                 <DataTrigger Binding="{Binding Selected}" Value="True">
-                    <Setter TargetName="FoldersName" Property="Label.Foreground" Value="{StaticResource BelizeHole}"></Setter>
+                    <Setter TargetName="FoldersName" Property="Label.Foreground" Value="{StaticResource PeterRiver}"></Setter>
                     <Setter TargetName="MainBorder" Property="Background" Value="#222328"></Setter>
                 </DataTrigger>
             </ControlTemplate.Triggers>
