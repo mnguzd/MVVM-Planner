@@ -1,5 +1,7 @@
 ﻿using Planner.Utilty;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Documents;
 
 namespace Planner.Models
 {
@@ -8,7 +10,7 @@ namespace Planner.Models
         //private fields
         private bool _selected;
         private string _name;
-        private int _numberOfDoneTasks;
+        private uint _numberOfDoneTasks;
         private ObservableCollection<TaskModel> _tasks;
         public Folder(string folderName)
         {
@@ -16,25 +18,11 @@ namespace Planner.Models
             Tasks = new ObservableCollection<TaskModel>();
             Selected = false;
         }
-
-        public ObservableCollection<TaskModel> Tasks 
-        { get 
-            { return _tasks; 
-            } 
-            set 
-            {
-                if (value == _tasks)
-                    return;
-                _tasks = value;
-                OnPropertyChanged(nameof(NumberOfDoneTasks));
-                OnPropertyChanged(nameof(Tasks));
-            } 
-        }
-        public int NumberOfDoneTasks 
+        public uint NumberOfDoneTasks
         {
             get
             {
-                _numberOfDoneTasks=0;
+                _numberOfDoneTasks = 0;
                 for (int i = 0; i < Tasks.Count; i++)
                     if (Tasks[i].Done)
                         _numberOfDoneTasks++;
@@ -44,6 +32,20 @@ namespace Planner.Models
             {
                 OnPropertyChanged(ref _numberOfDoneTasks, value);
             }
+        }
+        public ObservableCollection<TaskModel> Tasks 
+        { get 
+            { 
+                return _tasks; 
+            } 
+            set 
+            {
+                if (value == _tasks)
+                    return;
+                _tasks = value;
+                OnPropertyChanged(nameof(NumberOfDoneTasks));
+                OnPropertyChanged(nameof(Tasks));
+            } 
         }
         public string Name
         {

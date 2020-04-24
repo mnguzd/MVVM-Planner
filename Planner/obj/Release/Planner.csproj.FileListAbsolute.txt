@@ -1,7 +1,6 @@
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\bin\Release\Planner.exe.config
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\bin\Release\Planner.exe
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\bin\Release\Planner.pdb
-C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\Planner.csprojAssemblyReference.cache
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\MainWindow.g.cs
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\App.g.cs
 C:\Users\roman\Desktop\Coding\Projects C#\Planner\Planner\obj\Release\GeneratedInternalTypeHelper.g.cs

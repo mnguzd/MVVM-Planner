@@ -7,7 +7,7 @@ namespace Planner.Models
     {
         private string _toDo;
         private bool _isDone;
-        private bool _isInProcess;
+        private bool _isInProgress;
         public TaskModel(string newtask)
         {
             ToDo = newtask;
@@ -34,15 +34,15 @@ namespace Planner.Models
                 OnPropertyChanged(ref _isDone, value);
             }
         }
-        public bool InProcess
+        public bool InProgress
         {
             get
             {
-                return _isInProcess;
+                return _isInProgress;
             }
             set
             {
-                OnPropertyChanged(ref _isInProcess, value);
+                OnPropertyChanged(ref _isInProgress, value);
             }
         }
     }

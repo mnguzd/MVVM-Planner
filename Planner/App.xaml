@@ -179,7 +179,7 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="1" Foreground="{StaticResource Silver}" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}"
-                            FontSize="13" Name="FoldersName" TextWrapping="Wrap" Margin="10 0 0 0" Style="{StaticResource OpenSans_SemiBold}"></TextBlock>
+                            FontSize="13" Name="FoldersName" TextWrapping="Wrap" Margin="10 0 10 0" Style="{StaticResource OpenSans_SemiBold}"></TextBlock>
                         <Border x:Name="SelectedGrid" Grid.Column="0" BorderThickness="0" CornerRadius="0 0 0 0" HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch" SnapsToDevicePixels="True"
                                 Background="{StaticResource PeterRiver}" Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}">
