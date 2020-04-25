@@ -11,6 +11,7 @@ namespace Planner.Models
         private bool _selected;
         private string _name;
         private uint _numberOfDoneTasks;
+        private uint _numberOfTasksInProgress;
         private ObservableCollection<TaskModel> _tasks;
         public Folder(string folderName)
         {
@@ -33,6 +34,22 @@ namespace Planner.Models
                 OnPropertyChanged(ref _numberOfDoneTasks, value);
             }
         }
+
+        public uint NumberOfTasksInProgress
+        {
+            get
+            {
+                _numberOfTasksInProgress = 0;
+                for (int i = 0; i < Tasks.Count; i++)
+                    if (Tasks[i].InProgress)
+                        _numberOfTasksInProgress++;
+                return _numberOfTasksInProgress;
+            }
+            set
+            {
+                OnPropertyChanged(ref _numberOfTasksInProgress, value);
+            }
+        }
         public ObservableCollection<TaskModel> Tasks 
         { get 
             { 
@@ -40,11 +57,7 @@ namespace Planner.Models
             } 
             set 
             {
-                if (value == _tasks)
-                    return;
-                _tasks = value;
-                OnPropertyChanged(nameof(NumberOfDoneTasks));
-                OnPropertyChanged(nameof(Tasks));
+                OnPropertyChanged(ref _tasks,value);
             } 
         }
         public string Name

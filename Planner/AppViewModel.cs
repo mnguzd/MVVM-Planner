@@ -2,7 +2,6 @@
 using Planner.Utilty;
 using System;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Planner
@@ -26,6 +25,7 @@ namespace Planner
         public RelayCommand DeleteFolderCommand { get; private set; }
         public RelayCommand ChangeRightColumnWidthCommand { get; private set; }
         public RelayCommand ChangeRightColumnWidthBackCommand { get; private set; }
+        public RelayCommand MakeTaskInProgressCommand { get; private set; }
 
 
         public ObservableCollection<Folder> Folders { get; set; }
@@ -57,28 +57,15 @@ namespace Planner
         {
             get
             {
-                int index = new int();
-                for (int i = 0; i < Folders.Count; i++)
-                {
-                    if (Folders[i].Selected)
-                    {
-                        index = i;
-                    }
-                }
-                if (Folders[index].Tasks.Count == 0)
-                {
+                if (SelectedFolder().Tasks.Count == 0 || SelectedFolder() == null)
                     return 0;
-                }
-                double percentOfDone = Convert.ToDouble(Folders[index].NumberOfDoneTasks) / Convert.ToDouble(Folders[index].Tasks.Count);
+                double percentOfDone = Convert.ToDouble(SelectedFolder().NumberOfDoneTasks) / Convert.ToDouble(SelectedFolder().Tasks.Count);
                 _lineWidth = RightColumnWidth * percentOfDone;
                 return _lineWidth;
             }
             set
             {
-                if (value == _lineWidth)
-                    return;
-                _lineWidth = value;
-                OnPropertyChanged(nameof(LineWidth));
+                OnPropertyChanged(ref _lineWidth, value);
             }
         }
         public string InputTaskText
@@ -103,7 +90,7 @@ namespace Planner
                 OnPropertyChanged(ref _inputFolderText, value);
             }
         }
-        
+
         private void MinimizeWindow()
         {
             Application.Current.MainWindow.WindowState = WindowState.Minimized;
@@ -116,7 +103,7 @@ namespace Planner
                 if (Folders.Count > 0)
                     Folders[Folders.Count - 1].Selected = true;
                 else
-                    foreach(Folder i in Folders)
+                    foreach (Folder i in Folders)
                         i.Selected = false;
             }
         }
@@ -125,25 +112,41 @@ namespace Planner
             if (parameter != null)
             {
                 (parameter as TaskModel).Done = !(parameter as TaskModel).Done;
-                if ((parameter as TaskModel).Done)
+                try
                 {
-                    for (int i = 0; i < Folders.Count; i++)
-                        if (Folders[i].Selected)
-                            Folders[i].NumberOfDoneTasks++;
+                    if ((parameter as TaskModel).Done)
+                    {
+                        (parameter as TaskModel).InProgress = false;
+                        SelectedFolder().NumberOfDoneTasks++;
+                        SelectedFolder().NumberOfTasksInProgress--;
+                    }
+                    else
+                    {
+                        SelectedFolder().NumberOfDoneTasks--;
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    for (int g = 0; g < Folders.Count; g++)
-                        if (Folders[g].Selected)
-                            Folders[g].NumberOfDoneTasks--;
+                    MessageBox.Show("Oops, there was an error : " + ex.ToString());
                 }
                 OnPropertyChanged(nameof(LineWidth));
             }
         }
+
+        private Folder SelectedFolder()
+        {
+            foreach (Folder x in Folders)
+            {
+                if (x.Selected)
+                    return x;
+            }
+            return null;
+        }
+
         private void AddFolder()
         {
             if (CanAddText(InputFolderText))
-                        Folders.Add(new Folder(InputFolderText));
+                Folders.Add(new Folder(InputFolderText));
             InputFolderText = "";
             OnPropertyChanged(nameof(LineWidth));
         }
@@ -158,18 +161,17 @@ namespace Planner
             {
                 if ((parameter as TaskModel).Done)
                 {
-                    for (int i = 0; i < Folders.Count; i++)
-                        if (Folders[i].Selected)
-                        {
-                            Folders[i].Tasks.Remove(parameter as TaskModel);
-                            Folders[i].NumberOfDoneTasks--;
-                        }
+                    SelectedFolder().Tasks.Remove(parameter as TaskModel);
+                    SelectedFolder().NumberOfDoneTasks--;
+                }
+                else if ((parameter as TaskModel).InProgress)
+                {
+                    SelectedFolder().Tasks.Remove(parameter as TaskModel);
+                    SelectedFolder().NumberOfTasksInProgress--;
                 }
                 else
                 {
-                    for (int g = 0; g < Folders.Count; g++)
-                        if (Folders[g].Selected)
-                            Folders[g].Tasks.Remove(parameter as TaskModel);
+                    SelectedFolder().Tasks.Remove(parameter as TaskModel);
                 }
                 OnPropertyChanged(nameof(LineWidth));
             }
@@ -208,12 +210,31 @@ namespace Planner
                 MessageBox.Show("Oops, there was an error : " + ex.ToString());
             }
         }
+
+        private void MakeTaskInProgress(object parameter)
+        {
+            if (parameter != null)
+            {
+                int index = SelectedFolder().Tasks.IndexOf(parameter as TaskModel);
+                SelectedFolder().Tasks[index].InProgress = !SelectedFolder().Tasks[index].InProgress;
+                if (SelectedFolder().Tasks[index].InProgress)
+                {
+                    SelectedFolder().NumberOfTasksInProgress++;
+                    SelectedFolder().Tasks[index].Done = false;
+                    SelectedFolder().NumberOfDoneTasks--;
+                    OnPropertyChanged(nameof(LineWidth));
+                    return;
+                }
+                SelectedFolder().NumberOfTasksInProgress--;
+            }
+        }
+
+
+
         private void AddTask()
         {
             if (CanAddText(InputTaskText))
-                for (int i = 0; i < Folders.Count; i++)
-                    if (Folders[i].Selected)
-                        Folders[i].Tasks.Add(new TaskModel(InputTaskText));
+                SelectedFolder().Tasks.Add(new TaskModel(InputTaskText));
             InputTaskText = "";
             OnPropertyChanged(nameof(LineWidth));
         }
@@ -235,8 +256,9 @@ namespace Planner
             MakeTaskDoneCommand = new RelayCommand(p => MakeTaskDone(p), p => true);
             DeleteTaskCommand = new RelayCommand(p => DeleteTask(p), p => true);
             DeleteFolderCommand = new RelayCommand(p => DeleteFolder(p), p => true);
-            ChangeRightColumnWidthCommand = new RelayCommand(p => ChangeRightColumnWidth(), p => true); 
+            ChangeRightColumnWidthCommand = new RelayCommand(p => ChangeRightColumnWidth(), p => true);
             ChangeRightColumnWidthBackCommand = new RelayCommand(p => ChangeRightColumnWidthBack(), p => true);
+            MakeTaskInProgressCommand = new RelayCommand(p => MakeTaskInProgress(p), p => true);
         }
     }
 }
