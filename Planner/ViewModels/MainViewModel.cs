@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace Planner
 {
-    public class AppViewModel : ObservableObject
+    public class MainViewModel : ObservableObject
     {
         private string _inputTaskText;
         private string _inputFolderText;
@@ -105,6 +105,7 @@ namespace Planner
                 else
                     foreach (Folder i in Folders)
                         i.Selected = false;
+                OnPropertyChanged(nameof(LineWidth));
             }
         }
         private void MakeTaskDone(object parameter)
@@ -148,6 +149,11 @@ namespace Planner
             if (CanAddText(InputFolderText))
                 Folders.Add(new Folder(InputFolderText));
             InputFolderText = "";
+            foreach(Folder folder in Folders)
+            {
+                folder.Selected = false;
+            }
+            Folders[Folders.Count - 1].Selected = true;
             OnPropertyChanged(nameof(LineWidth));
         }
         private bool CanAddText(string InputText)
@@ -238,7 +244,7 @@ namespace Planner
             InputTaskText = "";
             OnPropertyChanged(nameof(LineWidth));
         }
-        public AppViewModel()
+        public MainViewModel()
         {
             try
             {

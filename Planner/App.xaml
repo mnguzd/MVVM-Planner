@@ -3,147 +3,230 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml"
              >
+
     <Application.Resources>
-        
-        
+
         <!--#region Brushes-->
-        <LinearGradientBrush x:Key="Gradient" StartPoint="0,1" EndPoint="1,0">
-            <GradientStop Color="#2C2D32" Offset="0"/>
-            <GradientStop Color="#2C2D32" Offset="1" />
-        </LinearGradientBrush>
-        <LinearGradientBrush x:Key="BackGroundGradient" StartPoint="0,0" EndPoint="1,0">
-            <GradientStop Color="#3598DB" Offset="0" />
-            <GradientStop Color="#2DCC70" Offset="1" />
-        </LinearGradientBrush>
-        <SolidColorBrush x:Key="Turquoise" Color="#1BBC9B"></SolidColorBrush>
-        <SolidColorBrush x:Key="GreenSea" Color="#16A086"></SolidColorBrush>
-        <SolidColorBrush x:Key="SunFlower" Color="#F1C40F"></SolidColorBrush>
-        <SolidColorBrush x:Key="Orange" Color="#F39C11"></SolidColorBrush>
-        <SolidColorBrush x:Key="Emerald" Color="#2DCC70"></SolidColorBrush>
-        <SolidColorBrush x:Key="Nephritis" Color="#27AE61"></SolidColorBrush>
-        <SolidColorBrush x:Key="Carrot" Color="#E67F22"></SolidColorBrush>
-        <SolidColorBrush x:Key="Pumpkin" Color="#D25400"></SolidColorBrush>
-        <SolidColorBrush x:Key="PeterRiver" Color="#3598DB"></SolidColorBrush>
-        <SolidColorBrush x:Key="BelizeHole" Color="#297FB8"></SolidColorBrush>
-        <SolidColorBrush x:Key="Alizarin" Color="#E84C3D"></SolidColorBrush>
-        <SolidColorBrush x:Key="PomeGranate" Color="#C1392B"></SolidColorBrush>
-        <SolidColorBrush x:Key="Amethyst" Color="#9A59B5"></SolidColorBrush>
-        <SolidColorBrush x:Key="Wisteria" Color="#8D44AD"></SolidColorBrush>
-        <SolidColorBrush x:Key="Clouds" Color="#ECF0F1"></SolidColorBrush>
-        <SolidColorBrush x:Key="Silver" Color="#BEC3C7"></SolidColorBrush>
-        <SolidColorBrush x:Key="WetAsphalt" Color="#34495E"></SolidColorBrush>
-        <SolidColorBrush x:Key="MidNightBlue" Color="#2D3E50"></SolidColorBrush>
-        <SolidColorBrush x:Key="Concrete" Color="#95A5A5"></SolidColorBrush>
-        <SolidColorBrush x:Key="Asbestos" Color="#7E8C8D"></SolidColorBrush>
+        <SolidColorBrush x:Key="Grey" Color="#222328"/>
+        <SolidColorBrush x:Key="PressedGrey" Color="#25262B"/>
+        <SolidColorBrush x:Key="HoverGrey" Color="#2A2B30"/>
+        <SolidColorBrush x:Key="LightGrey" Color="#2C2D32"/>
+        <SolidColorBrush x:Key="Turquoise" Color="#1BBC9B"/>
+        <SolidColorBrush x:Key="GreenSea" Color="#16A086"/>
+        <SolidColorBrush x:Key="SunFlower" Color="#F1C40F"/>
+        <SolidColorBrush x:Key="Orange" Color="#F39C11"/>
+        <SolidColorBrush x:Key="Emerald" Color="#2DCC70"/>
+        <SolidColorBrush x:Key="Nephritis" Color="#27AE61"/>
+        <SolidColorBrush x:Key="Carrot" Color="#E67F22"/>
+        <SolidColorBrush x:Key="Pumpkin" Color="#D25400"/>
+        <SolidColorBrush x:Key="PeterRiver" Color="#3598DB"/>
+        <SolidColorBrush x:Key="BelizeHole" Color="#297FB8"/>
+        <SolidColorBrush x:Key="Alizarin" Color="#E84C3D"/>
+        <SolidColorBrush x:Key="PomeGranate" Color="#C1392B"/>
+        <SolidColorBrush x:Key="Amethyst" Color="#9A59B5"/>
+        <SolidColorBrush x:Key="Wisteria" Color="#8D44AD"/>
+        <SolidColorBrush x:Key="Clouds" Color="#ECF0F1"/>
+        <SolidColorBrush x:Key="Silver" Color="#BEC3C7"/>
+        <SolidColorBrush x:Key="WetAsphalt" Color="#34495E"/>
+        <SolidColorBrush x:Key="MidNightBlue" Color="#2D3E50"/>
+        <SolidColorBrush x:Key="Concrete" Color="#95A5A5"/>
+        <SolidColorBrush x:Key="Asbestos" Color="#7E8C8D"/>
         <!--#endregion-->
 
-        <BooleanToVisibilityConverter x:Key="BoolConverter"/><!--Boolean Converter-->
+        <!--ListView Style-->
+        <Style x:Key="ListViewStyle">
+            <Setter Property="Grid.Column" Value="0"/>
+            <Setter Property="ListView.Margin" Value="-1 5 -1 47"/>
+            <Setter Property="ListView.Padding" Value="0 10 0 0"/>
+            <Setter Property="ListView.BorderThickness" Value="0"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ListView.VerticalContentAlignment" Value="Top"/>
+            <Setter Property="ListView.VerticalAlignment" Value="Top"/>
+            <Setter Property="ListView.SelectionMode" Value="Single"/>
+            <Setter Property="ListView.FontFamily" Value="/Fonts/OpenSans/#Open Sans"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+            <Setter Property="ListView.ItemsSource" Value="{Binding SelectedItem.Tasks,ElementName=FoldersListView}"/>
+            <Setter Property="ListView.FontSize" Value="16"/>
+            <Setter Property="ListView.Background" Value="Transparent"/>
+        </Style>
+        
+        <!--#region Folder deleting Button animation-->
+        <Storyboard x:Key="ShowDeleteFolderButton">
+            <DoubleAnimation Storyboard.TargetProperty="(Button.Opacity)" Storyboard.TargetName="DeleteFolderButton"
+                             To="1" From="0.5" 
+                             Duration="0:0:0.2"/>
+        </Storyboard>
+        <Storyboard x:Key="HideDeleteFolderButton">
+            <DoubleAnimation Storyboard.TargetProperty="(Button.Opacity)" Storyboard.TargetName="DeleteFolderButton"
+                             To="0.5" From="1" 
+                             Duration="0:0:0.2"/>
+        </Storyboard>
+        <Storyboard x:Key="RotateButton">
+            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(RotateTransform.Angle)"
+                             To="-90"  
+                             Duration="0:0:0.5">
+                <DoubleAnimation.EasingFunction>
+                    <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Key="RotateButtonBack">
+            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(RotateTransform.Angle)"
+                             To="0"  
+                             Duration="0:0:0.3">
+                <DoubleAnimation.EasingFunction>
+                    <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <!--#endregion-->
 
+        
+        <!--#region Open_Close Menu animation-->
+        <Storyboard x:Key="OpenMenu">
+            <DoubleAnimation Storyboard.TargetProperty="(Grid.Width)"
+                             Storyboard.TargetName="LeftColumnMenu" 
+                             To="200" From="0" 
+                             Duration="0"/>
+        </Storyboard>
+        <Storyboard x:Key="CloseMenu">
+            <DoubleAnimation Storyboard.TargetProperty="(Grid.Width)" 
+                             Storyboard.TargetName="LeftColumnMenu" 
+                             To="0" From="200" 
+                             Duration="0"/>
+        </Storyboard>
+        <Storyboard x:Key="StretchRightColumn">
+            <DoubleAnimation Storyboard.TargetProperty="(Grid.Width)" 
+                             Storyboard.TargetName="RightColumn" 
+                             To="1000" From="800" 
+                             Duration="0"/>
+        </Storyboard>
+        <Storyboard x:Key="StretchRightColumnMargin">
+            <ThicknessAnimation Storyboard.TargetProperty="(Grid.Margin)" 
+                                Storyboard.TargetName="RightColumn" 
+                                To="-200,0,0,0" From="0" 
+                                Duration="0"/>
+        </Storyboard>
+        <Storyboard x:Key="StretchRightColumnBack">
+            <DoubleAnimation Storyboard.TargetProperty="(Grid.Width)" 
+                             Storyboard.TargetName="RightColumn" 
+                             To="800" From="1000" 
+                             Duration="0"/>
+        </Storyboard>
+        <Storyboard x:Key="StretchRightColumnMarginBack">
+            <ThicknessAnimation Storyboard.TargetProperty="(Grid.Margin)" 
+                                Storyboard.TargetName="RightColumn" 
+                                To="0" From="-200,0,0,0" 
+                                Duration="0"/>
+        </Storyboard>
+        <!--#endregion-->
+
+        
+        <!--#region Folders input animation-->
+        <Storyboard x:Key="OpenFolderInput">
+            <ThicknessAnimation Storyboard.TargetProperty="(Grid.Margin)"
+                                Storyboard.TargetName="InputFolderText" 
+                                To="0" From="0 0 0 -180" 
+                                Duration="0"/>
+        </Storyboard>
+        <Storyboard x:Key="CloseFolderInput">
+            <ThicknessAnimation Storyboard.TargetProperty="(Grid.Margin)" 
+                                Storyboard.TargetName="InputFolderText" 
+                                To="0 0 0 -180" From="0" 
+                                Duration="0"/>
+        </Storyboard>
+        <!--#endregion-->
+        
+
+        <BooleanToVisibilityConverter x:Key="BoolConverter"/><!--Boolean Converter-->
+        
+
+        <!--#region Fonts-->
         <Style x:Key="OpenSans_SemiBold">
-            <Setter Property="TextElement.FontFamily" Value="/Font/OpenSans/#Open Sans SemiBold">
-            </Setter>
+            <Setter Property="TextElement.FontFamily" Value="/Fonts/OpenSans/#Open Sans SemiBold"/>
         </Style>
 
         <Style x:Key="OpenSans">
-            <Setter Property="TextElement.FontFamily" Value="/Font/OpenSans/#Open Sans">
-            </Setter>
+            <Setter Property="TextElement.FontFamily" Value="/Fonts/OpenSans/#Open Sans"/>
         </Style>
 
         <Style x:Key="Raleway_SemiBold">
-            <Setter Property="TextElement.FontFamily" Value="/Font/Raleway/#Raleway SemiBold">
-            </Setter>
+            <Setter Property="TextElement.FontFamily" Value="/Fonts/Raleway/#Raleway SemiBold"/>
         </Style>
+        <!--#endregion-->
 
+
+        <!--MinimizeExit Style-->
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"></Setter>
-            <Setter Property="Height" Value="30"></Setter>
-            <Setter Property="Width" Value="30"></Setter>
-            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
-            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-            <Setter Property="BorderThickness" Value="0"></Setter>
-            <Setter Property="Foreground" Value="{StaticResource Silver}"></Setter>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="{StaticResource Silver}"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="{StaticResource PomeGranate}"></Setter>
-                    <Setter Property="Cursor" Value="Hand"></Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style> <!--MinimizeExit Style-->
-
-        <Style x:Key="ButtonStyle2" TargetType="Button">
-            <Setter Property="Height" Value="30"></Setter>
-            <Setter Property="Width" Value="30"></Setter>
-            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
-            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-            <Setter Property="BorderThickness" Value="0"></Setter>
-            <Setter Property="Foreground" Value="{StaticResource Clouds}"></Setter>
-        </Style> <!--AddFolderStyle-->
-
-        <Style x:Key="EnterButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource BackGroundGradient}"></Setter>
-            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
-            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-            <Setter Property="BorderThickness" Value="0"></Setter>
-            <Setter Property="Foreground" Value="{StaticResource Clouds}"></Setter>
-            <Style.Triggers>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Cursor" Value="Hand"></Setter>
+                    <Setter Property="Foreground" Value="{StaticResource PomeGranate}"/>
+                    <Setter Property="Cursor" Value="Hand"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
 
+
+        <!--AddFolderStyle-->
+        <Style x:Key="ButtonStyle2" TargetType="Button">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="{StaticResource Clouds}"/>
+        </Style>
+
+        
+        <!--EnterButtonStyle-->
+        <Style x:Key="EnterButtonStyle" TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="{StaticResource Clouds}"/>
+            <Style.Triggers>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--#region ICONS-->
         <Grid x:Key="ExitIcon">
-            <Viewbox Stretch="Fill" Height="15" Width="15">
+            <Viewbox Stretch="Fill" 
+                     Height="15" Width="15">
                 <Path  Data="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 
-                       1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"  Stretch="Fill"
-                              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
-                </Path>
+                       1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"  
+                       Stretch="Fill"
+                       Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"/>
             </Viewbox>
         </Grid>
-
-        <Grid x:Key="EnterIcon">
-            <Viewbox Stretch="Fill">
-                <Path  Data="m27,2a2,2 0 0 0 -2,2l0,11c0,2.73 -1.27,4 -4,4l-12.08,0l2,-1l2.57,-2.57a2,2 0 0 0 -2.83,-2.83l-7,7a2,
-                       2 0 0 0 0,2.83l7,7a2,2 0 0 0 2.83,-2.83l-2.7,-2.6l-1.94,-1l12.15,0c4.93,0 8,-3.07 8,-8l0,-11a2,2 0 0 0 -2,-2z"  Stretch="Fill"
-                              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
-                </Path>
-            </Viewbox>
-        </Grid>
-
-        <Grid x:Key="AddIcon" Height="20" Width="20">
-            <Viewbox Stretch="Fill">
-                <Path  Data="M15,6h-5V1c0-0.55-0.45-1-1-1H7C6.45,0,6,0.45,6,1v5H1C0.45,6,0,6.45,0,7v2c0,0.55,0.45,1,1,1h5v5c0,0.55,0.45,1,1,1h2  
-                       c0.55,0,1-0.45,1-1v-5h5c0.55,0,1-0.45,1-1V7C16,6.45,15.55,6,15,6z"  Stretch="Fill"
-                              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
-                </Path>
-            </Viewbox>
-        </Grid>
-
-        <ControlTemplate TargetType="Control" x:Key="DoneControl">
-            <Viewbox Stretch="Fill" Width="15" Height="15">
-                <Path  Data="m30.171,6.131l-0.858,-0.858c-0.944,-0.945 -2.489,-0.945 -3.433,0l-14.586,14.586l-5.175,-5.174c-0.943,-0.944 -2.489,-0.944 -3.432,0.001l-0.858,0.857c-0.943,0.944 
-                       -0.943,2.489 0,3.433l7.744,7.75c0.944,0.945 2.489,0.945 3.433,0l17.165,-17.162c0.941,-0.944 0.941,-2.489 0,-3.433z"  Stretch="Fill"
-                              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
-                </Path>
-            </Viewbox>
-        </ControlTemplate>
-
+        
         <ControlTemplate TargetType="Control" x:Key="LeftArrow">
             <Viewbox Stretch="Fill" Width="10" Height="15">
-                <Path  Data="M30.83 32.67l-9.17-9.17 9.17-9.17-2.83-2.83-12 12 12 12z"  Stretch="Fill"
-                              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
-                </Path>
+                <Path  Data="M30.83 32.67l-9.17-9.17 9.17-9.17-2.83-2.83-12 12 12 12z"  
+                       Stretch="Fill"
+                       Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"/>
             </Viewbox>
         </ControlTemplate>
 
         <ControlTemplate TargetType="Control" x:Key="RightArrow">
-            <Viewbox Stretch="Fill" Width="10" Height="15">
-                <Path  Data="M 16,32.67 25.17,23.5 16,14.33 l 2.83,-2.83 12,12 -12,12 z"  Stretch="Fill"
-                              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
-                </Path>
+            <Viewbox Stretch="Fill" 
+                     Width="10" Height="15">
+                <Path  Data="M 16,32.67 25.17,23.5 16,14.33 l 2.83,-2.83 12,12 -12,12 z"  
+                       Stretch="Fill"
+                       Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"/>
             </Viewbox>
         </ControlTemplate>
 
@@ -151,9 +234,9 @@
             <Viewbox Stretch="Fill">
                 <Path  Data="M14.8,12l3.6-3.6c0.8-0.8,0.8-2,0-2.8c-0.8-0.8-2-0.8-2.8,0L12,9.2L8.4,5.6c-0.8-0.8-2-0.8-2.8,0   
                        c-0.8,0.8-0.8,2,0,2.8L9.2,12l-3.6,3.6c-0.8,0.8-0.8,2,0,2.8C6,18.8,6.5,19,7,19s1-0.2,1.4-0.6l3.6-3.6l3.6,3.6   
-                       C16,18.8,16.5,19,17,19s1-0.2,1.4-0.6c0.8-0.8,0.8-2,0-2.8L14.8,12z"  Stretch="Fill"
-                              Fill="{Binding BorderBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Border}}">
-                </Path>
+                       C16,18.8,16.5,19,17,19s1-0.2,1.4-0.6c0.8-0.8,0.8-2,0-2.8L14.8,12z"  
+                       Stretch="Fill"
+                       Fill="{Binding BorderBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Border}}"/>
             </Viewbox>
         </ControlTemplate>
 
@@ -163,9 +246,9 @@
                     <Path  Data="M100.3,90.4L73.9,64l26.3-26.4c0.4-0.4,0.4-1,0-1.4l-8.5-8.5c-0.4-0.4-1-0.4-1.4,0L64,54.1L
                            37.7,27.8  c-0.4-0.4-1-0.4-1.4,0l-8.5,8.5c-0.4,0.4-0.4,1,0,1.4L54,64L27.7,90.3c-0.4,0.4-0.4,1,0
                            ,1.4l8.5,8.5c0.4,0.4,1.1,0.4,1.4,0L64,73.9  
-                           l26.3,26.3c0.4,0.4,1.1,0.4,1.5,0.1l8.5-8.5C100.7,91.4,100.7,90.8,100.3,90.4z"  Stretch="Fill"
-                              Fill="{Binding BorderBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Border}}">
-                    </Path>
+                           l26.3,26.3c0.4,0.4,1.1,0.4,1.5,0.1l8.5-8.5C100.7,91.4,100.7,90.8,100.3,90.4z"  
+                           Stretch="Fill"
+                           Fill="{Binding BorderBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Border}}"/>
                 </Grid>
             </Viewbox>
         </ControlTemplate>
@@ -177,69 +260,84 @@
                            8.9,0,0,0,2.9-9.9,3.9,3.9,0,0,0,.7-5.6,3.9,3.9,0,0,0-5.6-.7,4.6,4.6,0,0,0-.7.7,8.3,8.3,0,0,0-5.8,0,3.9,3.9,
                            0,0,0-5.6-.7,3.9,3.9,0,0,0-.7,5.6ZM18,4a2,2,0,0,1,2,2,2.8,2.8,0,0,1-.4,1.2,9.3,9.3,0,0,0-2.8-2.8A1.9,1.9,0,
                            0,1,18,4Zm1,8a7,7,0,1,1-7-7A7,7,0,0,1,19,12ZM6,4a2.8,2.8,0,0,1,1.2.4A9.3,9.3,0,0,0,4.4,7.2,2.8,2.8,0,0,1,4,
-                           6,2,2,0,0,1,6,4Zm9.7,10.3L13,11.6V7H11v5.4l3.3,3.3Z"  Stretch="Fill"
-                              Fill="{Binding BorderBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Border}}">
-                    </Path>
+                           6,2,2,0,0,1,6,4Zm9.7,10.3L13,11.6V7H11v5.4l3.3,3.3Z"  
+                           Stretch="Fill"
+                           Fill="{Binding BorderBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Border}}"/>
                 </Grid>
             </Viewbox>
         </ControlTemplate>
 
+        
+        <!--#region Folder Data-->
         <ControlTemplate x:Key="MainData">
-            <Border x:Name="MainBorder" Background="Transparent" Height="45" Cursor="Hand" BorderThickness="0" Margin="-5 0 0 0" Width="215">
+            <Border x:Name="MainBorder" 
+                    Height="45" Width="215"
+                    Cursor="Hand" Margin="-5 0 0 0"
+                    Background="Transparent" BorderThickness="0">
                 <Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="7"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="7"/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="1" Foreground="{StaticResource Silver}" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}"
-                            FontSize="13" Name="FoldersName" TextWrapping="Wrap" Margin="10 0 10 0" Style="{StaticResource OpenSans_SemiBold}"></TextBlock>
-                        <Border x:Name="SelectedGrid" Grid.Column="0" BorderThickness="0" CornerRadius="0 0 0 0" HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch" SnapsToDevicePixels="True"
-                                Background="{StaticResource PeterRiver}" Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}">
-                        </Border>
+                        <TextBlock  x:Name="FoldersName"
+                                    Text="{Binding Name}"
+                                    Grid.Column="1" 
+                                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                                    Foreground="{StaticResource Silver}" FontSize="13" 
+                                    TextWrapping="Wrap" Margin="10 0 10 0"
+                                    Style="{StaticResource OpenSans_SemiBold}"/>
+                        <Border x:Name="SelectedGrid" 
+                                Grid.Column="0"
+                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}"
+                                Background="{StaticResource PeterRiver}"/>
                     </Grid>
                 </Grid>
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="MainBorder" Property="Background" Value="#25262B"></Setter>
+                    <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource PressedGrey}"/>
                 </Trigger>
                 <DataTrigger Binding="{Binding Selected}" Value="True">
                     <Setter TargetName="FoldersName" Property="Label.Foreground" Value="{StaticResource PeterRiver}"></Setter>
-                    <Setter TargetName="MainBorder" Property="Background" Value="#222328"></Setter>
+                    <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource Grey}"/>
                 </DataTrigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        <!--#endregion-->
+        
 
+        <!--#region ListViewItem Style-->
         <Style TargetType="{x:Type ListViewItem}" x:Name="SelectedIt">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListViewItem}">
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                                <!--Don`t know how, but obly this works the way I want -->
-                                <Setter Property="IsSelected" Value="True"></Setter>
+                                <!--Don`t know how, but only this works the way I want -->
+                                <Setter Property="IsSelected" Value="True"/>
                             </Trigger>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding Selected}" Value="True"></Condition>
+                                    <Condition Binding="{Binding Selected}" Value="True"/>
                                 </MultiDataTrigger.Conditions>
                                 <MultiDataTrigger.Setters>
-                                    <Setter Property="IsSelected" Value="True"></Setter>
+                                    <Setter Property="IsSelected" Value="True"/>
                                 </MultiDataTrigger.Setters>
                             </MultiDataTrigger>
                         </ControlTemplate.Triggers>
                         <Border>
                             <ContentPresenter HorizontalAlignment="Left" 
-                                              VerticalAlignment="Center">
-                            </ContentPresenter>
+                                              VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+        <!--#endregion-->
         
         
     </Application.Resources>
+    
 </Application>
