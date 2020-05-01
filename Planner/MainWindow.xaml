@@ -10,12 +10,6 @@
         ResizeMode="NoResize" 
         WindowStyle="None"
         >
-
-
-    <Window.DataContext>
-        <local:MainViewModel></local:MainViewModel>
-    </Window.DataContext>
-    
     <Window.Resources>
 
         
@@ -154,8 +148,7 @@
                         Width="20" Height="30"
                         Panel.ZIndex="1" 
                         Margin="-2 0 0 0"
-                        Foreground="{StaticResource BelizeHole}" 
-                        Visibility="Hidden" Cursor="Hand"
+                        Visibility="Hidden"
                         Click="OpenMenuButton_Click" 
                         Command="{Binding ChangeRightColumnWidthBackCommand}">
                     <Button.ToolTip>
@@ -176,10 +169,16 @@
                     <Button.Template>
                         <ControlTemplate>
                             <Grid>
-                                <Border Background="{StaticResource LightGrey}">
+                                <Border x:Name="RightArrow"
+                                        Background="{StaticResource LightGrey}" BorderBrush="{StaticResource Silver}">
                                     <Control Template="{StaticResource RightArrow}"/>
                                 </Border>
                             </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="RightArrow" Property="Border.BorderBrush" Value="{StaticResource BelizeHole}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
@@ -322,7 +321,6 @@
                                     <Grid HorizontalAlignment="Right">
                                         <Button x:Name="TaskButton"
                                                 HorizontalAlignment="Right"
-                                                Cursor="Hand"
                                                 Command="{Binding ElementName=ListOfTasks,Path=DataContext.MakeTaskDoneCommand}"
                                                 CommandParameter="{Binding ElementName=ListOfTasks,Path=SelectedItem}">
                                             <Button.Template>
@@ -365,6 +363,7 @@
                                                                     <Button.Template>
                                                                         <ControlTemplate>
                                                                             <Border x:Name="DeleteBorder"
+                                                                                    Cursor="Hand"
                                                                                     BorderBrush="{StaticResource Silver}" Background="Transparent">
                                                                                 <Control x:Name="DeleteControl"
                                                                                          Height="12" Width="12" 
@@ -407,6 +406,7 @@
                                                                     <Button.Template>
                                                                         <ControlTemplate>
                                                                             <Border x:Name="InProgressBorder"
+                                                                                    Cursor="Hand"
                                                                                     BorderBrush="{StaticResource Silver}" Background="Transparent">
                                                                                 <Control x:Name="MakeInProgress"
                                                                                          Height="15" Width="15"
@@ -431,8 +431,8 @@
                                                                      Focusable="False" IsReadOnly="True" TextWrapping="Wrap" 
                                                                      Margin="15 0 0 0"
                                                                      MaxLines="10" 
+                                                                     Cursor="Arrow"
                                                                      BorderThickness="0" 
-                                                                     Cursor="Hand" 
                                                                      Background="Transparent"
                                                                      FontFamily="/Planner;component/Fonts/OpenSans/#Open Sans">
                                                                 <TextBox.Style>
@@ -792,8 +792,6 @@
                                     Width="20" Height="30"
                                     HorizontalAlignment="Right" VerticalAlignment="Center" 
                                     Panel.ZIndex="1"
-                                    Cursor="Hand"
-                                    Foreground="{StaticResource BelizeHole}" 
                                     Click="CloseMenuButton_Click"
                                     Command="{Binding ChangeRightColumnWidthCommand}">
                                 <Button.ToolTip>
@@ -813,10 +811,16 @@
                                 <Button.Template>
                                     <ControlTemplate>
                                         <Grid>
-                                            <Border Background="{StaticResource LightGrey}">
+                                            <Border x:Name="ArrowBorder"
+                                                    Background="{StaticResource LightGrey}" BorderBrush="{StaticResource Silver}">
                                                 <Control Template="{StaticResource LeftArrow}"/>
                                             </Border>
                                         </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="ArrowBorder" Property="Border.BorderBrush" Value="{StaticResource BelizeHole}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
@@ -879,7 +883,6 @@
                                                     Height="20" Width="100" 
                                                     CornerRadius="7 7 0 0"
                                                     VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                    Cursor="Hand"
                                                     Background="{StaticResource WetAsphalt}">
                                                 <Label x:Name="BorderLabel" 
                                                        Content="New folder"
@@ -895,7 +898,6 @@
                                             </Trigger>
                                             <Trigger Property="IsPressed" Value="True">
                                                 <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource MidNightBlue}"/>
-                                                <Setter Property="Cursor" Value="Hand"/>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
@@ -913,7 +915,6 @@
                                                     Height="20" Width="100" 
                                                     CornerRadius="7 7 0 0"
                                                     VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                    Cursor="Hand"
                                                     Background="{StaticResource PomeGranate}">
                                                 <Label x:Name="BorderLabel" 
                                                        Content="Close"
@@ -929,7 +930,6 @@
                                             </Trigger>
                                             <Trigger Property="IsPressed" Value="True">
                                                 <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Alizarin}"/>
-                                                <Setter Property="Cursor" Value="Hand"/>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
@@ -1056,6 +1056,7 @@
                           Panel.ZIndex="1">
                         <ListView x:Name="FoldersListView" 
                                   ItemsSource="{Binding Folders}"
+                                  SelectedItem="{Binding SelectedFolder}"
                                   HorizontalContentAlignment="Stretch" VerticalAlignment="Top"
                                   Margin="-1 -1 -1 0"
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
@@ -1065,7 +1066,6 @@
                                 <DataTemplate>
                                     <Grid>
                                         <Button ClickMode="Press" 
-                                                Cursor="Hand"
                                                 MouseRightButtonDown="Button_MouseRightButtonDown" 
                                                 Command="{Binding ElementName=FoldersListView,Path=DataContext.SelectFolderCommand}" 
                                                 CommandParameter="{Binding ElementName=FoldersListView,Path=SelectedItem}">
@@ -1080,7 +1080,7 @@
                                         <Button x:Name="DeleteFolderButton"
                                                 Height="16" Width="16"
                                                 HorizontalAlignment="Right" VerticalAlignment="Center"
-                                                Margin="0 0 5 0"  Cursor="Hand" 
+                                                Margin="0 0 5 0"
                                                 Opacity="0.5" BorderThickness="0"
                                                 Visibility="{Binding Selected,Converter={StaticResource BoolConverter},FallbackValue=Hidden}"
                                                 MouseRightButtonDown="Button_MouseRightButtonDown"

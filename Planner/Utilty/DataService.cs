@@ -7,28 +7,38 @@ namespace Planner.Utilty
 {
     public class DataService
     {
-        private readonly string PATH;
-        public DataService(string PathToFile)
+        private readonly FileInfo _dataFile;
+
+
+
+        public DataService()
+            :this(new FileInfo("FolderData.txt"))
         {
-            PATH = PathToFile;
+
         }
+
+        public DataService(FileInfo sourceToFile)
+        {
+            _dataFile = sourceToFile;
+        }
+
         public ObservableCollection<Folder> LoadData()
         {
-            bool FileExists = File.Exists(PATH);
-            if (!FileExists)
+            if (!_dataFile.Exists)
             {
-                File.CreateText(PATH).Dispose();
+                _dataFile.CreateText().Dispose();
                 return new ObservableCollection<Folder>();
             }
-            using(StreamReader reader = File.OpenText(PATH))
+            using(StreamReader reader = _dataFile.OpenText())
             {
                 string Data = reader.ReadToEnd();
                 return JsonConvert.DeserializeObject<ObservableCollection<Folder>>(Data);
             }
         }
+
         public void SaveData(ObservableCollection<Folder> collection)
         {
-            using (StreamWriter WriterThread = File.CreateText(PATH))
+            using (StreamWriter WriterThread = _dataFile.CreateText())
             {
                 string TextToWrite = JsonConvert.SerializeObject(collection);
                 WriterThread.Write(TextToWrite);

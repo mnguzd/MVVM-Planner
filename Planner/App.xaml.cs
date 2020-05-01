@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+using Planner.Utilty;
 
 namespace Planner
 {
@@ -13,5 +8,12 @@ namespace Planner
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            InitializeComponent();
+            MainViewModel viewModel = new MainViewModel(new DataService());
+            MainWindow windowView = new MainWindow(viewModel);
+            windowView.Show();
+        }
     }
 }
