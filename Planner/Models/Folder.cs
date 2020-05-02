@@ -10,7 +10,7 @@ namespace Planner.Models
         //private fields
         private bool _selected;
         private string _name;
-        private uint _numberOfDoneTasks;
+        private double _numberOfDoneTasks;
         private uint _numberOfTasksInProgress;
         private ObservableCollection<TaskModel> _tasks;
         public Folder(string folderName)
@@ -19,7 +19,7 @@ namespace Planner.Models
             Tasks = new ObservableCollection<TaskModel>();
             Selected = false;
         }
-        public uint NumberOfDoneTasks
+        public double NumberOfDoneTasks
         {
             get
             {

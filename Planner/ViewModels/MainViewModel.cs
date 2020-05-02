@@ -11,9 +11,7 @@ namespace Planner
     {
         private string _inputTaskText;
         private string _inputFolderText;
-        private double _lineWidth;
         private double _rightColumnWidth = 800;
-        private double _leftColumnWidth = 200;
         private Folder _selectedFolder;
         private readonly DataService _service;
 
@@ -26,7 +24,6 @@ namespace Planner
         public RelayCommand DeleteTaskCommand { get;}
         public RelayCommand DeleteFolderCommand { get;}
         public RelayCommand ChangeRightColumnWidthCommand { get;}
-        public RelayCommand ChangeRightColumnWidthBackCommand { get;}
         public RelayCommand MakeTaskInProgressCommand { get;}
 
 
@@ -53,33 +50,6 @@ namespace Planner
             set
             {
                 OnPropertyChanged(ref _rightColumnWidth, value);
-            }
-        }
-        public double LeftColumnWidth
-        {
-            get
-            {
-                return _leftColumnWidth;
-            }
-            set
-            {
-                OnPropertyChanged(ref _leftColumnWidth, value);
-            }
-        }
-
-        public double LineWidth
-        {
-            get
-            {
-                if (SelectedFolder.Tasks.Count == 0 || SelectedFolder == null)
-                    return 0;
-                double percentOfDone = Convert.ToDouble(SelectedFolder.NumberOfDoneTasks) / Convert.ToDouble(SelectedFolder.Tasks.Count);
-                _lineWidth = RightColumnWidth * percentOfDone;
-                return _lineWidth;
-            }
-            set
-            {
-                OnPropertyChanged(ref _lineWidth, value);
             }
         }
         public string InputTaskText
@@ -119,7 +89,6 @@ namespace Planner
                 else
                     foreach (Folder i in Folders)
                         i.Selected = false;
-                OnPropertyChanged(nameof(LineWidth));
             }
         }
         private void MakeTaskDone(object parameter)
@@ -144,7 +113,6 @@ namespace Planner
                 {
                     Debug.WriteLine("Oops, there was an error : " + ex.ToString());
                 }
-                OnPropertyChanged(nameof(LineWidth));
             }
         }
 
@@ -157,8 +125,7 @@ namespace Planner
             {
                 folder.Selected = false;
             }
-            Folders[Folders.Count - 1].Selected = true;
-            OnPropertyChanged(nameof(LineWidth));
+            Folders[Folders.Count - 1].Selected = true; 
         }
         private bool CanAddText(string InputText)
         {
@@ -183,18 +150,14 @@ namespace Planner
                 {
                     SelectedFolder.Tasks.Remove(parameter as TaskModel);
                 }
-                OnPropertyChanged(nameof(LineWidth));
             }
         }
         private void ChangeRightColumnWidth()
         {
-            RightColumnWidth = 1000; //This changes the LineWidth for ProgressLine 
-            OnPropertyChanged(nameof(LineWidth));
-        }
-        private void ChangeRightColumnWidthBack()
-        {
-            RightColumnWidth = 800; //This changes the LineWidth for ProgressLine 
-            OnPropertyChanged(nameof(LineWidth));
+            if (RightColumnWidth == 800)
+                RightColumnWidth = 1000; //This changes the LineWidth for ProgressLine 
+            else
+                RightColumnWidth = 800;
         }
         private void SelectFolder(object parameter)
         {
@@ -205,7 +168,6 @@ namespace Planner
                     i.Selected = false;
                 }
             (parameter as Folder).Selected = true;
-                OnPropertyChanged(nameof(LineWidth));
             }
         }
         private void ClosingWindow()
@@ -232,7 +194,6 @@ namespace Planner
                     SelectedFolder.NumberOfTasksInProgress++;
                     SelectedFolder.Tasks[index].Done = false;
                     SelectedFolder.NumberOfDoneTasks--;
-                    OnPropertyChanged(nameof(LineWidth));
                     return;
                 }
                 SelectedFolder.NumberOfTasksInProgress--;
@@ -245,7 +206,6 @@ namespace Planner
             if (CanAddText(InputTaskText))
                 SelectedFolder.Tasks.Add(new TaskModel(InputTaskText));
             InputTaskText = "";
-            OnPropertyChanged(nameof(LineWidth));
         }
         public MainViewModel(DataService dataService)
         {
@@ -267,7 +227,6 @@ namespace Planner
             DeleteTaskCommand = new RelayCommand(p => DeleteTask(p), p => true);
             DeleteFolderCommand = new RelayCommand(p => DeleteFolder(p), p => true);
             ChangeRightColumnWidthCommand = new RelayCommand(p => ChangeRightColumnWidth(), p => true);
-            ChangeRightColumnWidthBackCommand = new RelayCommand(p => ChangeRightColumnWidthBack(), p => true);
             MakeTaskInProgressCommand = new RelayCommand(p => MakeTaskInProgress(p), p => true);
         }
     }

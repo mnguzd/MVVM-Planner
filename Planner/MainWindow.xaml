@@ -149,8 +149,8 @@
                         Panel.ZIndex="1" 
                         Margin="-2 0 0 0"
                         Visibility="Hidden"
-                        Click="OpenMenuButton_Click" 
-                        Command="{Binding ChangeRightColumnWidthBackCommand}">
+                        Command="{Binding ChangeRightColumnWidthCommand}"
+                        Click="OpenMenuButton_Click">
                     <Button.ToolTip>
                         <ToolTip>
                             <ToolTip.Template>
@@ -676,7 +676,7 @@
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                                   Background="{StaticResource LightGrey}">
-                                <Line X1="0" Y1="1" X2="{Binding LineWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,FallbackValue=0}" Y2="1"
+                                <Line X1="0" Y1="1" X2="{c:Binding RightColumnWidth *(SelectedFolder.NumberOfDoneTasks/SelectedFolder.Tasks.Count)}" Y2="1"
                                       Stroke="{StaticResource Nephritis}" 
                                       StrokeThickness="2" StrokeEndLineCap="Round" StrokeStartLineCap="Square" 
                                       Margin="-2 0 0 0" />
@@ -792,8 +792,8 @@
                                     Width="20" Height="30"
                                     HorizontalAlignment="Right" VerticalAlignment="Center" 
                                     Panel.ZIndex="1"
-                                    Click="CloseMenuButton_Click"
-                                    Command="{Binding ChangeRightColumnWidthCommand}">
+                                    Command="{Binding ChangeRightColumnWidthCommand}"
+                                    Click="CloseMenuButton_Click">
                                 <Button.ToolTip>
                                     <ToolTip>
                                         <ToolTip.Template>
