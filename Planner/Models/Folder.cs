@@ -1,7 +1,5 @@
 ﻿using Planner.Utilty;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Documents;
 
 namespace Planner.Models
 {
@@ -29,12 +27,8 @@ namespace Planner.Models
                         _numberOfDoneTasks++;
                 return _numberOfDoneTasks;
             }
-            set
-            {
-                OnPropertyChanged(ref _numberOfDoneTasks, value);
-            }
+            set => OnPropertyChanged(ref _numberOfDoneTasks, value);
         }
-
         public uint NumberOfTasksInProgress
         {
             get
@@ -45,42 +39,22 @@ namespace Planner.Models
                         _numberOfTasksInProgress++;
                 return _numberOfTasksInProgress;
             }
-            set
-            {
-                OnPropertyChanged(ref _numberOfTasksInProgress, value);
-            }
+            set => OnPropertyChanged(ref _numberOfTasksInProgress, value);
         }
-        public ObservableCollection<TaskModel> Tasks 
-        { get 
-            { 
-                return _tasks; 
-            } 
-            set 
-            {
-                OnPropertyChanged(ref _tasks,value);
-            } 
+        public ObservableCollection<TaskModel> Tasks
+        {
+            get => _tasks;
+            set => OnPropertyChanged(ref _tasks, value);
         }
         public string Name
         {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                OnPropertyChanged(ref _name, value);
-            }
+            get => _name;
+            set => OnPropertyChanged(ref _name, value);
         }
         public bool Selected
         {
-            get
-            {
-                return _selected;
-            }
-            set
-            {
-                OnPropertyChanged(ref _selected, value);
-            }
+            get => _selected;
+            set => OnPropertyChanged(ref _selected, value);
         }
     }
 }

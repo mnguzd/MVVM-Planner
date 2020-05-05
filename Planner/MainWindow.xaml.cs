@@ -2,8 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 
 namespace Planner
@@ -56,14 +54,14 @@ namespace Planner
             FoldersGrid.Effect = null;
         }
 
-        private void ListView_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)   // scroll the new item into view   
+        private void ListView_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
-                ListOfTasks.ScrollIntoView(e.NewItems[0]);
-                ListViewItem item = ListOfTasks.ItemContainerGenerator.ContainerFromIndex(ListOfTasks.Items.Count-1) as ListViewItem;
-                //item.Focus();
-                item.Focusable = false;
+              ListOfTasks.ScrollIntoView(e.NewItems[0]); // scroll the new item into view   
+              ListViewItem item = ListOfTasks.ItemContainerGenerator.ContainerFromIndex(ListOfTasks.Items.Count - 1) as ListViewItem;
+              if(item!=null)
+                 item.Focusable=false;
             }
         }
     }

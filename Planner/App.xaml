@@ -50,8 +50,8 @@
             <Setter Property="ListView.Background" Value="Transparent"/>
         </Style>
 
-    
-        <Storyboard x:Key="FadeButton" >
+
+        <Storyboard x:Key="FadeButton">
             <DoubleAnimation Storyboard.TargetProperty="(ListViewItem.Opacity)" From="0" Duration="0:0:1">
                 <DoubleAnimation.EasingFunction>
                     <BackEase EasingMode="EaseOut"/>
@@ -59,54 +59,27 @@
             </DoubleAnimation>
         </Storyboard>
 
-        <Storyboard x:Key="DoneButtonAnimation" >
-            <ThicknessAnimation Storyboard.TargetProperty="(Border.Padding)" To="0,1" Duration="0:0:0.3"
-                                Storyboard.TargetName="ItemBorder">
+        <Storyboard x:Key="DoneButtonAnimation" 
+                    Timeline.DesiredFrameRate="60" >
+            <ThicknessAnimation Storyboard.TargetProperty="(Border.Padding)" 
+                                Storyboard.TargetName="ItemBorder"
+                                To="0,4" Duration="0:0:0.4">
                 <ThicknessAnimation.EasingFunction>
-                    <BackEase EasingMode="EaseOut" Amplitude="0"></BackEase>
+                    <BackEase EasingMode="EaseOut"/>
                 </ThicknessAnimation.EasingFunction>
             </ThicknessAnimation>
         </Storyboard>
 
-        <Storyboard x:Key="DoneButtonAnimationBack" >
-            <ThicknessAnimation Storyboard.TargetProperty="(Border.Padding)" To="0,8" Duration="0:0:0.3"
-                                Storyboard.TargetName="ItemBorder">
+        <Storyboard x:Key="DoneButtonAnimationBack" 
+                    Timeline.DesiredFrameRate="60">
+            <ThicknessAnimation Storyboard.TargetProperty="(Border.Padding)" 
+                                Storyboard.TargetName="ItemBorder"
+                                To="0,10" Duration="0:0:0.4">
                 <ThicknessAnimation.EasingFunction>
-                    <BackEase EasingMode="EaseOut" Amplitude="0"></BackEase>
+                    <BackEase EasingMode="EaseOut"/>
                 </ThicknessAnimation.EasingFunction>
             </ThicknessAnimation>
         </Storyboard>
-
-        <!--#region Folder deleting Button animation-->
-        <Storyboard x:Key="ShowDeleteFolderButton">
-            <DoubleAnimation Storyboard.TargetProperty="(Button.Opacity)" Storyboard.TargetName="DeleteFolderButton"
-                             To="1" From="0.5" 
-                             Duration="0:0:0.2"/>
-        </Storyboard>
-        <Storyboard x:Key="HideDeleteFolderButton">
-            <DoubleAnimation Storyboard.TargetProperty="(Button.Opacity)" Storyboard.TargetName="DeleteFolderButton"
-                             To="0.5" From="1" 
-                             Duration="0:0:0.2"/>
-        </Storyboard>
-        <Storyboard x:Key="RotateButton">
-            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(RotateTransform.Angle)"
-                             To="-90"  
-                             Duration="0:0:0.5">
-                <DoubleAnimation.EasingFunction>
-                    <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-        </Storyboard>
-        <Storyboard x:Key="RotateButtonBack">
-            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(RotateTransform.Angle)"
-                             To="0"  
-                             Duration="0:0:0.3">
-                <DoubleAnimation.EasingFunction>
-                    <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-        </Storyboard>
-        <!--#endregion-->
         
         <!--#region Open_Close Menu animation-->
         <Storyboard x:Key="OpenMenu">
@@ -281,18 +254,14 @@
         <ControlTemplate TargetType="Control" x:Key="MakeInProgressControl">
             <Viewbox Stretch="Fill">
                 <Grid>
-                    <Path  Data="M3.5,9.1A8.9,8.9,0,0,0,6.4,19L5.1,21.5l1.8.9,1.2-2.3a8.9,8.9,0,0,0,7.8,0l1.2,2.3,1.8-.9L17.6,19a8.9,
-                           8.9,0,0,0,2.9-9.9,3.9,3.9,0,0,0,.7-5.6,3.9,3.9,0,0,0-5.6-.7,4.6,4.6,0,0,0-.7.7,8.3,8.3,0,0,0-5.8,0,3.9,3.9,
-                           0,0,0-5.6-.7,3.9,3.9,0,0,0-.7,5.6ZM18,4a2,2,0,0,1,2,2,2.8,2.8,0,0,1-.4,1.2,9.3,9.3,0,0,0-2.8-2.8A1.9,1.9,0,
-                           0,1,18,4Zm1,8a7,7,0,1,1-7-7A7,7,0,0,1,19,12ZM6,4a2.8,2.8,0,0,1,1.2.4A9.3,9.3,0,0,0,4.4,7.2,2.8,2.8,0,0,1,4,
-                           6,2,2,0,0,1,6,4Zm9.7,10.3L13,11.6V7H11v5.4l3.3,3.3Z"  
+                    <Path  Data="M48,0A48,48,0,1,0,96,48,48,48,0,0,0,48,0Zm0,84A36,36,0,1,1,84,48,36,
+                           36,0,0,1,48,84ZM66,42H54V30a6,6,0,0,0-12,0V48a6,6,0,0,0,6,6H66a6,6,0,0,0,0-12Z"  
                            Stretch="Fill"
                            Fill="{Binding BorderBrush, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Border}}"/>
                 </Grid>
             </Viewbox>
         </ControlTemplate>
 
-        
         <!--#region Folder Data-->
         <ControlTemplate x:Key="MainData">
             <Border x:Name="MainBorder" 
@@ -330,41 +299,6 @@
                 </DataTrigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-        <!--#endregion-->
-        
-
-        <!--#region ListViewItem Style-->
-        <Style TargetType="{x:Type ListViewItem}" x:Name="SelectedIt">
-            <Setter Property="RenderTransform">
-                <Setter.Value>
-                    <ScaleTransform></ScaleTransform>
-                </Setter.Value>
-            </Setter> 
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ListViewItem}">
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                                <!--Don`t know how, but only this works the way I want -->
-                                <Setter Property="IsSelected" Value="True"/>
-                            </Trigger>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding Selected}" Value="True"/>
-                                </MultiDataTrigger.Conditions>
-                                <MultiDataTrigger.Setters>
-                                    <Setter Property="IsSelected" Value="True"/>
-                                </MultiDataTrigger.Setters>
-                            </MultiDataTrigger>
-                        </ControlTemplate.Triggers>
-                        <Border>
-                            <ContentPresenter HorizontalAlignment="Left" 
-                                              VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
         <!--#endregion-->
        
     </Application.Resources>

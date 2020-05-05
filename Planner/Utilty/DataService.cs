@@ -9,12 +9,9 @@ namespace Planner.Utilty
     {
         private readonly FileInfo _dataFile;
 
-
-
         public DataService()
             :this(new FileInfo("FolderData.txt"))
         {
-
         }
 
         public DataService(FileInfo sourceToFile)

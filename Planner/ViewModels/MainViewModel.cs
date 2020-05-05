@@ -31,48 +31,24 @@ namespace Planner
 
         public Folder SelectedFolder
         {
-            get
-            {
-                return _selectedFolder;
-            }
-            set
-            {
-                OnPropertyChanged(ref _selectedFolder, value);
-            }
+            get => _selectedFolder;
+            set => OnPropertyChanged(ref _selectedFolder, value);
         }
 
         public double RightColumnWidth
         {
-            get
-            {
-                return _rightColumnWidth;
-            }
-            set
-            {
-                OnPropertyChanged(ref _rightColumnWidth, value);
-            }
+            get => _rightColumnWidth;
+            set => OnPropertyChanged(ref _rightColumnWidth, value);
         }
         public string InputTaskText
         {
-            get
-            {
-                return _inputTaskText;
-            }
-            set
-            {
-                OnPropertyChanged(ref _inputTaskText, value);
-            }
+            get => _inputTaskText;
+            set => OnPropertyChanged(ref _inputTaskText, value);
         }
         public string InputFolderText
         {
-            get
-            {
-                return _inputFolderText;
-            }
-            set
-            {
-                OnPropertyChanged(ref _inputFolderText, value);
-            }
+            get => _inputFolderText;
+            set => OnPropertyChanged(ref _inputFolderText, value);
         }
 
         private void MinimizeWindow()
@@ -199,8 +175,6 @@ namespace Planner
                 SelectedFolder.NumberOfTasksInProgress--;
             }
         }
-
-
         private void AddTask()
         {
             if (CanAddText(InputTaskText))

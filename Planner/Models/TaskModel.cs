@@ -1,49 +1,30 @@
 ﻿using Planner.Utilty;
-using System;
 
 namespace Planner.Models
 {
-    public class TaskModel:ObservableObject
+    public class TaskModel : ObservableObject
     {
         private string _toDo;
         private bool _isDone;
         private bool _isInProgress;
-        public TaskModel(string newtask)
+        public TaskModel(string newTask)
         {
-            ToDo = newtask;
+            ToDo = newTask;
         }
-        public string ToDo 
+        public string ToDo
         {
-            get 
-            {
-                return _toDo; 
-            } 
-            set 
-            { 
-                OnPropertyChanged(ref _toDo, value);
-            } 
+            get => _toDo;
+            set => OnPropertyChanged(ref _toDo, value);
         }
-        public bool Done 
+        public bool Done
         {
-            get 
-            {
-                return _isDone;
-            }
-            set 
-            {
-                OnPropertyChanged(ref _isDone, value);
-            }
+            get => _isDone;
+            set => OnPropertyChanged(ref _isDone, value);
         }
         public bool InProgress
         {
-            get
-            {
-                return _isInProgress;
-            }
-            set
-            {
-                OnPropertyChanged(ref _isInProgress, value);
-            }
+            get => _isInProgress;
+            set => OnPropertyChanged(ref _isInProgress, value);
         }
     }
 }
