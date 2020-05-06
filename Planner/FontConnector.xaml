@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    
+    <!--#region Fonts-->
+    <Style x:Key="OpenSans_SemiBold">
+        <Setter Property="TextElement.FontFamily" Value="/Fonts/OpenSans/#Open Sans SemiBold"/>
+    </Style>
+
+    <Style x:Key="OpenSans">
+        <Setter Property="TextElement.FontFamily" Value="/Fonts/OpenSans/#Open Sans"/>
+    </Style>
+
+    <Style x:Key="Raleway_SemiBold">
+        <Setter Property="TextElement.FontFamily" Value="/Fonts/Raleway/#Raleway SemiBold"/>
+    </Style>
+    <!--#endregion-->
+    
+    
+</ResourceDictionary>

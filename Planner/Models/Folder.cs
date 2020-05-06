@@ -9,7 +9,7 @@ namespace Planner.Models
         private bool _selected;
         private string _name;
         private double _numberOfDoneTasks;
-        private uint _numberOfTasksInProgress;
+        private double _numberOfTasksInProgress;
         private ObservableCollection<TaskModel> _tasks;
         public Folder(string folderName)
         {
@@ -29,7 +29,7 @@ namespace Planner.Models
             }
             set => OnPropertyChanged(ref _numberOfDoneTasks, value);
         }
-        public uint NumberOfTasksInProgress
+        public double NumberOfTasksInProgress
         {
             get
             {

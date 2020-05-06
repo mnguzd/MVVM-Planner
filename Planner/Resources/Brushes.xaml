@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <SolidColorBrush x:Key="Grey" Color="#222328"/>
+    <SolidColorBrush x:Key="PressedGrey" Color="#25262B"/>
+    <SolidColorBrush x:Key="HoverGrey" Color="#2A2B30"/>
+    <SolidColorBrush x:Key="LightGrey" Color="#2C2D32"/>
+    <SolidColorBrush x:Key="Turquoise" Color="#1BBC9B"/>
+    <SolidColorBrush x:Key="GreenSea" Color="#16A086"/>
+    <SolidColorBrush x:Key="SunFlower" Color="#F1C40F"/>
+    <SolidColorBrush x:Key="Orange" Color="#F39C11"/>
+    <SolidColorBrush x:Key="Emerald" Color="#2DCC70"/>
+    <SolidColorBrush x:Key="Nephritis" Color="#27AE61"/>
+    <SolidColorBrush x:Key="Carrot" Color="#E67F22"/>
+    <SolidColorBrush x:Key="Pumpkin" Color="#D25400"/>
+    <SolidColorBrush x:Key="PeterRiver" Color="#3598DB"/>
+    <SolidColorBrush x:Key="BelizeHole" Color="#297FB8"/>
+    <SolidColorBrush x:Key="Alizarin" Color="#E84C3D"/>
+    <SolidColorBrush x:Key="PomeGranate" Color="#C1392B"/>
+    <SolidColorBrush x:Key="Amethyst" Color="#9A59B5"/>
+    <SolidColorBrush x:Key="Wisteria" Color="#8D44AD"/>
+    <SolidColorBrush x:Key="Clouds" Color="#ECF0F1"/>
+    <SolidColorBrush x:Key="Silver" Color="#BEC3C7"/>
+    <SolidColorBrush x:Key="WetAsphalt" Color="#34495E"/>
+    <SolidColorBrush x:Key="MidNightBlue" Color="#2D3E50"/>
+    <SolidColorBrush x:Key="Concrete" Color="#95A5A5"/>
+    <SolidColorBrush x:Key="Asbestos" Color="#7E8C8D"/>
+    
+</ResourceDictionary>

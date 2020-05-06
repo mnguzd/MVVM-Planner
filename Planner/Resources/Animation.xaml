@@ -1,0 +1,97 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    
+    <!--#region CreateNewTask animation-->
+    <Storyboard x:Key="FadeButton">
+        <DoubleAnimation Storyboard.TargetProperty="(ListViewItem.Opacity)" From="0" Duration="0:0:1">
+            <DoubleAnimation.EasingFunction>
+                <BackEase EasingMode="EaseOut"/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+    </Storyboard>
+    <!--#endregion-->
+
+    
+    <!--#region DoneTask animation-->
+    <Storyboard x:Key="DoneButtonAnimation" 
+                    Timeline.DesiredFrameRate="60" >
+        <ThicknessAnimation Storyboard.TargetProperty="(Border.Padding)" 
+                                Storyboard.TargetName="ItemBorder"
+                                To="0,4" Duration="0:0:0.3">
+            <ThicknessAnimation.EasingFunction>
+                <BackEase EasingMode="EaseOut"/>
+            </ThicknessAnimation.EasingFunction>
+        </ThicknessAnimation>
+    </Storyboard>
+
+    <Storyboard x:Key="DoneButtonAnimationBack" 
+                    Timeline.DesiredFrameRate="60">
+        <ThicknessAnimation Storyboard.TargetProperty="(Border.Padding)" 
+                                Storyboard.TargetName="ItemBorder"
+                                To="0,10" Duration="0:0:0.3">
+            <ThicknessAnimation.EasingFunction>
+                <BackEase EasingMode="EaseOut"/>
+            </ThicknessAnimation.EasingFunction>
+        </ThicknessAnimation>
+    </Storyboard>
+    <!--#endregion-->
+    
+    
+    <!--#region OpenClose Menu-->
+    <Storyboard x:Key="OpenMenu">
+        <DoubleAnimation Storyboard.TargetProperty="(Grid.Width)"
+                             Storyboard.TargetName="LeftColumnMenu" 
+                             To="200" From="0" 
+                             Duration="0"/>
+    </Storyboard>
+    <Storyboard x:Key="CloseMenu">
+        <DoubleAnimation Storyboard.TargetProperty="(Grid.Width)" 
+                             Storyboard.TargetName="LeftColumnMenu" 
+                             To="0" From="200" 
+                             Duration="0"/>
+    </Storyboard>
+    <Storyboard x:Key="StretchRightColumn">
+        <DoubleAnimation Storyboard.TargetProperty="(Grid.Width)" 
+                             Storyboard.TargetName="RightColumn" 
+                             To="1000" From="800" 
+                             Duration="0"/>
+    </Storyboard>
+    <Storyboard x:Key="StretchRightColumnMargin">
+        <ThicknessAnimation Storyboard.TargetProperty="(Grid.Margin)" 
+                                Storyboard.TargetName="RightColumn" 
+                                To="-200,0,0,0" From="0" 
+                                Duration="0"/>
+    </Storyboard>
+    <Storyboard x:Key="StretchRightColumnBack">
+        <DoubleAnimation Storyboard.TargetProperty="(Grid.Width)" 
+                             Storyboard.TargetName="RightColumn" 
+                             To="800" From="1000" 
+                             Duration="0"/>
+    </Storyboard>
+    <Storyboard x:Key="StretchRightColumnMarginBack">
+        <ThicknessAnimation Storyboard.TargetProperty="(Grid.Margin)" 
+                                Storyboard.TargetName="RightColumn" 
+                                To="0" From="-200,0,0,0" 
+                                Duration="0"/>
+    </Storyboard>
+    <!--#endregion-->
+
+
+    <!--#region FoldersInput animation-->
+    <Storyboard x:Key="OpenFolderInput">
+        <ThicknessAnimation Storyboard.TargetProperty="(Grid.Margin)"
+                                Storyboard.TargetName="InputFolderText" 
+                                To="0" From="0 0 0 -180" 
+                                Duration="0"/>
+    </Storyboard>
+    <Storyboard x:Key="CloseFolderInput">
+        <ThicknessAnimation Storyboard.TargetProperty="(Grid.Margin)" 
+                                Storyboard.TargetName="InputFolderText" 
+                                To="0 0 0 -180" From="0" 
+                                Duration="0"/>
+    </Storyboard>
+    <!--#endregion-->
+    
+    
+</ResourceDictionary>
