@@ -10,12 +10,12 @@
     <ControlTemplate x:Key="MainData">
         <Border x:Name="MainBorder" 
                     Height="45" Width="215"
-                    Margin="-5 0 0 0"
+                    Margin="0 0 0 0"
                     Background="Transparent" BorderThickness="0">
             <Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="7"/>
+                        <ColumnDefinition Width="5"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <TextBlock  x:Name="FoldersName"
@@ -25,7 +25,8 @@
                                     Foreground="{StaticResource Silver}" FontSize="13" 
                                     TextWrapping="Wrap" Margin="10 0 10 0"
                                     Style="{StaticResource OpenSans_SemiBold}"/>
-                    <Border x:Name="SelectedGrid" 
+                    <Border x:Name="SelectedGrid"
+                                Height="0"
                                 Grid.Column="0"
                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                 Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}"
@@ -40,6 +41,14 @@
             <DataTrigger Binding="{Binding Selected}" Value="True">
                 <Setter TargetName="FoldersName" Property="Label.Foreground" Value="{StaticResource PeterRiver}"/>
                 <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource Grey}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Selected}" Value="True">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource SelectFolderAnimation}"/>
+                </DataTrigger.EnterActions>
+                <DataTrigger.ExitActions>
+                    <BeginStoryboard Storyboard="{StaticResource SelectFolderBackAnimation}"/>
+                </DataTrigger.ExitActions>
             </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

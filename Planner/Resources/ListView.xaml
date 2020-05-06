@@ -5,16 +5,16 @@
     <!--ListView Style-->
     <Style x:Key="ListViewStyle">
         <Setter Property="Grid.Column" Value="0"/>
-        <Setter Property="ListView.Margin" Value="-1 5 -1 47"/>
+        <Setter Property="ListView.Margin" Value="-1 5 -1 48"/>
         <Setter Property="ListView.Padding" Value="0 10 0 0"/>
         <Setter Property="ListView.BorderThickness" Value="0"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
         <Setter Property="ListView.VerticalContentAlignment" Value="Top"/>
         <Setter Property="ListView.VerticalAlignment" Value="Top"/>
         <Setter Property="ListView.SelectionMode" Value="Single"/>
         <Setter Property="ListView.FontFamily" Value="/Fonts/OpenSans/#Open Sans"/>
-        <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
         <Setter Property="ListView.ItemsSource" Value="{Binding SelectedItem.Tasks,ElementName=FoldersListView}"/>
         <Setter Property="ListView.FontSize" Value="16"/>
         <Setter Property="ListView.Background" Value="Transparent"/>

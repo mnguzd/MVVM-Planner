@@ -13,25 +13,42 @@
     <!--#endregion-->
 
     
+    <!--#region SelectFolder animation-->
+    <Storyboard x:Key="SelectFolderAnimation">
+        <DoubleAnimation Storyboard.TargetProperty="(Border.Height)" 
+                                Storyboard.TargetName="SelectedGrid"
+                                To="45" Duration="0:0:0.3">
+            <DoubleAnimation.EasingFunction>
+                <ExponentialEase EasingMode="EaseOut"/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+    </Storyboard>
+
+    <Storyboard x:Key="SelectFolderBackAnimation">
+        <DoubleAnimation Storyboard.TargetProperty="(Border.Height)" 
+                                Storyboard.TargetName="SelectedGrid"
+                                To="0" Duration="0">
+        </DoubleAnimation>
+    </Storyboard>
+    <!--#endregion-->
+    
     <!--#region DoneTask animation-->
-    <Storyboard x:Key="DoneButtonAnimation" 
-                    Timeline.DesiredFrameRate="60" >
+    <Storyboard x:Key="DoneButtonAnimation">
         <ThicknessAnimation Storyboard.TargetProperty="(Border.Padding)" 
                                 Storyboard.TargetName="ItemBorder"
-                                To="0,4" Duration="0:0:0.3">
+                                To="0,4" Duration="0:0:0.35">
             <ThicknessAnimation.EasingFunction>
-                <BackEase EasingMode="EaseOut"/>
+                <ExponentialEase EasingMode="EaseOut"/>
             </ThicknessAnimation.EasingFunction>
         </ThicknessAnimation>
     </Storyboard>
 
-    <Storyboard x:Key="DoneButtonAnimationBack" 
-                    Timeline.DesiredFrameRate="60">
+    <Storyboard x:Key="DoneButtonAnimationBack">
         <ThicknessAnimation Storyboard.TargetProperty="(Border.Padding)" 
                                 Storyboard.TargetName="ItemBorder"
-                                To="0,10" Duration="0:0:0.3">
+                                To="0,10" Duration="0:0:0.35">
             <ThicknessAnimation.EasingFunction>
-                <BackEase EasingMode="EaseOut"/>
+                <ExponentialEase EasingMode="EaseOut"/>
             </ThicknessAnimation.EasingFunction>
         </ThicknessAnimation>
     </Storyboard>
@@ -39,7 +56,7 @@
     
     
     <!--#region OpenClose Menu-->
-    <Storyboard x:Key="OpenMenu">
+    <Storyboard x:Key="OpenMenu"> 
         <DoubleAnimation Storyboard.TargetProperty="(Grid.Width)"
                              Storyboard.TargetName="LeftColumnMenu" 
                              To="200" From="0" 

@@ -140,7 +140,7 @@
             <!--TopPanel-->
             <Grid Grid.Row="0" Grid.ColumnSpan="4"
                   Background="{StaticResource LightGrey}"
-                   MouseLeftButtonDown="Window_MouseLeftButtonDown">
+                  MouseLeftButtonDown="Window_MouseLeftButtonDown">
                 <Button x:Name="OpenMenuButton" 
                         Grid.Row="0" 
                         HorizontalAlignment="Left" VerticalAlignment="Center" 
@@ -303,11 +303,6 @@
                                   Style="{StaticResource ListViewStyle}">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
-                                    <Setter Property="RenderTransform">
-                                        <Setter.Value>
-                                            <ScaleTransform></ScaleTransform>
-                                        </Setter.Value>
-                                    </Setter>
                                     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
                                     <Setter Property="Template">
                                         <Setter.Value>
@@ -339,6 +334,7 @@
                                 <DataTemplate>
                                     <Grid HorizontalAlignment="Right">
                                         <Button x:Name="TaskButton"
+                                                ClickMode="Press"
                                                 HorizontalAlignment="Right"
                                                 Command="{Binding ElementName=ListOfTasks,Path=DataContext.MakeTaskDoneCommand}"
                                                 CommandParameter="{Binding ElementName=ListOfTasks,Path=SelectedItem}">
@@ -348,102 +344,96 @@
                                                             BorderThickness="0"
                                                             HorizontalAlignment="Center"
                                                             Margin="35 0 35 7" Padding="0,10"
-                                                            CornerRadius="1" Background="{StaticResource LightGrey}">
+                                                            CornerRadius="3" Background="{StaticResource LightGrey}">
                                                         <Grid>
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition/>
+                                                                <ColumnDefinition Width="*"/>
                                                                 <ColumnDefinition Width="20"/>
                                                                 <ColumnDefinition Width="20"/>
                                                             </Grid.ColumnDefinitions>
-                                                            <Grid x:Name="DeleteTaskGrid" 
-                                                                  Grid.Column="2" 
-                                                                  Width="20"
-                                                                  Visibility="Hidden"
-                                                                  Panel.ZIndex="1"
-                                                                  Background="Transparent">
-                                                                <Button x:Name="DeleteTaskButton"
+
+                                                            <Button x:Name="DeleteTaskButton"
+                                                                        Grid.Column="2" 
+                                                                        Width="20"
+                                                                        Visibility="Hidden"
+                                                                        Panel.ZIndex="1"
+                                                                        Background="Transparent"
                                                                         Foreground="{StaticResource Asbestos}" 
                                                                         Command="{Binding ElementName=ListOfTasks,Path=DataContext.DeleteTaskCommand}"
                                                                         CommandParameter="{Binding ElementName=ListOfTasks,Path=SelectedItem}">
-                                                                    <Button.ToolTip>
-                                                                        <ToolTip>
-                                                                            <ToolTip.Template>
-                                                                                <ControlTemplate>
-                                                                                    <Border CornerRadius="3" 
+                                                                <Button.ToolTip>
+                                                                    <ToolTip>
+                                                                        <ToolTip.Template>
+                                                                            <ControlTemplate>
+                                                                                <Border CornerRadius="3" 
                                                                                             Background="{StaticResource WetAsphalt}">
-                                                                                        <Label Content="Delete"
+                                                                                    <Label Content="Delete"
                                                                                                Foreground="{StaticResource Silver}" FontSize="12" 
                                                                                                Style="{StaticResource OpenSans_SemiBold}"/>
-                                                                                    </Border>
-                                                                                </ControlTemplate>
-                                                                            </ToolTip.Template>
-                                                                        </ToolTip>
-                                                                    </Button.ToolTip>
-                                                                    <Button.Template>
-                                                                        <ControlTemplate>
-                                                                            <Border x:Name="DeleteBorder"
+                                                                                </Border>
+                                                                            </ControlTemplate>
+                                                                        </ToolTip.Template>
+                                                                    </ToolTip>
+                                                                </Button.ToolTip>
+                                                                <Button.Template>
+                                                                    <ControlTemplate>
+                                                                        <Border x:Name="DeleteBorder"
                                                                                     Cursor="Hand"
                                                                                     BorderBrush="{StaticResource Silver}" Background="Transparent">
-                                                                                <Control x:Name="DeleteControl"
+                                                                            <Control x:Name="DeleteControl"
                                                                                          Height="12" Width="12" 
                                                                                          Template="{StaticResource DeleteFolderControl}"/>
-                                                                            </Border>
-                                                                            <ControlTemplate.Triggers>
-                                                                                <Trigger  Property="IsMouseOver" Value="True">
-                                                                                    <Setter TargetName="DeleteBorder" Property="Border.BorderBrush" Value="{StaticResource PomeGranate}"/>
-                                                                                </Trigger>
-                                                                            </ControlTemplate.Triggers>
-                                                                        </ControlTemplate>
-                                                                    </Button.Template>
-                                                                </Button>
-                                                            </Grid>
-
-                                                            <Grid x:Name="MakeInProgressGrid" 
-                                                                  Grid.Column="1" 
-                                                                  Width="20"
-                                                                  HorizontalAlignment="Center" 
-                                                                  Visibility="Hidden" 
-                                                                  Panel.ZIndex="1"
-                                                                  Background="Transparent"
-                                                                  >
-                                                                <Button x:Name="MakeInProgressButton"
+                                                                        </Border>
+                                                                        <ControlTemplate.Triggers>
+                                                                            <Trigger  Property="IsMouseOver" Value="True">
+                                                                                <Setter TargetName="DeleteBorder" Property="Border.BorderBrush" Value="{StaticResource PomeGranate}"/>
+                                                                            </Trigger>
+                                                                        </ControlTemplate.Triggers>
+                                                                    </ControlTemplate>
+                                                                </Button.Template>
+                                                            </Button>
+                                                            <Button x:Name="MakeInProgressButton"
+                                                                        Grid.Column="1"  Width="20" 
+                                                                        HorizontalAlignment="Center" 
+                                                                        Visibility="Hidden" 
+                                                                        Panel.ZIndex="1"
+                                                                        Background="Transparent"
                                                                         Command="{Binding ElementName=ListOfTasks,Path=DataContext.MakeTaskInProgressCommand}"
                                                                         CommandParameter="{Binding ElementName=ListOfTasks,Path=SelectedItem}">
-                                                                    <Button.ToolTip>
-                                                                        <ToolTip>
-                                                                            <ToolTip.Template>
-                                                                                <ControlTemplate>
-                                                                                    <Border CornerRadius="3" Background="{StaticResource WetAsphalt}">
-                                                                                        <Label Content="In Progress"
+                                                                <Button.ToolTip>
+                                                                    <ToolTip>
+                                                                        <ToolTip.Template>
+                                                                            <ControlTemplate>
+                                                                                <Border CornerRadius="3" Background="{StaticResource WetAsphalt}">
+                                                                                    <Label Content="In Progress"
                                                                                                Foreground="{StaticResource Silver}" FontSize="12" 
                                                                                                Style="{StaticResource OpenSans_SemiBold}"/>
-                                                                                    </Border>
-                                                                                </ControlTemplate>
-                                                                            </ToolTip.Template>
-                                                                        </ToolTip>
-                                                                    </Button.ToolTip>
-                                                                    <Button.Template>
-                                                                        <ControlTemplate>
-                                                                            <Border x:Name="InProgressBorder"
+                                                                                </Border>
+                                                                            </ControlTemplate>
+                                                                        </ToolTip.Template>
+                                                                    </ToolTip>
+                                                                </Button.ToolTip>
+                                                                <Button.Template>
+                                                                    <ControlTemplate>
+                                                                        <Border x:Name="InProgressBorder"
                                                                                     Cursor="Hand"
                                                                                     BorderBrush="{StaticResource Silver}" Background="Transparent">
-                                                                                <Control x:Name="MakeInProgress"
+                                                                            <Control x:Name="MakeInProgress"
                                                                                          Height="16" Width="16"
                                                                                          HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                                          Template="{StaticResource MakeInProgressControl}"/>
-                                                                            </Border>
-                                                                            <ControlTemplate.Triggers>
-                                                                                <Trigger  Property="IsMouseOver" Value="True">
-                                                                                    <Setter TargetName="InProgressBorder" Property="Border.BorderBrush" Value="{StaticResource BelizeHole}"/>
-                                                                                </Trigger>
-                                                                                <DataTrigger Binding="{Binding InProgress}" Value="True">
-                                                                                    <Setter TargetName="InProgressBorder" Property="Border.BorderBrush" Value="{StaticResource BelizeHole}"/>
-                                                                                </DataTrigger>
-                                                                            </ControlTemplate.Triggers>
-                                                                        </ControlTemplate>
-                                                                    </Button.Template>
-                                                                </Button>
-                                                            </Grid>
+                                                                        </Border>
+                                                                        <ControlTemplate.Triggers>
+                                                                            <Trigger  Property="IsMouseOver" Value="True">
+                                                                                <Setter TargetName="InProgressBorder" Property="Border.BorderBrush" Value="{StaticResource BelizeHole}"/>
+                                                                            </Trigger>
+                                                                            <DataTrigger Binding="{Binding InProgress}" Value="True">
+                                                                                <Setter TargetName="InProgressBorder" Property="Border.BorderBrush" Value="{StaticResource BelizeHole}"/>
+                                                                            </DataTrigger>
+                                                                        </ControlTemplate.Triggers>
+                                                                    </ControlTemplate>
+                                                                </Button.Template>
+                                                            </Button>
                                                             <TextBox x:Name="TaskLabel" 
                                                                      Text="{Binding ToDo}" 
                                                                      TextOptions.TextFormattingMode="Display"
@@ -484,8 +474,8 @@
                                                     <ControlTemplate.Triggers>
                                                         <Trigger Property="Button.IsMouseOver" Value="True">
                                                             <Setter TargetName="ItemBorder" Property="Border.Background" Value="{StaticResource HoverGrey}"/>
-                                                            <Setter TargetName="DeleteTaskGrid" Property="Grid.Visibility" Value="Visible"/>
-                                                            <Setter TargetName="MakeInProgressGrid" Property="Grid.Visibility" Value="Visible"/>
+                                                            <Setter TargetName="DeleteTaskButton" Property="Grid.Visibility" Value="Visible"/>
+                                                            <Setter TargetName="MakeInProgressButton" Property="Grid.Visibility" Value="Visible"/>
                                                         </Trigger>
                                                         <Trigger Property="Button.IsPressed" Value="True">
                                                             <Setter TargetName="ItemBorder" Property="Border.Background" Value="{StaticResource HoverGrey}"/>
@@ -511,10 +501,10 @@
                                                         <DataTrigger Binding="{Binding InProgress}" Value="True">
                                                             <Setter TargetName="ItemBorder" Property="Border.Padding" Value="0,10"/>
                                                             <Setter TargetName="TaskLabel" Property="Grid.ColumnSpan" Value="2"/>
-                                                            <Setter TargetName="DeleteTaskGrid" Property="Grid.Visibility" Value="Hidden"/>
-                                                            <Setter TargetName="MakeInProgressGrid" Property="Grid.Visibility" Value="Visible"/>
-                                                            <Setter TargetName="MakeInProgressGrid" Property="Grid.Column" Value="2"/>
-                                                            <Setter TargetName="MakeInProgressGrid" Property="Margin" Value="0 0 4 0"/>
+                                                            <Setter TargetName="DeleteTaskButton" Property="Grid.Visibility" Value="Hidden"/>
+                                                            <Setter TargetName="MakeInProgressButton" Property="Grid.Visibility" Value="Visible"/>
+                                                            <Setter TargetName="MakeInProgressButton" Property="Grid.Column" Value="2"/>
+                                                            <Setter TargetName="MakeInProgressButton" Property="Margin" Value="0 0 4 0"/>
                                                         </DataTrigger>
                                                     </ControlTemplate.Triggers>
                                                 </ControlTemplate>
@@ -708,27 +698,27 @@
                                 <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="2"/>
+                                <RowDefinition Height="3"/>
                                 <RowDefinition Height="46"/>
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                                   Background="{StaticResource Grey}">
                                 <Line Name="DoneLine"
                                       X1="0" 
-                                      Y1="1" 
+                                      Y1="1.5" 
                                       X2="{c:Binding '(SelectedFolder.Tasks.Count > 0) ? RightColumnWidth * (SelectedFolder.NumberOfDoneTasks / SelectedFolder.Tasks.Count) : 0'}" 
-                                      Y2="1"
+                                      Y2="1.5"
                                       Stroke="{StaticResource Nephritis}" 
-                                      StrokeThickness="2" StrokeEndLineCap="Round" StrokeStartLineCap="Square" 
+                                      StrokeThickness="3" StrokeStartLineCap="Square" 
                                       Margin="-2 0 0 0"/>
                                 <Line Name="InProgressLine"
                                       X1="{Binding ElementName=DoneLine,Path=X2,Mode=OneWay}" 
-                                      Y1="1" 
+                                      Y1="1.5" 
                                       X2="{c:Binding '(SelectedFolder.Tasks.Count > 0) ? RightColumnWidth * (SelectedFolder.NumberOfTasksInProgress / SelectedFolder.Tasks.Count) + RightColumnWidth * (SelectedFolder.NumberOfDoneTasks / SelectedFolder.Tasks.Count) : 0'}" 
-                                      Y2="1"
+                                      Y2="1.5"
                                       Panel.ZIndex="2"
                                       Stroke="{StaticResource BelizeHole}" 
-                                      StrokeThickness="2" StrokeEndLineCap="Round" StrokeStartLineCap="Square" 
+                                      StrokeThickness="3"
                                       Margin="-2 0 0 0" />
                             </Grid>
                             <TextBox x:Name="InputTextBox"
