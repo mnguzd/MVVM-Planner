@@ -26,5 +26,5 @@
     <SolidColorBrush x:Key="Concrete" Color="#95A5A5"/>
     <SolidColorBrush x:Key="Asbestos" Color="#7E8C8D"/>
     
-    
 </ResourceDictionary>
+    

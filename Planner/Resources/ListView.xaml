@@ -10,6 +10,8 @@
         <Setter Property="ListView.BorderThickness" Value="0"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
+        <Setter Property="ListView.HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="ListView.HorizontalAlignment" Value="Stretch"/>
         <Setter Property="ListView.VerticalContentAlignment" Value="Top"/>
         <Setter Property="ListView.VerticalAlignment" Value="Top"/>
         <Setter Property="ListView.SelectionMode" Value="Single"/>

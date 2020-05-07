@@ -1,4 +1,5 @@
 ﻿using Planner.Utilty;
+using System;
 
 namespace Planner.Models
 {
@@ -16,6 +17,7 @@ namespace Planner.Models
             get => _toDo;
             set => OnPropertyChanged(ref _toDo, value);
         }
+        public string CreationDate { get; set; } = DateTime.Now.ToShortTimeString();
         public bool Done
         {
             get => _isDone;
