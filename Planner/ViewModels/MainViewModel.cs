@@ -1,8 +1,6 @@
 ﻿using Planner.Models;
 using Planner.Utilty;
-using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Windows;
 
 namespace Planner
@@ -15,19 +13,19 @@ namespace Planner
         private Folder _selectedFolder;
         private readonly DataService _service;
 
-        public RelayCommand ClosingWindowCommand { get;}
-        public RelayCommand MinimizeWindowCommand { get;}
-        public RelayCommand AddFolderCommand { get;}
-        public RelayCommand SelectFolderCommand { get;}
-        public RelayCommand AddTaskCommand { get;}
-        public RelayCommand MakeTaskDoneCommand { get;}
-        public RelayCommand DeleteTaskCommand { get;}
-        public RelayCommand DeleteFolderCommand { get;}
-        public RelayCommand ChangeRightColumnWidthCommand { get;}
-        public RelayCommand MakeTaskInProgressCommand { get;}
+        public RelayCommand ClosingWindowCommand { get; }
+        public RelayCommand MinimizeWindowCommand { get; }
+        public RelayCommand AddFolderCommand { get; }
+        public RelayCommand SelectFolderCommand { get; }
+        public RelayCommand AddTaskCommand { get; }
+        public RelayCommand MakeTaskDoneCommand { get; }
+        public RelayCommand DeleteTaskCommand { get; }
+        public RelayCommand DeleteFolderCommand { get; }
+        public RelayCommand ChangeRightColumnWidthCommand { get; }
+        public RelayCommand MakeTaskInProgressCommand { get; }
 
 
-        public ObservableCollection<Folder> Folders { get;}
+        public ObservableCollection<Folder> Folders { get; }
 
         public Folder SelectedFolder
         {
@@ -85,9 +83,9 @@ namespace Planner
                         SelectedFolder.NumberOfDoneTasks--;
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
-                    Debug.WriteLine("Oops, there was an error : " + ex.ToString());
+                    Application.Current.Shutdown(406);
                 }
             }
         }
@@ -97,11 +95,11 @@ namespace Planner
             if (CanAddText(InputFolderText))
                 Folders.Add(new Folder(InputFolderText));
             InputFolderText = "";
-            foreach(Folder folder in Folders)
+            foreach (Folder folder in Folders)
             {
                 folder.Selected = false;
             }
-            Folders[Folders.Count - 1].Selected = true; 
+            Folders[Folders.Count - 1].Selected = true;
         }
         private bool CanAddText(string InputText)
         {
@@ -153,9 +151,9 @@ namespace Planner
             {
                 _service.SaveData(Folders);
             }
-            catch (Exception ex)
+            catch
             {
-                Debug.WriteLine("Oops, there was an error : " + ex.ToString());
+                Application.Current.Shutdown(404);
             }
         }
 
@@ -188,9 +186,9 @@ namespace Planner
                 _service = dataService;
                 Folders = dataService.LoadData();
             }
-            catch (Exception ex)
+            catch
             {
-                Debug.WriteLine("Oops, there was an error : " + ex.ToString());
+                Application.Current.Shutdown(405);
             }
             ClosingWindowCommand = new RelayCommand(p => ClosingWindow(), p => true);
             MinimizeWindowCommand = new RelayCommand(p => MinimizeWindow(), p => true);

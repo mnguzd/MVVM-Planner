@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding">
     
     
     <!--#region CreateNewTask animation-->
@@ -11,13 +12,12 @@
         </DoubleAnimation>
     </Storyboard>
     <!--#endregion-->
-
     
     <!--#region SelectFolder animation-->
     <Storyboard x:Key="SelectFolderAnimation">
         <DoubleAnimation Storyboard.TargetProperty="(Border.Height)" 
                                 Storyboard.TargetName="SelectedGrid"
-                                To="45" Duration="0:0:0.3">
+                                To="45" Duration="0:0:0.4">
             <DoubleAnimation.EasingFunction>
                 <ExponentialEase EasingMode="EaseOut"/>
             </DoubleAnimation.EasingFunction>

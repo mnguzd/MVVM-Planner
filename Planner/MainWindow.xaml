@@ -6,10 +6,17 @@
         xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
         mc:Ignorable="d" 
         WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
         Height="600" Width="1000"
-        ResizeMode="NoResize" 
+        MinWidth="700" MinHeight="400"
+        ResizeMode="CanResize" 
         WindowStyle="None"
         >
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+        CaptionHeight="0"
+        ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
     <Window.Resources>
         <!--#region ScrollViewer Style-->
         <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
@@ -113,32 +120,31 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="800"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
      
         
         <!--RightColumn-->
         <Grid x:Name="RightColumn"
               Grid.Column="1" 
-              Width="{Binding RightColumnWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,FallbackValue=800}"
-              VerticalAlignment="Top" HorizontalAlignment="Right" 
+              VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
               Background="{StaticResource Grey}"
               >
             
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="570"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
 
             <!--TopPanel-->
-            <Grid Grid.Row="0" Grid.ColumnSpan="4"
+            <Grid Grid.Row="0" Grid.ColumnSpan="3"
+                  HorizontalAlignment="Stretch"
                   Background="{StaticResource LightGrey}"
                   MouseLeftButtonDown="Window_MouseLeftButtonDown">
                 <Button x:Name="OpenMenuButton" 
@@ -186,7 +192,7 @@
             </Grid>
 
             <!--ExitButton-->
-            <Button Grid.Column ="3" 
+            <Button Grid.Column ="2" 
                     VerticalAlignment="Center"
                     Panel.ZIndex="1"
                     Margin="0 0 10 0" 
@@ -205,7 +211,7 @@
             </Button>
 
             <!--MinimizeButton-->
-            <Button Grid.Column="2" 
+            <Button Grid.Column="1" 
                     VerticalAlignment="Center"
                     Panel.ZIndex="1" 
                     Margin="0 0 10 0" 
@@ -456,7 +462,7 @@
                                                                      HorizontalAlignment="Left" VerticalAlignment="Center"
                                                                      TextWrapping="Wrap"
                                                                      Focusable="False"
-                                                                     Margin="15 7 0 7"
+                                                                     Margin="15 0 0 0"
                                                                      Background="Transparent"
                                                                      FontFamily="Tahoma">
                                                                     <TextBlock.Style>
