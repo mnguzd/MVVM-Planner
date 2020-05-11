@@ -17,7 +17,7 @@
         <Setter Property="ListView.SelectionMode" Value="Single"/>
         <Setter Property="ListView.FontFamily" Value="/Fonts/OpenSans/#Open Sans"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
-        <Setter Property="ListView.ItemsSource" Value="{Binding SelectedItem.Tasks,ElementName=FoldersListView}"/>
+        <Setter Property="ListView.ItemsSource" Value="{Binding CollectionView.View}"/>
         <Setter Property="ListView.FontSize" Value="16"/>
         <Setter Property="ListView.Background" Value="Transparent"/>
     </Style>

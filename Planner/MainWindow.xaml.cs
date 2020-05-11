@@ -1,6 +1,8 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Effects;
 
@@ -13,13 +15,12 @@ namespace Planner
             InitializeComponent();
             DataContext = main;
             ((INotifyCollectionChanged)ListOfTasks.Items).CollectionChanged += ListView_CollectionChanged;
-
         }
+             
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) //Moving the window
         {
             DragMove();
         }
-
         private void Button_MouseRightButtonDown(object sender, MouseButtonEventArgs e) //Removes selection right-clicking
         {
             e.Handled = true;

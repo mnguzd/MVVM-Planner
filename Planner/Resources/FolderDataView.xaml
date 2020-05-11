@@ -29,7 +29,6 @@
                                 Height="0"
                                 Grid.Column="0"
                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                Visibility="{Binding Selected, Converter={StaticResource BoolConverter}}"
                                 Background="{StaticResource PeterRiver}"/>
                 </Grid>
             </Grid>
@@ -39,7 +38,6 @@
                 <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource PressedGrey}"/>
             </Trigger>
             <DataTrigger Binding="{Binding Selected}" Value="True">
-                <Setter TargetName="FoldersName" Property="Label.Foreground" Value="{StaticResource PeterRiver}"/>
                 <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource Grey}"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Selected}" Value="True">

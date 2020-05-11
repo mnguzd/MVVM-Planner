@@ -2,6 +2,7 @@
 using Planner.Utilty;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Data;
 
 namespace Planner
 {
@@ -12,7 +13,7 @@ namespace Planner
         private double _rightColumnWidth = 800;
         private Folder _selectedFolder;
         private readonly DataService _service;
-
+        private CollectionViewSource _collectionView;
         public RelayCommand ClosingWindowCommand { get; }
         public RelayCommand MinimizeWindowCommand { get; }
         public RelayCommand AddFolderCommand { get; }
@@ -23,6 +24,7 @@ namespace Planner
         public RelayCommand DeleteFolderCommand { get; }
         public RelayCommand ChangeRightColumnWidthCommand { get; }
         public RelayCommand MakeTaskInProgressCommand { get; }
+        public RelayCommand OnWindowLoadedCommand { get; }
 
 
         public ObservableCollection<Folder> Folders { get; }
@@ -31,6 +33,11 @@ namespace Planner
         {
             get => _selectedFolder;
             set => OnPropertyChanged(ref _selectedFolder, value);
+        }
+        public CollectionViewSource CollectionView
+        {
+            get => _collectionView;
+            set => OnPropertyChanged(ref _collectionView, value);
         }
 
         public double RightColumnWidth
@@ -59,11 +66,16 @@ namespace Planner
             {
                 Folders.Remove(parameter as Folder);
                 if (Folders.Count > 0)
-                    Folders[Folders.Count - 1].Selected = true;
+                    SelectFolder(Folders[Folders.Count - 1]);
                 else
                     foreach (Folder i in Folders)
                         i.Selected = false;
             }
+        }
+        private void UpdateSource()
+        {
+            if (SelectedFolder != null)
+                CollectionView.Source = SelectedFolder.Tasks;
         }
         private void MakeTaskDone(object parameter)
         {
@@ -89,17 +101,15 @@ namespace Planner
                 }
             }
         }
-
         private void AddFolder()
         {
             if (CanAddText(InputFolderText))
-                Folders.Add(new Folder(InputFolderText));
-            InputFolderText = "";
-            foreach (Folder folder in Folders)
             {
-                folder.Selected = false;
+                Folder newFolder = new Folder(InputFolderText);
+                Folders.Add(newFolder);
+                SelectFolder(newFolder);
             }
-            Folders[Folders.Count - 1].Selected = true;
+            InputFolderText = "";
         }
         private bool CanAddText(string InputText)
         {
@@ -138,11 +148,10 @@ namespace Planner
             if (parameter != null)
             {
                 foreach (Folder i in Folders)
-                {
                     i.Selected = false;
-                }
             (parameter as Folder).Selected = true;
             }
+            UpdateSource();
         }
         private void ClosingWindow()
         {
@@ -200,6 +209,10 @@ namespace Planner
             DeleteFolderCommand = new RelayCommand(p => DeleteFolder(p), p => true);
             ChangeRightColumnWidthCommand = new RelayCommand(p => ChangeRightColumnWidth(), p => true);
             MakeTaskInProgressCommand = new RelayCommand(p => MakeTaskInProgress(p), p => true);
+            OnWindowLoadedCommand = new RelayCommand(p => UpdateSource(), p => true);
+            var view = new CollectionViewSource();
+            view.GroupDescriptions.Add(new PropertyGroupDescription("CreationDate"));
+            CollectionView = view;
         }
     }
 }
