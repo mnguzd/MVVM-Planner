@@ -1,6 +1,8 @@
 ﻿using Planner.Models;
 using Planner.Utilty;
+using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
@@ -105,11 +107,10 @@ namespace Planner
         {
             if (CanAddText(InputFolderText))
             {
-                Folder newFolder = new Folder(InputFolderText);
-                Folders.Add(newFolder);
-                SelectFolder(newFolder);
+                Folders.Add(new Folder(InputFolderText));
+                SelectFolder(Folders[Folders.Count-1]);
+                InputFolderText = "";
             }
-            InputFolderText = "";
         }
         private bool CanAddText(string InputText)
         {
@@ -149,7 +150,8 @@ namespace Planner
             {
                 foreach (Folder i in Folders)
                     i.Selected = false;
-            (parameter as Folder).Selected = true;
+                (parameter as Folder).Selected = true;
+                SelectedFolder = (parameter as Folder);
             }
             UpdateSource();
         }

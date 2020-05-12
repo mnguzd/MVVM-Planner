@@ -360,7 +360,7 @@
                                                     <ToolTip.Template>
                                                         <ControlTemplate>
                                                             <Border CornerRadius="3" Background="{StaticResource WetAsphalt}">
-                                                                <Label Content="{Binding CreationDate}"
+                                                                <Label Content="{Binding CreationTime}"
                                                                        Foreground="{StaticResource Silver}" FontSize="12" 
                                                                        Style="{StaticResource OpenSans_SemiBold}"/>
                                                             </Border>
@@ -540,8 +540,23 @@
                             </ListView.ItemTemplate>
                             <ListView.GroupStyle>
                                 <GroupStyle>
-                                   
-
+                                    <GroupStyle.ContainerStyle>
+                                        <Style TargetType="{x:Type GroupItem}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <StackPanel Orientation="Vertical">
+                                                                <Label Content="{Binding Name}"
+                                                                       Style="{StaticResource OpenSans_SemiBold}"
+                                                                       Foreground="{StaticResource Asbestos}" FontSize="13"
+                                                                       HorizontalAlignment="Center"/>
+                                                            <ItemsPresenter />
+                                                        </StackPanel>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </GroupStyle.ContainerStyle>
                                 </GroupStyle>
                             </ListView.GroupStyle>
                         </ListView>

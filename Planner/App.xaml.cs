@@ -20,7 +20,7 @@ namespace Planner
         }
         protected override void OnStartup(StartupEventArgs e)
         {
-            CultureInfo cultureInfo = new CultureInfo("ru-RU");
+            CultureInfo cultureInfo = new CultureInfo("en-EN");
             Thread.CurrentThread.CurrentCulture = cultureInfo;
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
             CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
