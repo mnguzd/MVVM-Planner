@@ -22,7 +22,7 @@
                                     Text="{Binding Name}"
                                     Grid.Column="1" 
                                     HorizontalAlignment="Left" VerticalAlignment="Center"
-                                    Foreground="{StaticResource Silver}" FontSize="13" 
+                                    Foreground="{StaticResource Asbestos}" FontSize="13" 
                                     TextWrapping="Wrap" Margin="10 0 10 0"
                                     Style="{StaticResource OpenSans_SemiBold}"/>
                     <Border x:Name="SelectedGrid"
@@ -39,6 +39,7 @@
             </Trigger>
             <DataTrigger Binding="{Binding Selected}" Value="True">
                 <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource Grey}"/>
+                <Setter TargetName="FoldersName" Property="TextBlock.Foreground" Value="{StaticResource Silver}"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Selected}" Value="True">
                 <DataTrigger.EnterActions>

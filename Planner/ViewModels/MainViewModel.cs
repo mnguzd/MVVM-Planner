@@ -1,8 +1,6 @@
 ﻿using Planner.Models;
 using Planner.Utilty;
-using System;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
@@ -35,6 +33,7 @@ namespace Planner
         {
             get => _selectedFolder;
             set => OnPropertyChanged(ref _selectedFolder, value);
+
         }
         public CollectionViewSource CollectionView
         {
@@ -108,7 +107,7 @@ namespace Planner
             if (CanAddText(InputFolderText))
             {
                 Folders.Add(new Folder(InputFolderText));
-                SelectFolder(Folders[Folders.Count-1]);
+                SelectFolder(Folders[Folders.Count - 1]);
                 InputFolderText = "";
             }
         }

@@ -144,13 +144,12 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
-
             <!--TopPanel-->
             <Grid Grid.Row="0" Grid.ColumnSpan="3"
                   HorizontalAlignment="Stretch"
@@ -349,33 +348,18 @@
                             </ListView.ItemContainerStyle>
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid HorizontalAlignment="Right">
-                                            <Button x:Name="TaskButton"
-                                                ClickMode="Press"
-                                                HorizontalAlignment="Right"
+                                    <Grid>
+                                        <Button x:Name="TaskButton"
                                                 Command="{Binding ElementName=ListOfTasks,Path=DataContext.MakeTaskDoneCommand}"
                                                 CommandParameter="{Binding ElementName=ListOfTasks,Path=SelectedItem}">
-                                            <Button.ToolTip>
-                                                <ToolTip>
-                                                    <ToolTip.Template>
-                                                        <ControlTemplate>
-                                                            <Border CornerRadius="3" Background="{StaticResource WetAsphalt}">
-                                                                <Label Content="{Binding CreationTime}"
-                                                                       Foreground="{StaticResource Silver}" FontSize="12" 
-                                                                       Style="{StaticResource OpenSans_SemiBold}"/>
-                                                            </Border>
-                                                        </ControlTemplate>
-                                                    </ToolTip.Template>
-                                                </ToolTip>
-                                            </Button.ToolTip>
                                             <Button.Template>
                                                     <ControlTemplate>
-                                                        <Border x:Name="ItemBorder" 
+                                                    <Border x:Name="ItemBorder" 
                                                             BorderThickness="0"
                                                             HorizontalAlignment="Center"
                                                             Margin="35 0 35 7" Padding="0,12"
                                                             CornerRadius="3" Background="{StaticResource LightGrey}">
-                                                            <Grid>
+                                                        <Grid>
                                                             <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="*"/>
                                                                 <ColumnDefinition Width="20"/>
@@ -466,14 +450,13 @@
                                                                 </Button>
                                                                 <TextBlock x:Name="TaskLabel" 
                                                                      Text="{Binding ToDo}" 
-                                                                     TextOptions.TextFormattingMode="Display"
                                                                      Grid.Column="0"
                                                                      HorizontalAlignment="Left" VerticalAlignment="Center"
                                                                      TextWrapping="Wrap"
                                                                      Focusable="False"
                                                                      Margin="15 0 0 0"
                                                                      Background="Transparent"
-                                                                     FontFamily="Tahoma">
+                                                                     FontFamily="/Planner;component/Fonts/OpenSans/#Open Sans">
                                                                     <TextBlock.Style>
                                                                         <Style>
                                                                             <Setter Property="TextBlock.Foreground" Value="{StaticResource Silver}"/>
@@ -495,35 +478,29 @@
                                                                   StrokeThickness="2" 
                                                                   X1="0" X2="1" 
                                                                   Stretch="Fill"
-                                                                  StrokeEndLineCap="Square" StrokeStartLineCap="Square" 
                                                                   Stroke="Transparent"/>
                                                             </Grid>
                                                         </Border>
                                                         <ControlTemplate.Triggers>
-                                                            <Trigger Property="Button.IsMouseOver" Value="True">
-                                                                <Setter TargetName="ItemBorder" Property="Border.Background" Value="{StaticResource HoverGrey}"/>
-                                                                <Setter TargetName="DeleteTaskButton" Property="Grid.Visibility" Value="Visible"/>
-                                                                <Setter TargetName="MakeInProgressButton" Property="Grid.Visibility" Value="Visible"/>
+                                                        <Trigger Property="Button.IsMouseOver" Value="True">
+                                                            <Setter TargetName="ItemBorder" Property="Border.Background" Value="{StaticResource HoverGrey}"/>
+                                                            <Setter TargetName="DeleteTaskButton" Property="Grid.Visibility" Value="Visible"/>
+                                                            <Setter TargetName="MakeInProgressButton" Property="Grid.Visibility" Value="Visible"/>
                                                         </Trigger>
-                                                            <Trigger Property="Button.IsPressed" Value="True">
-                                                                <Setter TargetName="ItemBorder" Property="Border.Background" Value="{StaticResource HoverGrey}"/>
-                                                            </Trigger>
+                                                        <Trigger Property="Button.IsPressed" Value="True">
+                                                            <Setter TargetName="ItemBorder" Property="Border.Background" Value="{StaticResource PressedGrey}"/>
+                                                        </Trigger>
                                                         <MultiDataTrigger>
                                                             <MultiDataTrigger.Conditions>
-                                                                <Condition Binding="{Binding Done}" Value="True"/>
+                                                                <Condition Binding="{Binding RelativeSource={RelativeSource self},Path=IsMouseOver}" Value="True"/>
                                                             </MultiDataTrigger.Conditions>
-                                                            <MultiDataTrigger.Setters>
-                                                                <Setter TargetName="ItemBorder" Property="Border.Padding" Value="0,6"/>
-                                                            </MultiDataTrigger.Setters>
+                                                            <MultiDataTrigger.EnterActions>
+                                                                <BeginStoryboard Storyboard="{StaticResource MouseHoverAnimation}"/>
+                                                            </MultiDataTrigger.EnterActions>
+                                                            <MultiDataTrigger.ExitActions>
+                                                                <BeginStoryboard Storyboard="{StaticResource MouseHoverAnimationBack}"/>
+                                                            </MultiDataTrigger.ExitActions>
                                                         </MultiDataTrigger>
-                                                        <DataTrigger Binding="{Binding Done}" Value="True">
-                                                                <DataTrigger.EnterActions>
-                                                                    <BeginStoryboard Storyboard="{StaticResource DoneButtonAnimation}"/>
-                                                                </DataTrigger.EnterActions>
-                                                                <DataTrigger.ExitActions>
-                                                                    <BeginStoryboard Storyboard="{StaticResource DoneButtonAnimationBack}"/>
-                                                                </DataTrigger.ExitActions>
-                                                            </DataTrigger>
                                                         <DataTrigger Binding="{Binding InProgress}" Value="True">
                                                             <Setter TargetName="TaskLabel" Property="Grid.ColumnSpan" Value="2"/>
                                                             <Setter TargetName="DeleteTaskButton" Property="Grid.Visibility" Value="Hidden"/>
@@ -547,8 +524,8 @@
                                                     <ControlTemplate>
                                                         <StackPanel Orientation="Vertical">
                                                                 <Label Content="{Binding Name}"
-                                                                       Style="{StaticResource OpenSans_SemiBold}"
-                                                                       Foreground="{StaticResource Asbestos}" FontSize="13"
+                                                                       Style="{StaticResource OpenSans}"
+                                                                       Foreground="{StaticResource Asbestos}" FontSize="14"
                                                                        HorizontalAlignment="Center"/>
                                                             <ItemsPresenter />
                                                         </StackPanel>
@@ -779,7 +756,7 @@
                                                      Margin="10 0 0 0"
                                                      Panel.ZIndex="1"
                                                      MaxLength="500"
-                                                     FontSize="20" Foreground="{StaticResource Silver}" 
+                                                     FontSize="17" Foreground="{StaticResource Silver}" 
                                                      Style="{StaticResource OpenSans}"
                                                      BorderThickness="0"
                                                      Background="Transparent">
@@ -792,7 +769,7 @@
                                                    HorizontalContentAlignment="Left" VerticalContentAlignment="Center"  VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                                    Margin="10 0 0 0"
                                                    Visibility="Hidden" 
-                                                   FontSize="20" Foreground="{StaticResource Concrete}" 
+                                                   FontSize="17" Foreground="{StaticResource Asbestos}" 
                                                    Focusable="False" 
                                                    IsEnabled="False"
                                                    BorderThickness="0"
@@ -973,13 +950,13 @@
                                                        Content="New folder"
                                                        HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center"
                                                        Padding="-5"
-                                                       Foreground="{StaticResource Silver}" FontSize="13"
+                                                       Foreground="{StaticResource Clouds}" FontSize="13"
                                                        Style="{StaticResource OpenSans_SemiBold}"/>
                                             </Border>
                                         </Grid>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="BorderLabel" Property="Label.Foreground" Value="{StaticResource Clouds}"/>
+                                                <Setter TargetName="BorderLabel" Property="Label.Foreground" Value="{StaticResource Silver}"/>
                                             </Trigger>
                                             <Trigger Property="IsPressed" Value="True">
                                                 <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource MidNightBlue}"/>
@@ -1005,13 +982,13 @@
                                                        Content="Close"
                                                        HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center"
                                                        Padding="-5"
-                                                       Foreground="{StaticResource Silver}" FontSize="13"
+                                                       Foreground="{StaticResource Clouds}" FontSize="13"
                                                        Style="{StaticResource OpenSans_SemiBold}"/>
                                             </Border>
                                         </Grid>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="BorderLabel" Property="Label.Foreground" Value="{StaticResource Clouds}"/>
+                                                <Setter TargetName="BorderLabel" Property="Label.Foreground" Value="{StaticResource Silver}"/>
                                             </Trigger>
                                             <Trigger Property="IsPressed" Value="True">
                                                 <Setter TargetName="Bord" Property="Border.Background" Value="{StaticResource Alizarin}"/>

@@ -31,27 +31,26 @@
     </Storyboard>
     <!--#endregion-->
     
-    <!--#region DoneTask animation-->
-    <Storyboard x:Key="DoneButtonAnimation">
-        <ThicknessAnimation Storyboard.TargetProperty="(Border.Padding)" 
-                                Storyboard.TargetName="ItemBorder"
-                                To="0,6" Duration="0:0:0.35">
+    
+    <Storyboard x:Key="MouseHoverAnimation">
+        <ThicknessAnimation Storyboard.TargetProperty="(Border.Padding)"
+                        Storyboard.TargetName="ItemBorder"
+                        Duration="0:0:0.2" To="2.5,12,0,12">
             <ThicknessAnimation.EasingFunction>
                 <ExponentialEase EasingMode="EaseOut"/>
             </ThicknessAnimation.EasingFunction>
         </ThicknessAnimation>
     </Storyboard>
 
-    <Storyboard x:Key="DoneButtonAnimationBack">
-        <ThicknessAnimation Storyboard.TargetProperty="(Border.Padding)" 
-                                Storyboard.TargetName="ItemBorder"
-                                To="0,12" Duration="0:0:0.35">
+    <Storyboard x:Key="MouseHoverAnimationBack">
+        <ThicknessAnimation Storyboard.TargetProperty="(Border.Padding)"
+                        Storyboard.TargetName="ItemBorder"
+                        Duration="0:0:0.2" To="0,12,0,12">
             <ThicknessAnimation.EasingFunction>
                 <ExponentialEase EasingMode="EaseOut"/>
             </ThicknessAnimation.EasingFunction>
         </ThicknessAnimation>
     </Storyboard>
-    <!--#endregion-->
     
     
     <!--#region OpenClose Menu-->

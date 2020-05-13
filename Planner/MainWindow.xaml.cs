@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Effects;
 
@@ -16,7 +14,7 @@ namespace Planner
             DataContext = main;
             ((INotifyCollectionChanged)ListOfTasks.Items).CollectionChanged += ListView_CollectionChanged;
         }
-             
+
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) //Moving the window
         {
             DragMove();
@@ -61,8 +59,7 @@ namespace Planner
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
                 ListOfTasks.ScrollIntoView(e.NewItems[0]); // scroll the new item into view   
-                ListViewItem item = ListOfTasks.ItemContainerGenerator.ContainerFromIndex(ListOfTasks.Items.Count - 1) as ListViewItem;
-                if (item != null)
+                if (ListOfTasks.ItemContainerGenerator.ContainerFromIndex(ListOfTasks.Items.Count - 1) is ListViewItem item)
                     item.Focusable = false;
             }
         }

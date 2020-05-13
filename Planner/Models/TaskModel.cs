@@ -18,10 +18,7 @@ namespace Planner.Models
             get => _toDo;
             set => OnPropertyChanged(ref _toDo, value);
         }
-        public string CreationTime { get; set; } = DateTime.Now.ToShortTimeString();
-        public string CreationDate { get; set; } = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month) +" " + 
-                                                                                                          DateTime.Now.Day + ", " +
-                                                                                                          DateTime.Now.Year;
+        public string CreationDate { get; set; } = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month) + " " + DateTime.Now.Day + ", " + DateTime.Now.Year;
         public bool Done
         {
             get => _isDone;
