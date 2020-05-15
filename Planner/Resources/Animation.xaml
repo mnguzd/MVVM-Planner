@@ -32,10 +32,29 @@
     <!--#endregion-->
     
     
+    <!--#region SelectTabAnimation-->
+    <Storyboard x:Key="SelectTabAnimation">
+        <DoubleAnimation Storyboard.TargetProperty="(Grid.Width)" 
+                                Storyboard.TargetName="SelectedGridTab"
+                                To="500" From="0" Duration="0:0:0.8">
+            <DoubleAnimation.EasingFunction>
+                <ExponentialEase EasingMode="EaseOut"/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+    </Storyboard>
+
+    <Storyboard x:Key="SelectTabAnimationBack">
+        <DoubleAnimation Storyboard.TargetProperty="(Grid.Width)" 
+                                Storyboard.TargetName="SelectedGridTab"
+                                To="0" From="500" Duration="0">
+        </DoubleAnimation>
+    </Storyboard>
+    <!--#endregion-->
+    
     <Storyboard x:Key="MouseHoverAnimation">
         <ThicknessAnimation Storyboard.TargetProperty="(Border.Padding)"
                         Storyboard.TargetName="ItemBorder"
-                        Duration="0:0:0.2" To="2.5,12,0,12">
+                        Duration="0:0:0.2" To="2.5,10,0,10">
             <ThicknessAnimation.EasingFunction>
                 <ExponentialEase EasingMode="EaseOut"/>
             </ThicknessAnimation.EasingFunction>
@@ -45,7 +64,7 @@
     <Storyboard x:Key="MouseHoverAnimationBack">
         <ThicknessAnimation Storyboard.TargetProperty="(Border.Padding)"
                         Storyboard.TargetName="ItemBorder"
-                        Duration="0:0:0.2" To="0,12,0,12">
+                        Duration="0:0:0.2" To="0,10,0,10">
             <ThicknessAnimation.EasingFunction>
                 <ExponentialEase EasingMode="EaseOut"/>
             </ThicknessAnimation.EasingFunction>

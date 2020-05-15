@@ -7,8 +7,8 @@
         xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        AllowsTransparency="False"
         Height="600" Width="1000"
+        MaxHeight="600" MaxWidth="1000"
         ResizeMode="CanResize" 
         WindowStyle="None"
         >
@@ -115,10 +115,10 @@
 
         <!--#region Close-Open folders input Trigger -->
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="NewFolderButton">
-            <BeginStoryboard Storyboard="{StaticResource OpenFolderInput}"></BeginStoryboard>
+            <BeginStoryboard Storyboard="{StaticResource OpenFolderInput}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="CloseFolderInputButton">
-            <BeginStoryboard Storyboard="{StaticResource CloseFolderInput}"></BeginStoryboard>
+            <BeginStoryboard Storyboard="{StaticResource CloseFolderInput}"/>
         </EventTrigger>
         <!--#endregion-->
         
@@ -183,7 +183,6 @@
                         <ControlTemplate>
                             <Grid>
                                 <Border x:Name="RightArrow"
-                                        Cursor="Hand"
                                         Background="{StaticResource LightGrey}" BorderBrush="{StaticResource Silver}">
                                     <Control Template="{StaticResource RightArrow}"/>
                                 </Border>
@@ -191,7 +190,6 @@
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter TargetName="RightArrow" Property="Border.BorderBrush" Value="{StaticResource BelizeHole}"/>
-                                    <Setter Property="Cursor" Value="Hand"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -245,7 +243,7 @@
             
             <!--ListOfTasks-->
             <Grid Name="TasksGrid"
-                  Grid.Row="1" Grid.ColumnSpan="4" 
+                  Grid.Row="1" Grid.ColumnSpan="3" 
                   VerticalAlignment="Top"
                   Visibility="{Binding ElementName=FoldersListView,Path=HasItems,Converter={StaticResource BoolConverter},FallbackValue=Hidden}">
                 <UniformGrid Columns="3" Margin="2,0">
@@ -261,21 +259,33 @@
                                 <Setter.Value>
                                     <ControlTemplate TargetType="TabItem">
                                         <Border x:Name="TabBorder" 
-                                                Cursor="Hand"
-                                                BorderThickness="0 0 0 2" 
+                                                BorderThickness="0" 
                                                 Background="Transparent">
-                                            <ContentPresenter x:Name="ContentSite"
-                                                              VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                              ContentSource="Header"
-                                                              Margin="0,3"/>
-
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="4"/>
+                                                </Grid.RowDefinitions>
+                                                <ContentPresenter x:Name="ContentSite"
+                                                                  Grid.Row="0"
+                                                                  VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                                  ContentSource="Header"
+                                                                  Margin="0,0,0,0"/>
+                                                <Grid x:Name="SelectedGridTab" Grid.Row="1" Background="{StaticResource BelizeHole}" Height="2" VerticalAlignment="Bottom"
+                                                      SnapsToDevicePixels="True"/>
+                                            </Grid>
                                         </Border>
                                         <ControlTemplate.Triggers>
-                                            <Trigger Property="IsSelected" Value="True">
-                                                <Setter TargetName="TabBorder" Property="Border.BorderBrush" Value="{StaticResource BelizeHole}"/>
-                                            </Trigger>
                                             <Trigger Property="IsSelected" Value="False">
-                                                <Setter TargetName="TabBorder" Property="Border.BorderBrush" Value="{StaticResource MidNightBlue}"/>
+                                                <Setter TargetName="SelectedGridTab" Property="Grid.Background" Value="Transparent"/>
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Trigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource SelectTabAnimation}"/>
+                                                </Trigger.EnterActions>
+                                                <Trigger.ExitActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource SelectTabAnimationBack}"/>
+                                                </Trigger.ExitActions>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
@@ -283,25 +293,25 @@
                             </Setter>
                         </Style>
                     </TabControl.Resources>
-                    <TabItem Name="AllTasksTab"  
+                    <TabItem Name="AllTasksTab"
                              Width="{Binding ElementName=UniformElement,Path=ActualWidth}" 
                              IsSelected="{Binding ElementName=FoldersListView,Path=HasItems,FallbackValue=False,Mode=OneWay}"
                              Background="Transparent">
                         <TabItem.Header>
-                            <StackPanel Orientation="Horizontal" 
+                            <StackPanel Orientation="Horizontal"
                                         VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <Label Content="All" 
                                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                       FontFamily="/Planner;component/Fonts/OpenSans/#Open Sans SemiBold" FontSize="14">
+                                       FontFamily="/Planner;component/Fonts/OpenSans/#Open Sans" FontSize="15">
                                     <Label.Style>
                                         <Style TargetType="Label">
                                             <Setter Property="Foreground" Value="{StaticResource Asbestos}"/>
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding Path=IsSelected,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type TabItem}}}" Value="True">
-                                                    <Setter Property="Foreground" Value="{StaticResource Silver}"></Setter>
+                                                    <Setter Property="Foreground" Value="{StaticResource Silver}"/>
                                                 </DataTrigger>
                                                 <DataTrigger Binding="{Binding Path=IsMouseOver,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type TabItem}}}" Value="True">
-                                                    <Setter Property="Foreground" Value="{StaticResource Silver}"></Setter>
+                                                    <Setter Property="Foreground" Value="{StaticResource Silver}"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
@@ -309,8 +319,8 @@
                                 </Label>
                                 <Grid>
                                     <Label Content="{Binding ElementName=FoldersListView,Path=SelectedItem.Tasks.Count,FallbackValue=0}"
-                                           Foreground="{StaticResource Silver}" FontSize="14"
-                                           Style="{StaticResource OpenSans_SemiBold}"/>
+                                           Foreground="{StaticResource Silver}" FontSize="15"
+                                           Style="{StaticResource OpenSans}"/>
                                 </Grid>
                             </StackPanel>
                         </TabItem.Header>
@@ -357,7 +367,7 @@
                                                     <Border x:Name="ItemBorder" 
                                                             BorderThickness="0"
                                                             HorizontalAlignment="Center"
-                                                            Margin="35 0 35 7" Padding="0,12"
+                                                            Margin="35 0 35 7" Padding="0,10"
                                                             CornerRadius="3" Background="{StaticResource LightGrey}">
                                                         <Grid>
                                                             <Grid.ColumnDefinitions>
@@ -392,10 +402,8 @@
                                                                     <Button.Template>
                                                                         <ControlTemplate>
                                                                             <Border x:Name="DeleteBorder"
-                                                                                    Cursor="Hand"
                                                                                     BorderBrush="{StaticResource Silver}" Background="Transparent">
-                                                                                <Control x:Name="DeleteControl"
-                                                                                         Height="12" Width="12" 
+                                                                                <Control Height="12" Width="12" 
                                                                                          Template="{StaticResource DeleteFolderControl}"/>
                                                                             </Border>
                                                                             <ControlTemplate.Triggers>
@@ -430,7 +438,6 @@
                                                                     <Button.Template>
                                                                         <ControlTemplate>
                                                                             <Border x:Name="InProgressBorder"
-                                                                                    Cursor="Hand"
                                                                                     BorderBrush="{StaticResource Silver}" Background="Transparent">
                                                                                 <Control x:Name="MakeInProgress"
                                                                                          Height="16" Width="16"
@@ -455,12 +462,10 @@
                                                                      TextWrapping="Wrap"
                                                                      Focusable="False"
                                                                      Margin="15 0 0 0"
-                                                                     Background="Transparent"
-                                                                     FontFamily="/Planner;component/Fonts/OpenSans/#Open Sans">
+                                                                     Background="Transparent">
                                                                     <TextBlock.Style>
                                                                         <Style>
                                                                             <Setter Property="TextBlock.Foreground" Value="{StaticResource Silver}"/>
-                                                                            <Setter Property="TextBlock.FontSize" Value="16"/>
                                                                             <Style.Triggers>
                                                                                 <DataTrigger Binding="{Binding Done}" Value="True">
                                                                                     <Setter Property="TextBlock.Foreground" Value="{StaticResource Emerald}"/>
@@ -472,13 +477,12 @@
                                                                         </Style>
                                                                     </TextBlock.Style>
                                                                 </TextBlock>
-                                                                <Line x:Name="Underline" 
-                                                                  Grid.Column="0" 
-                                                                  Grid.ColumnSpan="3"
-                                                                  StrokeThickness="2" 
-                                                                  X1="0" X2="1" 
-                                                                  Stretch="Fill"
-                                                                  Stroke="Transparent"/>
+                                                                <Line Grid.Column="0" 
+                                                                      Grid.ColumnSpan="3"
+                                                                      StrokeThickness="1" 
+                                                                      X1="0" X2="1" 
+                                                                      Stretch="Fill"
+                                                                      Stroke="Transparent"/>
                                                             </Grid>
                                                         </Border>
                                                         <ControlTemplate.Triggers>
@@ -545,7 +549,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="In Progress" 
                                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
-                                       FontFamily="/Planner;component/Fonts/OpenSans/#Open Sans SemiBold" FontSize="14">
+                                       FontFamily="/Planner;component/Fonts/OpenSans/#Open Sans" FontSize="15">
                                     <Label.Style>
                                         <Style TargetType="Label">
                                             <Setter Property="Foreground" Value="{StaticResource Asbestos}"/>
@@ -562,8 +566,8 @@
                                 </Label>
                                 <Grid>
                                     <Label Content="{Binding ElementName=FoldersListView,Path=SelectedItem.NumberOfTasksInProgress,UpdateSourceTrigger=PropertyChanged,FallbackValue=0}"
-                                           Foreground="{StaticResource BelizeHole}" FontSize="14"
-                                           Style="{StaticResource OpenSans_SemiBold}"/>
+                                           Foreground="{StaticResource BelizeHole}" FontSize="15"
+                                           Style="{StaticResource OpenSans}"/>
                                 </Grid>
                             </StackPanel>
                         </TabItem.Header>
@@ -589,26 +593,20 @@
                                 <DataTemplate>
                                     <Grid HorizontalAlignment="Right" 
                                           Visibility="{Binding InProgress,Converter={StaticResource BoolConverter},FallbackValue=Hidden}">
-                                        <Border x:Name="ItemBorder" 
-                                                BorderBrush="{StaticResource Asbestos}"
-                                                HorizontalAlignment="Center"
-                                                Margin="35 0 35 7" Padding="0,8"
-                                                CornerRadius="1" 
+                                        <Border HorizontalAlignment="Center"
+                                                Margin="35 0 35 7" Padding="0,10"
+                                                CornerRadius="3" 
                                                 Background="{StaticResource LightGrey}">
                                             <Grid>
-                                                <TextBox    Name="TaskLabel" 
-                                                            Grid.Column="0"
-                                                            Text="{Binding ToDo}" 
+                                                <TextBox    Text="{Binding ToDo}" 
                                                             HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center"
                                                             Focusable="True" IsReadOnly="True" 
                                                             TextWrapping="Wrap" 
                                                             Margin="15 0 15 0"
                                                             BorderThickness="0" 
-                                                            MaxLines="10"
-                                                            FontSize="16" Foreground="{StaticResource Silver}"
+                                                            Foreground="{StaticResource Silver}"
                                                             Background="Transparent"/>
-                                                <Line x:Name="Underline" 
-                                                      Grid.Column="0" Grid.ColumnSpan="3"
+                                                <Line Grid.Column="0" Grid.ColumnSpan="3"
                                                       X1="0" X2="1" 
                                                       StrokeThickness="1" 
                                                       Stretch="Fill" StrokeEndLineCap="Square" StrokeStartLineCap="Square" 
@@ -626,7 +624,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="Done" 
                                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
-                                       FontFamily="/Planner;component/Fonts/OpenSans/#Open Sans SemiBold" FontSize="14">
+                                       FontFamily="/Planner;component/Fonts/OpenSans/#Open Sans" FontSize="15">
                                     <Label.Style>
                                         <Style TargetType="Label">
                                             <Setter Property="Foreground" Value="{StaticResource Asbestos}"/>
@@ -643,8 +641,8 @@
                                 </Label>
                                 <Grid>
                                     <Label Content="{Binding ElementName=FoldersListView,Path=SelectedItem.NumberOfDoneTasks,UpdateSourceTrigger=PropertyChanged,FallbackValue=0}"
-                                           Foreground="{StaticResource Emerald}" FontSize="14"
-                                           Style="{StaticResource OpenSans_SemiBold}"/>
+                                           Foreground="{StaticResource Emerald}" FontSize="15"
+                                           Style="{StaticResource OpenSans}"/>
                                 </Grid>
                             </StackPanel>
                         </TabItem.Header>
@@ -670,26 +668,20 @@
                                 <DataTemplate>
                                     <Grid HorizontalAlignment="Right" 
                                           Visibility="{Binding Done,Converter={StaticResource BoolConverter},FallbackValue=Hidden}">
-                                        <Border x:Name="ItemBorder" 
-                                                BorderBrush="{StaticResource Asbestos}"
-                                                HorizontalAlignment="Center"
-                                                Margin="35 0 35 7" Padding="0,8"
-                                                CornerRadius="1" 
+                                        <Border HorizontalAlignment="Center"
+                                                Margin="35 0 35 7" Padding="0,10"
+                                                CornerRadius="3" 
                                                 Background="{StaticResource LightGrey}">
                                             <Grid>
-                                                <TextBox    Name="TaskLabel" 
-                                                            Grid.Column="0"
-                                                            Text="{Binding ToDo}" 
+                                                <TextBox    Text="{Binding ToDo}" 
                                                             HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center"
                                                             Focusable="True" IsReadOnly="True" 
                                                             TextWrapping="Wrap" 
                                                             Margin="15 0 15 0"
                                                             BorderThickness="0" 
-                                                            MaxLines="10"
-                                                            FontSize="16" Foreground="{StaticResource Silver}"
+                                                            Foreground="{StaticResource Silver}"
                                                             Background="Transparent"/>
-                                                <Line x:Name="Underline" 
-                                                      Grid.Column="0" Grid.ColumnSpan="3"
+                                                <Line Grid.Column="0" Grid.ColumnSpan="3"
                                                       X1="0" X2="1" 
                                                       StrokeThickness="1" 
                                                       Stretch="Fill" StrokeEndLineCap="Square" StrokeStartLineCap="Square" 
@@ -709,11 +701,12 @@
                   Grid.Row="1" Grid.ColumnSpan="4" 
                   Height="50" 
                   VerticalAlignment="Bottom"
+                  UseLayoutRounding="True"
                   Visibility="{Binding ElementName=AllTasksTab,Path=IsSelected,Converter={StaticResource BoolConverter},FallbackValue=Hidden}">
                 <Grid.Effect>
-                    <DropShadowEffect BlurRadius="15" Direction="90" ShadowDepth="5" RenderingBias="Quality" Opacity="0.1"/>
+                    <DropShadowEffect BlurRadius="15" Direction="90" ShadowDepth="0" Opacity="0.2"/>
                 </Grid.Effect>
-                <Border BorderThickness="0">
+                <Border BorderThickness="0" Background="Transparent">
                     <Grid HorizontalAlignment="Stretch">
                         <Grid Grid.Row="1" Background="{StaticResource Grey}">
                             <Grid.ColumnDefinitions>
@@ -794,7 +787,6 @@
                                       HorizontalAlignment="Center" VerticalAlignment="Center"
                                       Margin="0 1 0 0"
                                       Style="{StaticResource EnterButtonStyle}" 
-                                      Cursor="Hand"
                                       Command="{Binding AddTaskCommand}">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
@@ -817,7 +809,6 @@
                                             </Trigger>
                                             <Trigger Property="IsPressed" Value="True">
                                                 <Setter TargetName="Bord" Property="Border.BorderBrush" Value="{StaticResource PeterRiver}"/>
-                                                <Setter Property="Cursor" Value="Hand"/>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
@@ -876,7 +867,6 @@
                                     <ControlTemplate>
                                         <Grid>
                                             <Border x:Name="ArrowBorder"
-                                                    Cursor="Hand"
                                                     Background="{StaticResource LightGrey}" BorderBrush="{StaticResource Silver}">
                                                 <Control Template="{StaticResource LeftArrow}"/>
                                             </Border>
@@ -884,7 +874,6 @@
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
                                                 <Setter TargetName="ArrowBorder" Property="Border.BorderBrush" Value="{StaticResource BelizeHole}"/>
-                                                <Setter Property="Cursor" Value="Hand"/>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
@@ -1117,6 +1106,7 @@
                         <ListView x:Name="FoldersListView" 
                                   ItemsSource="{Binding Folders}"
                                   SelectedItem="{Binding SelectedFolder}"
+                                  PreviewKeyDown="FoldersListView_PreviewKeyDown"
                                   HorizontalContentAlignment="Stretch" VerticalAlignment="Top"
                                   Margin="-1 -1 -1 0"
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
@@ -1167,6 +1157,7 @@
                                             </Button.Template>
                                         </Button>
                                         <Button x:Name="DeleteFolderButton"
+                                                ClickMode="Press"
                                                 Height="16" Width="16"
                                                 HorizontalAlignment="Right" VerticalAlignment="Center"
                                                 Margin="0 0 5 0"

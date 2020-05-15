@@ -189,6 +189,7 @@ namespace Planner
                 SelectedFolder.Tasks.Add(new TaskModel(InputTaskText));
             InputTaskText = "";
         }
+
         public MainViewModel(DataService dataService)
         {
             try

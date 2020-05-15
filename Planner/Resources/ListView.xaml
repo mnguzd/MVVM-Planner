@@ -4,13 +4,13 @@
     
     <!--ListView Style-->
     <Style x:Key="ListViewStyle">
-        <Setter Property="Grid.Column" Value="0"/>
-        <Setter Property="ListView.Margin" Value="-1 5 -1 47"/>
-        <Setter Property="ListView.Padding" Value="0 10 0 0"/>
+        <Setter Property="ListView.Margin" Value="-1 -3 -1 47"/>
+        <Setter Property="ListView.Padding" Value="0 0 -10 0"/>
         <Setter Property="ListView.BorderThickness" Value="0"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
         <Setter Property="ListView.HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="True"/>
         <Setter Property="ListView.HorizontalAlignment" Value="Stretch"/>
         <Setter Property="ListView.VerticalContentAlignment" Value="Top"/>
         <Setter Property="ListView.VerticalAlignment" Value="Top"/>
@@ -18,7 +18,8 @@
         <Setter Property="ListView.FontFamily" Value="/Fonts/OpenSans/#Open Sans"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
         <Setter Property="ListView.ItemsSource" Value="{Binding CollectionView.View}"/>
-        <Setter Property="ListView.FontSize" Value="16"/>
+        <Setter Property="ListView.FontSize" Value="15"/>
+        <Setter Property="ListView.FontFamily" Value="/Planner;component/Fonts/OpenSans/#Open Sans"/>
         <Setter Property="ListView.Background" Value="Transparent"/>
     </Style>
     
