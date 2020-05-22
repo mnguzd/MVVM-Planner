@@ -9,16 +9,10 @@
         WindowStartupLocation="CenterScreen"
         Height="600" Width="1000"
         MaxHeight="600" MaxWidth="1000"
-        ResizeMode="CanResize" 
+        ResizeMode="NoResize" 
         WindowStyle="None"
         >
-    <WindowChrome.WindowChrome>
-        <WindowChrome 
-        CaptionHeight="0"
-        ResizeBorderThickness="0"
-        />
-    </WindowChrome.WindowChrome>
-    
+
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction

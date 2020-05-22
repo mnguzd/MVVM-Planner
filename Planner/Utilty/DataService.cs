@@ -10,7 +10,7 @@ namespace Planner.Utilty
         private readonly FileInfo _dataFile;
 
         public DataService()
-            :this(new FileInfo("FolderData.json"))
+            :this(new FileInfo("FolderData.txt"))
         {
         }
 
